@@ -1,0 +1,617 @@
+/* CSS GLOBALI */
+@font-face 
+{
+    font-family: testo;
+    src: url(font/Aller_Lt.ttf);
+}
+
+body {
+	font-family:testo, Sans-serif, Verdana, Arial, Helvetica;
+	margin: 3px;
+	padding: 60px 0 0 0;
+}
+
+a {
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.eseguita {
+	text-decoration: line-through;	
+}
+
+h3{text-align:left;}
+/* h2{float:left;} */
+/* h3{float:left;} */
+/* h4{float:left;} */
+/* h5{float:left;} */
+/* h6{float:left;} */
+/* FINE CSS GLOBALI */
+
+/* CSS RELATIVI AL MENU */
+
+#sottomenuOrdini {
+	position: absolute;
+	visibility: hidden;
+	left: 165px;
+	z-index: 2;
+}
+
+#sottomenuMagazzino {
+	position: absolute;
+	visibility: hidden;
+	left: 246px;
+	z-index: 2;
+}
+
+#sottomenuTabelle {
+	position: absolute;
+	visibility: hidden;
+	left: 327px;
+	z-index: 2;
+}
+
+#sottomenuContabilita {
+	position: absolute;
+	visibility: hidden;
+	left:84px;
+	z-index: 2;
+}
+
+.sottomenuBlock {
+	background-color: #B43C00;
+	width: 100px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #000000;
+	border-right: 1px solid #000000;
+	border-left: 1px solid #000000;
+}
+
+.sottomenuBlock:hover {
+	background-color: rgb(125, 102, 0);
+	
+}
+
+.menu_link {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+.menu_block {
+	float:left;
+	width: 80px;
+	line-height: 40px;
+	text-align: center;
+	border-right: 1px solid #000000;
+	background-color: inherit;
+}
+
+#menu_container {
+	background-color: #B43C00;
+	width: 100%;
+	height: 40px;
+	border: 1px solid #000000;
+}
+
+/*FINE CSS RELATIVI AL MENU*/
+
+/* CSS RELATIVI ALLA LISTA */
+
+#trovaForm {
+	font-size: small;
+	font-weight: normal;
+	width: 210px;
+}
+
+
+#nuovoElemento {
+	float: right;
+}
+
+#titoloLista {
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align:left;
+}
+
+.tableLista {
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+	font-size: 14px;
+	border-left: 1px solid #000000;
+	border-top: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-spacing: 0px;
+	width:100%;
+}
+
+th {
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+	font-size: 15px;
+	background-color: gray;
+	padding: 3px;
+	border-right: 1px solid #000000;
+}
+
+.tableCell {
+	border-top: 1px solid #000000;
+	border-right: 1px solid #000000;
+	height: 22px;
+}
+
+.bgOrange {
+	background:orange
+}
+
+.bold {
+	font-weight:bold;
+}
+
+.upper{text-transform:uppercase}
+
+.veryBig{font-size:18px}
+.veryBig20{font-size:20px}
+.veryBig24{font-size:24px}
+.bgBlack{background:#000000} 
+.white{color:#FFFFFF}
+.bordWhite{border:1px solid #FFFFFF}
+.bgSilver{background:#BCC6CC} 
+
+.divPag {
+	margin-right: 4px;
+	float: right;
+}
+
+.center{text-align:center;}
+
+.link {
+	font-weight: normal;
+	font-size: 14px;
+	color: black;
+	background-color: orange;
+	padding: 1px;
+	border: 1px solid #000000;
+	border-radius:4px;
+	box-shadow:4px 4px 2px #C9C9C9;
+	padding:4px;
+	
+}
+
+TABLE .link{
+	font-weight: normal;
+	color: black;
+	background-color: orange;
+	border: 1px solid #000000;
+	border-radius:0px;
+	box-shadow:0px 0px 0px;
+	padding:1px;
+	clear:both;
+	font-size:13px;
+	line-height:25px;
+}
+
+
+
+/* TABLE .link:nth-child(4):before{clear:both;} */
+
+TABLE TR TD{padding:4px}
+
+.linkSkype {
+	font-weight: normal;
+	color: black;
+	background-color: lime;
+	padding: 1px;
+	border: 1px solid #000000;
+}
+
+/* FINE CSS RELATIVI ALLA LISTA */
+
+/* CSS RELATIVI AI FORM */
+
+/*FORM CONTAINER AND FORM CONTAINER WIDE MUST BE THE SAME!!!*/
+.formContainer {
+	width: 60%;
+	float: left;
+	border-bottom: 1px solid #000000;
+	margin-bottom: 20px;
+	background-color: #D1D1D1;
+	border: 1px solid #000000;
+	padding: 2px;
+}
+
+.formContainerNoFloat {
+	width: 550px;
+	border-bottom: 1px solid #000000;
+	margin-bottom: 20px;
+	background-color: #D1D1D1;
+	border: 1px solid #000000;
+	padding: 2px;
+}
+
+.formContainerWide {
+	width: 90%;
+	float: left;
+	border-bottom: 1px solid #000000;
+	margin-bottom: 20px;
+	background-color: #D1D1D1;
+	border: 1px solid #000000;
+	padding: 2px;
+}
+/*END FORM CONTAINERS*/
+.leftFormContainer {
+	width: 450px;
+	float: left;
+	border-bottom: 1px solid #000000;
+	background-color: #D1D1D1;
+	border: 1px solid #000000;
+	margin-left: 5px;
+}
+
+.button {
+	background-color: orange;
+	border: 1px solid #000000;
+	margin-top: 8px;
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+}
+
+.tableCell .wwgrp {
+	margin: 0px;
+}
+
+.wwgrp {
+	margin: 3px;
+	clear: both;
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+}
+
+.label {
+    font-style:italic;
+    float:left;
+    width:30%;
+    font-size: 100%;
+    color: black;
+    line-height: 20px;
+}
+
+.testo {
+	border: 1px solid #000000;
+}
+
+.testo-small {
+	border: 1px solid #000000;
+	width: 100px
+}
+
+.msg-ok{background:green; padding:5px; font-weight:bold;font-size:12px;color:#FFFFFF}
+
+.hide{display:none}
+
+.btn-small{width: 50px}
+
+.left{float:left;}
+
+.right{float:right;}
+
+.errorMessage {
+	color: red;
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+	font-size: 14px;
+}
+
+#divListaDDTs {
+	background-color: white;
+	width: 300px;
+	border: 1px solid;
+	margin-top: 20px;
+	padding: 5px;
+}
+
+.listaDDTs {
+	float: both;
+}
+
+.listaDDTsTitle {
+	margin: 5px;
+}
+
+#totaleFatturaTitle {
+	font-style: normal;
+}
+
+#divTotaleFattura {
+	margin-top: 5px;
+	font-weight: bold;
+}
+
+#divProcessaFatture {
+	font-weight: bold;
+	color: red;
+	margin: 15px;
+	padding: 5px;
+	background-color: white;
+	border: 1px solid;
+	font-size: large;
+}
+
+#divValPerc {
+	float:right;
+}
+
+/*BACKGROUND COLOR PER RIGHE*/
+.normalRow {
+	background-color: white;
+}
+
+.storedRow {
+	background-color: aqua;
+}
+
+.notActiveRow {
+	background-color: gray;
+}
+
+.warningRow {
+	background-color: yellow;
+}
+
+.partialRow {
+	background-color: #edff7a;
+}
+
+/* TR:nth-child(even):not(.storedRow):not(.notActiveRow):not(.warningRow) { */
+/*     background-color: #F3E5AB; */
+/* } */
+
+.movimentiListRimossi {
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+	font-size: 14px;
+}
+.movimentiListAggiunti {
+	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
+	font-size: 14px;
+	color: navy;
+}
+
+.bgGreen{background: green;}
+.bgLightGreen{background-color: lightgreen;}
+
+#ordiniEdit_orarioSpedizioneContainer {
+	margin-left: 163px;
+}
+
+/* FINE CSS RELATIVI AI FORM */
+
+/* CSS RELATIVI AL FORM DDT */
+
+#wwgrp_idArticolo,#wwgrp_descArticolo,#wwgrp_qtaArticolo,
+#wwgrp_prezzoArticolo {
+	float:left;
+}
+
+#wwgrp_scontoArticolo,#wwgrp_umArticolo {
+	float: right;
+}
+
+#linea {
+	float: both;
+}
+
+.fornitoriOrdiniList {
+	background-color: orange;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+	font-weight: bold;
+}
+
+.articoliOrdiniList {
+	font-size: x-small;
+	font-family: monospace;
+}
+
+.daEvadereColor {
+	color: red;
+}
+
+#calcolaListaOrdiniFornitori {
+	margin-left: 3px;
+	margin-bottom: 7px;
+	margin-top: 7px;
+	margin-right: 8px;
+	background-color: gray;
+	border-width: 1px;
+	border-style: dashed;
+	padding: 10px;
+	font-family: testo, sans-serif;
+	font-size: 14px;
+}
+
+#tableListaOrdini {
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-left-style: solid;
+	margin-top: 5px;
+	margin-left: 5px;
+	width: 100%;
+}
+
+#tableListaOrdini td, #tableListaOrdini th {
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+#divListaDettagliOrdiniFornitori {
+	margin-bottom: 5px;
+}
+
+.formSubGroup h4 {
+	margin: 0px;
+}
+
+#divListaDettagliOrdini {
+	margin-bottom: 50px;
+}
+
+.hiddenOrdineQta {
+	visibility: hidden;
+	width: 0px;
+	border-width: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#divInserisciDettaglioOrdine {
+	background-color: gray;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 3px;
+	margin-right: 8px;
+	border-width: 1px;
+	padding: 5px;
+	border-style: dashed;
+	font-family: testo, sans-serif;
+	font-size: 14px;
+}
+.hiddenElements {
+	visibility: hidden;
+	width: 0px;
+}
+#messageSuccessBox {
+	background-color: white;
+	border-width: 1px;
+	border-style: solid;
+	height: 15px;
+	width: 400px;
+	margin-left: 10px;
+	margin-top: 5px;
+	padding: 2px;
+	margin-bottom: 5px;
+	color: green;
+	font-weight: bold;
+}
+
+.clienteChiamateBox {
+	border-style: dashed;
+	border-width: 1px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: gray;
+	padding: 5px;
+	font-size: 16px;
+	width: 407px;
+}
+
+.listaTelefoni {
+	text-indent: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.listaTelefoni li {
+	text-indent: 0px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	padding: 0px;
+	text-decoration: none;
+	list-style: none;
+}
+
+.statisticheArticoli {
+	text-indent: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.statisticheArticoli li {
+	text-indent: 0px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	padding: 0px;
+	text-decoration: none;
+	list-style: none;
+	font-size: normal;
+}
+
+.leftColumnStatisticheBox {
+	width: 220px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	vertical-align: top;
+}
+
+.rightColumnStatisticheBox {
+	width: 220px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	vertical-align: top;
+}
+
+#messageBox {
+    font-size: 14px;
+    color: black;
+    background-color: yellow;
+}
+
+#riepilogoBox {
+	float:right;
+	font-size: normal;
+	font-weight: bold;
+}
+
+.big-plus{font-size:18px;}
+.link-furn{font-size:12px;font-weight:bold; color:#C68E17}
+
+.w-big{
+	width:95% !important;
+}
+
+.w-small{
+	width: 35% !important;
+}
+
+.top-buffer{
+	margin-top: 15px;
+}
+
+.subview{
+	width: 400px;
+	background: #FEFCFF
+}
+
+.table-wrapper {
+    height: 200px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+
+/* ORDINI CLIENTI */
+.ordiniClientiDefault {
+	background-color: white;
+}
+
+.ordiniClientiEvaso {
+	background-color: #69ad69;
+}
+
+.ordiniClientiParzEvaso {
+	background-color: #f7f72c;
+}
+
+.ordiniClientiDaEvadere {
+	background-color: #c1c1bf;
+}
+
+/* END ORDINI CLIENTI */

@@ -1,0 +1,29 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="puntoConsegna.nome">
+		<field-validator type="requiredstring">
+			<message>Il campo nome è obbligatorio</message>
+		</field-validator>
+    </field>
+   	<field name="puntoConsegna.indirizzo">
+		<field-validator type="requiredstring">
+			<message>Il campo indirizzo è obbligatorio</message>
+		</field-validator>
+    </field>
+   	<field name="puntoConsegna.localita">
+		<field-validator type="requiredstring">
+			<message>Il campo Località è obbligatorio</message>
+		</field-validator>
+    </field>
+   	<field name="puntoConsegna.cap">
+		<field-validator type="requiredstring">
+			<message>Il campo C.A.P. è obbligatorio</message>
+		</field-validator>
+    </field>
+   	<field name="puntoConsegna.prov">
+		<field-validator type="requiredstring">
+			<message>Il campo Provincia è obbligatorio</message>
+		</field-validator>
+    </field>      
+</validators>

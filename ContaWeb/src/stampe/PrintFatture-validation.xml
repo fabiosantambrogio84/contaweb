@@ -1,0 +1,20 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="dataDal">
+        <field-validator type="required">
+            <message>E' richiesto l'inserimento della data</message>
+        </field-validator>
+        <field-validator type="conversion">
+            <message>Il formato della data è errato</message>
+        </field-validator>
+    </field>
+    <field name="dataAl">
+        <field-validator type="required">
+            <message>E' richiesto l'inserimento della data</message>
+        </field-validator>
+        <field-validator type="conversion">
+            <message>Il formato della data è errato</message>
+        </field-validator>
+    </field>
+</validators>

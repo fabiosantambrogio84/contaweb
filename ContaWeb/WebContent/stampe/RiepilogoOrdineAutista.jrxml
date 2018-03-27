@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RiepilogoOrdineAutista" columnCount="3" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="178" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="2417550e-ffa1-4581-b0d3-50baa47c0004">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="2.143588810000005"/>
+	<property name="ireport.x" value="42"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<import value="java.util.*"/>
+	<parameter name="data" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="autistaNome" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Luca\\Desktop\\Progetti\\Urbaniwc\\Urbani\\ContaWeb\\ContaWeb\\WebContent\\stampe\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="numeroProgressivo" class="java.lang.Integer"/>
+	<field name="dettagliOrdine" class="java.util.List"/>
+	<field name="annoContabile" class="java.lang.Integer"/>
+	<field name="dataSpedizione" class="java.sql.Date"/>
+	<field name="cliente.rs" class="java.lang.String"/>
+	<variable name="SUM_totaleFattura_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imposta1_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imponibile1_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imponibile2_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imponibile3_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imposta2_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imposta3_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_totaleFattura_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imposta1_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imposta2_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imposta3_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imponibile1_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imponibile2_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUM_imponibile3_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-2" x="7" y="6" width="208" height="15" uuid="c16e90b4-4c92-4049-82d4-a9d4dc5d6f1c"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Urbani Giuseppe - azienda commerciale]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="285" y="8" width="49" height="10" uuid="6647bd1e-799a-409e-8b7a-13f7c66e3f94"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[data ordine]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="421" y="8" width="66" height="10" uuid="1d8eeb68-47f2-4994-be0e-95d518197cf3"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[data spedizione]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="487" y="8" width="35" height="13" uuid="1ebde4b4-6922-4ebc-a1c9-af55c714d94b"/>
+				<textElement>
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataSpedizione}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="219" y="-41" width="59" height="14" uuid="33912048-afbf-427d-ba93-b6a4d4d152aa"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{autistaNome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="334" y="-40" width="61" height="10" uuid="36874dcd-e387-4055-a97f-718b1204c7bd"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="151" y="-11" width="12" height="10" uuid="7f9ae81c-0c19-484b-8dcc-53daadeb76c2"/>
+				<textElement>
+					<font size="6" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroProgressivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="-11" width="15" height="10" uuid="d9aed389-c6bb-40a3-89b2-b4b61e302718"/>
+				<textElement>
+					<font size="6" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{annoContabile}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="142" y="-11" width="10" height="10" uuid="85696215-fda9-469e-8ed7-ab1b8741bde2"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="-11" width="132" height="10" uuid="256f4c5f-20a8-48b3-825d-d3174f275733"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente.rs}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement mode="Transparent" x="2" y="1" width="174" height="37" uuid="fc067595-e2e3-4989-89ca-441442c81f9d"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{dettagliOrdine})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RiepilogoOrdineAutista_articoli.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

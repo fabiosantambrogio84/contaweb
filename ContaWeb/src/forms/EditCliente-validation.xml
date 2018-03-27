@@ -1,0 +1,39 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="cliente.rs">
+        <field-validator type="requiredstring">
+            <message>E' richiesta la ragione sociale del cliente</message>
+        </field-validator>
+    </field>
+    <field name="cliente.indirizzo">
+        <field-validator type="requiredstring">
+            <message>E' richiesto l'indirizzo del cliente</message>
+        </field-validator>
+    </field>
+    <field name="cliente.cap">
+        <field-validator type="requiredstring">
+            <message>E' richiesto il cap del cliente</message>
+        </field-validator>
+    </field>
+    <field name="cliente.localita">
+        <field-validator type="requiredstring">
+            <message>E' richiesta la località del cliente</message>
+        </field-validator>
+    </field>
+	<field name="cliente.prov">
+        <field-validator type="requiredstring">
+            <message>E' richiesta la provincia del cliente</message>
+        </field-validator>
+    </field>
+	<field name="cliente.piva">
+        <field-validator type="requiredstring">
+            <message>E' richiesta la partita iva del cliente</message>
+        </field-validator>
+    </field>
+    <field name="cliente.fido">
+        <field-validator type="required">
+            <message>E' richiesto il fido del cliente</message>
+        </field-validator>
+    </field>    
+</validators>

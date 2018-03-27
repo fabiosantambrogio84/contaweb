@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" href="ddt.jnlp">
+    <information>
+        <title>Maschera DDT</title>
+        <vendor>Urbani Alimentari</vendor>
+    </information>
+	<resources>
+	  <java version="1.6+"/>
+	  <jar href="ContaApplets.jar" main="true"/>
+	  <jar href="ojb.jar" />
+	  <jar href="commons-lang-2.1.jar" />
+	</resources>
+	<applet-desc main-class="applet.applet.DDTApplet" name="DDTApplet" width="650" height="620">
+	  <param name="url" value="<s:property value="appletUrl"/>"/>
+	  <s:if test="id != null">
+			<param name="id" value="<%=request.getParameter("id") %>"></param>
+	  </s:if>
+	</applet-desc>
+</jnlp>

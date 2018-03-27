@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE descriptor-repository PUBLIC
+       "-//Apache Software Foundation//DTD OJB Repository//EN"
+       "repository.dtd"> 
+       
+
+<descriptor-repository version="1.0"
+                       isolation-level="read-committed"
+                       proxy-prefetching-limit="50">
+
+    	<!-- v0.9.9e "mabepi1903" --> 
+		<jdbc-connection-descriptor
+			jcd-alias="default"
+			default-connection="true"
+			platform="MySQL"
+			jdbc-level="3.0"
+			driver="com.mysql.jdbc.Driver"
+			protocol="jdbc"
+			subprotocol="mysql"
+			dbalias="//localhost:3306/contaweb"
+			username="contaweb"
+			password="contaweb" 
+			batch-mode="false"
+		    useAutoCommit="1"
+		    ignoreAutoCommitExceptions="false"
+		 >
+
+        <attribute attribute-name="initializationCheck" attribute-value="false" />
+
+		<object-cache class="org.apache.ojb.broker.cache.ObjectCacheEmptyImpl">
+    	
+    	</object-cache>
+
+        <!-- For more info, see section "Connection Handling" in docs -->
+        <connection-pool
+            maxActive="30"
+            validationQuery=""
+            testOnBorrow="true"
+            testOnReturn="false"
+            whenExhaustedAction="0"
+            maxWait="10000">
+
+            <attribute attribute-name="fetchSize" attribute-value="0"/>
+			<attribute attribute-name="jdbc.defaultBatchValue" attribute-value="5"/>
+            <attribute attribute-name="dbcp.poolPreparedStatements" attribute-value="true"/>
+            <attribute attribute-name="dbcp.maxOpenPreparedStatements" attribute-value="10"/>
+            <attribute attribute-name="dbcp.accessToUnderlyingConnectionAllowed" attribute-value="false"/>
+        </connection-pool>
+
+		<sequence-manager className="org.apache.ojb.broker.util.sequence.SequenceManagerNativeImpl">
+		
+		</sequence-manager>
+		
+   </jdbc-connection-descriptor>
+   
+   <!-- include user defined mappings here -->
+   <!-- &user; --> 
+   <!-- RIGA DI CONFIGURAZIONE -->
+<class-descriptor class="vo.Property" table="properties">
+	<field-descriptor name="key" column="key" jdbc-type="VARCHAR" primarykey="true"/>
+	<field-descriptor name="value" column="value" jdbc-type="VARCHAR"/>
+</class-descriptor>
+
+<class-descriptor class="vo.Configurazione" table="Configurazioni">
+	<field-descriptor name="id" column="idConfigurazione" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="elemento" column="elemento" jdbc-type="VARCHAR"/>
+	<field-descriptor name="value" column="value" jdbc-type="VARCHAR"/>
+</class-descriptor>
+
+<!-- OGGETTO FORNITORE -->
+<class-descriptor class="vo.Fornitore" table="fornitori">
+	<field-descriptor name="id" column="idFornitore" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="descrizione" column="descrizione" jdbc-type="VARCHAR"/>
+	<field-descriptor name="emailAddress" column="emailAddress" jdbc-type="VARCHAR"/>
+</class-descriptor>
+
+<!-- OGGETTO LISTINO -->
+<class-descriptor class="vo.Listino" table="listini">
+	<field-descriptor name="id" column="idListino" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="descrizione" column="descrizione" jdbc-type="VARCHAR"/>
+</class-descriptor>
+
+<!-- OGGETTO IVA -->
+<class-descriptor class="vo.Iva" table="iva">
+	<field-descriptor name="id" column="idIva" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="valore" column="valore" jdbc-type="DECIMAL"/>
+</class-descriptor>
+
+<!-- OGGETTO PAGAMENTO -->
+<class-descriptor class="vo.Pagamento" table="pagamenti">
+	<field-descriptor name="id" column="idPagamento" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="descrizione" column="descrizione" jdbc-type="VARCHAR"/>
+	<field-descriptor name="scadenza" column="scadenza" jdbc-type="INTEGER"/>
+</class-descriptor>
+
+<!-- OGGETTO PAGAMENTO -->
+<class-descriptor class="vo.PagamentoEseguito" table="pagamenti_eseguiti">
+	<field-descriptor name="id" column="idPagamentoEseguito" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly" />
+	<field-descriptor name="data" column="data" jdbc-type="DATE" />
+	<field-descriptor name="descrizione" column="descrizione" jdbc-type="VARCHAR" />
+		<field-descriptor name="notes" column="notes" jdbc-type="VARCHAR" />
+	<field-descriptor name="importo" column="importo" jdbc-type="DECIMAL" />
+	<field-descriptor name="idPagamento" column="idpagamento" jdbc-type="INTEGER"/>
+	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER" />
+	<field-descriptor name="idDDT" column="idDDT" jdbc-type="INTEGER" />
+	<field-descriptor name="idFattura" column="idFattura" jdbc-type="INTEGER" />
+	<reference-descriptor name="fattura" class-ref="vo.Fattura" auto-retrieve="true">
+		<foreignkey field-ref="idFattura" />
+	</reference-descriptor>
+	<reference-descriptor name="ddt" class-ref="vo.DDT" auto-retrieve="true">
+		<foreignkey field-ref="idDDT" />
+	</reference-descriptor>
+	<reference-descriptor name="pagamento" class-ref="vo.Pagamento" auto-retrieve="true">
+		<foreignkey field-ref="idPagamento" />
+	</reference-descriptor>
+	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
+		<foreignkey field-ref="idCliente" />
+	</reference-descriptor>
+</class-descriptor>		
+
+	<class-descriptor class="vo.Autista" table="autisti">
+	    <field-descriptor name="id" column="idAutisti" jdbc-type="INTEGER" primarykey="true"/>
+	    <field-descriptor name="nome" column="Nome" jdbc-type="VARCHAR"/>
+	    <field-descriptor name="cognome" column="Cognome" jdbc-type="VARCHAR"/>
+	    <field-descriptor name="telefono" column="Telefono" jdbc-type="VARCHAR"/>
+	</class-descriptor>
+	
+<class-descriptor class="vo.Agente" table="agenti">
+    <field-descriptor name="id" column="idAgenti" jdbc-type="INTEGER" primarykey="true"/>
+    <field-descriptor name="nome" column="Nome" jdbc-type="VARCHAR"/>
+	    <field-descriptor name="cognome" column="Cognome" jdbc-type="VARCHAR"/>
+	    <field-descriptor name="telefono" column="Telefono" jdbc-type="VARCHAR"/>
+	    <field-descriptor name="email" column="Email" jdbc-type="VARCHAR"/>
+	    <field-descriptor name="indirizzo" column="Indirizzo" jdbc-type="VARCHAR"/>
+</class-descriptor>
+
+<class-descriptor class="vo.CategoriaArticolo" table="categoria_articoli">
+    <field-descriptor name="id" column="id" jdbc-type="INTEGER" primarykey="true"/>
+    <field-descriptor name="nome" column="Nome" jdbc-type="VARCHAR"/>
+	    <field-descriptor name="posizione" column="Posizione" jdbc-type="INTEGER"/>
+</class-descriptor>
+
+	<class-descriptor class="vo.DestinazioneArticolo" table="destinazione_articoli">
+	    <field-descriptor name="id" column="id" jdbc-type="INTEGER" primarykey="true"/>
+	    <field-descriptor name="nome" column="Nome" jdbc-type="VARCHAR"/>
+	    <field-descriptor name="posizione" column="Posizione" jdbc-type="INTEGER"/>
+	</class-descriptor>
+	
+<!-- OGGETTO ARTICOLO -->
+<class-descriptor class="vo.Articolo" table="articoli">
+	<field-descriptor name="id" column="idArticolo" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="codiceArticolo" column="codice" jdbc-type="VARCHAR"/>
+	<field-descriptor name="descrizione" column="descrizione" jdbc-type="VARCHAR"/>
+	<field-descriptor name="um" column="um" jdbc-type="VARCHAR"/>
+	<field-descriptor name="data" column="data" jdbc-type="DATE"/>
+	<field-descriptor name="qtaPredefinita" column="qtaPredefinita" jdbc-type="DECIMAL"/>
+	<field-descriptor name="prezzoAcquisto" column="prezzoAcquisto" jdbc-type="DECIMAL"/>
+	<field-descriptor name="ggScadenza" column="ggScadenza" jdbc-type="INTEGER"/>
+	<field-descriptor name="completeBarCode" column="completeBarCode" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="barCode" column="barCode" jdbc-type="VARCHAR"/>
+	<field-descriptor name="idIva" column="idIva" jdbc-type="INTEGER"/>
+	<field-descriptor name="idFornitore" column="idFornitore" jdbc-type="INTEGER"/>
+	<field-descriptor name="idCategoria" column="idCategoria" jdbc-type="INTEGER"/>
+		<field-descriptor name="idDestinazione" column="idDestinazione" jdbc-type="INTEGER"/>
+	<field-descriptor name="attivo" column="attivo" jdbc-type="BOOLEAN"/>
+		<field-descriptor name="immagine1" column="immagine_1" jdbc-type="VARCHAR"/>
+		<field-descriptor name="immagine2" column="immagine_2" jdbc-type="VARCHAR"/>
+		<field-descriptor name="immagine3" column="immagine_3" jdbc-type="VARCHAR"/>
+		<field-descriptor name="immagine4" column="immagine_4" jdbc-type="VARCHAR"/>
+		<field-descriptor name="immagine5" column="immagine_5" jdbc-type="VARCHAR"/>
+		<field-descriptor name="immagine6" column="immagine_6" jdbc-type="VARCHAR"/>
+		<field-descriptor name="web" column="web" jdbc-type="BOOLEAN"/>
+		<field-descriptor name="dataAggiornamento" column="data_aggiornamento" jdbc-type="DATE"/>
+	<reference-descriptor name="fornitore" class-ref="vo.Fornitore" auto-retrieve="true">
+		<foreignkey field-ref="idFornitore"/>
+	</reference-descriptor>
+	<reference-descriptor name="iva" class-ref="vo.Iva" auto-retrieve="true">
+		<foreignkey field-ref="idIva"/>
+	</reference-descriptor>
+	<collection-descriptor name="prezzi" element-class-ref="vo.Prezzo" auto-retrieve="false" auto-update="true" auto-delete="true">
+		<inverse-foreignkey field-ref="idArticolo"/>
+	</collection-descriptor>
+</class-descriptor>
+
+<!-- OGGETTO PREZZO -->
+<class-descriptor class="vo.Prezzo" table="prezzi">
+	<field-descriptor name="idArticolo" column="idArticolo" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="idListino" column="idListino" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="prezzo" column="prezzo" jdbc-type="DECIMAL"/>
+	<reference-descriptor name="articolo" class-ref="vo.Articolo" auto-retrieve="false">
+		<foreignkey field-ref="idArticolo"/>
+	</reference-descriptor>
+	<reference-descriptor name="listino" class-ref="vo.Listino" auto-retrieve="true">
+		<foreignkey field-ref="idListino"/>
+	</reference-descriptor>
+</class-descriptor>
+
+<!-- OGGETTO PUNTO DI CONSEGNA -->
+<class-descriptor class="vo.PuntoConsegna" table="destclienti">
+	<field-descriptor name="id" column="idDestCliente" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="nome" column="nome" jdbc-type="VARCHAR"/>
+	<field-descriptor name="indirizzo" column="indirizzo" jdbc-type="VARCHAR"/>
+	<field-descriptor name="cap" column="cap" jdbc-type="VARCHAR"/>
+	<field-descriptor name="localita" column="localita" jdbc-type="VARCHAR"/>
+	<field-descriptor name="prov" column="prov" jdbc-type="VARCHAR"/>
+	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
+	<field-descriptor name="attivato" column="attivato" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="codConad" column="codConad" jdbc-type="VARCHAR"/>
+	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="false">
+		<foreignkey field-ref="idCliente"/>
+	</reference-descriptor>
+</class-descriptor>
+
+<!--  OGGETTO CLIENTE -->
+<class-descriptor class="vo.Cliente" table="clienti">
+	<field-descriptor name="id" column="idCliente" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="rs" column="rs" jdbc-type="VARCHAR"/>
+	<field-descriptor name="rs2" column="rs2" jdbc-type="VARCHAR"/>
+	<field-descriptor name="indirizzo" column="indirizzo" jdbc-type="VARCHAR"/>
+	<field-descriptor name="localita" column="localita" jdbc-type="VARCHAR"/>
+	<field-descriptor name="prov" column="prov" jdbc-type="VARCHAR"/>
+	<field-descriptor name="cap" column="cap" jdbc-type="VARCHAR"/>
+	<field-descriptor name="piva" column="piva" jdbc-type="VARCHAR"/>
+	<field-descriptor name="prefissoTelefono" column="prefissoTelefono" jdbc-type="INTEGER"/>
+	<field-descriptor name="numeroTelefono" column="numeroTelefono" jdbc-type="VARCHAR"/>
+	<field-descriptor name="email" column="email" jdbc-type="VARCHAR"/>
+	<field-descriptor name="codiceFiscale" column="codiceFiscale" jdbc-type="VARCHAR"/>
+	<field-descriptor name="bancaDescrizione" column="bcDesc" jdbc-type="VARCHAR"/>
+	<field-descriptor name="bancaABI" column="bcAbi" jdbc-type="VARCHAR"/>
+	<field-descriptor name="bancaCAB" column="bcCab" jdbc-type="VARCHAR"/>
+	<field-descriptor name="bancaCC" column="bcCc" jdbc-type="VARCHAR"/>
+	<field-descriptor name="fido" column="fido" jdbc-type="DECIMAL"/>
+	<field-descriptor name="idPagamento" column="idPagamento" jdbc-type="INTEGER"/>
+	<field-descriptor name="dataInserimento" column="dataInserimento" jdbc-type="DATE"/>
+	<field-descriptor name="bloccaDDT" column="bloccaDDT" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="nascondiPrezzi" column="nascondiPrezzi" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="note" column="note" jdbc-type="LONGVARCHAR"/>
+	<field-descriptor name="emailPec" column="emailPec" jdbc-type="VARCHAR"/>
+	<field-descriptor name="formatoConad" column="formatoConad" jdbc-type="INTEGER"/>
+	<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER" />
+	<field-descriptor name="idAgente" column="idAgente" jdbc-type="INTEGER" />
+	<reference-descriptor name="pagamento" class-ref="vo.Pagamento" auto-retrieve="true">
+		<foreignkey field-ref="idPagamento"/>
+		</reference-descriptor>
+		<reference-descriptor name="autista" class-ref="vo.Autista" auto-retrieve="true">
+		    <foreignkey field-ref="idAutista"/>
+	</reference-descriptor>
+	<reference-descriptor name="agente" class-ref="vo.Agente" auto-retrieve="true">
+	    <foreignkey field-ref="idAgente"/>
+	</reference-descriptor>
+	<collection-descriptor name="puntiConsegna" element-class-ref="vo.PuntoConsegna" auto-retrieve="false" auto-update="true" auto-delete="true">
+		<inverse-foreignkey field-ref="idCliente"/>
+	</collection-descriptor>
+	<collection-descriptor name="listiniAssociati" element-class-ref="vo.ListinoAssociato" auto-retrieve="false" auto-update="true" auto-delete="true">
+		<inverse-foreignkey field-ref="idCliente"/>
+	</collection-descriptor>
+	<collection-descriptor name="telefonate" element-class-ref="vo.Telefonata" auto-retrieve="false" auto-update="object" auto-delete="object">
+		<inverse-foreignkey field-ref="idCliente"/>
+	</collection-descriptor>
+	
+</class-descriptor>
+
+<!--  OGGETTO MOVIMENTO (pagamento clienti) -->
+	<class-descriptor class="vo.Movimento" table="movimenti">
+	    <field-descriptor name="id" column="idMovimento" jdbc-type="INTEGER" primarykey="true" access="readonly" autoincrement="true"/>
+	    <field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
+	    <field-descriptor name="importo" column="import" jdbc-type="DECIMAL" />
+	    <field-descriptor name="idDDT" column="idDDT" jdbc-type="INTEGER"/>
+	    <field-descriptor name="idFattura" column="idFattura" jdbc-type="INTEGER"/>
+		<field-descriptor name="data" column="data" jdbc-type="TIMESTAMP"/>		    		     
+	</class-descriptor>
+<!--  FINE OGGETTO MOVIMENTO (pagamento clienti) -->
+
+<!--  OGGETTO TELEFONATA -->
+	<class-descriptor class="vo.Telefonata" table="telefonate">
+	<field-descriptor name="id" column="idTelefonata" jdbc-type="INTEGER" primarykey="true" access="readonly" autoincrement="true"/>
+	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
+		<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER"/>
+	<field-descriptor name="idPuntoConsegna" column="idPuntoConsegna" jdbc-type="INTEGER"/>
+
+	<field-descriptor name="prefissoTelefono1" column="prefissoTelefono1" jdbc-type="INTEGER"/>
+	<field-descriptor name="numeroTelefono1" column="numeroTelefono1" jdbc-type="VARCHAR"/>
+	<field-descriptor name="prefissoTelefono2" column="prefissoTelefono2" jdbc-type="INTEGER"/>
+	<field-descriptor name="numeroTelefono2" column="numeroTelefono2" jdbc-type="VARCHAR"/>
+	<field-descriptor name="prefissoTelefono3" column="prefissoTelefono3" jdbc-type="INTEGER"/>
+	<field-descriptor name="numeroTelefono3" column="numeroTelefono3" jdbc-type="VARCHAR"/>
+	<field-descriptor name="giorno" column="giorno" jdbc-type="INTEGER"/>
+	<field-descriptor name="orario" column="orario" jdbc-type="INTEGER"/>
+	<field-descriptor name="eseguita" column="eseguita" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="note" column="note" jdbc-type="LONGVARCHAR"/>
+
+	<reference-descriptor name="puntoConsegna" class-ref="vo.PuntoConsegna" auto-retrieve="true">
+		<foreignkey field-ref="idPuntoConsegna"/>
+	</reference-descriptor>
+			
+	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
+		<foreignkey field-ref="idCliente"/>
+	</reference-descriptor>
+
+		<reference-descriptor name="autista" class-ref="vo.Autista" auto-retrieve="true">
+			<foreignkey field-ref="idAutista"/>
+		</reference-descriptor>
+	
+</class-descriptor>
+
+<!--  OGGETTO INVENTARIO DDT -->
+<class-descriptor class="vo.DettaglioDDT" table="invddt">
+	<field-descriptor name="id" column="idInvDDT" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="idArticolo" column="idArticolo" jdbc-type="INTEGER"/>
+	<field-descriptor name="codiceArticolo" column="codice" jdbc-type="VARCHAR"/>
+	<field-descriptor name="descrizioneArticolo" column="descrizione" jdbc-type="VARCHAR"/>
+	<field-descriptor name="um" column="um" jdbc-type="VARCHAR"/>						
+	<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
+	<field-descriptor name="prezzo" column="prezzo" jdbc-type="DECIMAL"/>
+	<field-descriptor name="iva" column="iva" jdbc-type="DECIMAL"/>
+	<field-descriptor name="sconto" column="sconto" jdbc-type="DECIMAL"/>
+	<field-descriptor name="totale" column="totale" jdbc-type="DECIMAL"/>
+	<field-descriptor name="lotto" column="lotto" jdbc-type="VARCHAR"/>
+	<field-descriptor name="pezzi" column="pezzi" jdbc-type="INTEGER"/>
+	<field-descriptor name="idDDT" column="idDDT" jdbc-type="INTEGER"/>
+	<reference-descriptor name="ddt" class-ref="vo.DDT" auto-retrieve="true">
+		<foreignkey field-ref="idDDT"/>
+	</reference-descriptor>
+	<reference-descriptor name="articolo" class-ref="vo.Articolo" auto-retrieve="false">
+		<foreignkey field-ref="idArticolo"/>
+	</reference-descriptor>
+	<collection-descriptor name="evasioniOrdini" element-class-ref="vo.EvasioneOrdine" auto-retrieve="false" auto-update="false" auto-delete="false">
+		<inverse-foreignkey field-ref="idDettaglioDDT"/>
+	</collection-descriptor>
+</class-descriptor>
+
+<!--  OGGETTO DDT -->
+<class-descriptor class="vo.DDT" table="ddt">
+	<field-descriptor name="id" column="idDDT" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="numeroProgressivo" column="nprog1" jdbc-type="INTEGER"/>
+	<field-descriptor name="numeroProgressivo2" column="nprog2" jdbc-type="VARCHAR"/>		
+	<field-descriptor name="annoContabile" column="annoContabile" jdbc-type="INTEGER"/>
+	<field-descriptor name="causale" column="causale" jdbc-type="VARCHAR"/>				
+	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
+	<field-descriptor name="idPuntoConsegna" column="idDestCliente" jdbc-type="INTEGER"/>
+	<field-descriptor name="data" column="data" jdbc-type="DATE"/>
+	<field-descriptor name="idFattura" column="idFattura" jdbc-type="INTEGER"/>		
+	<field-descriptor name="trasporto" column="trasporto" jdbc-type="VARCHAR"/>
+	<field-descriptor name="colli" column="colli" jdbc-type="INTEGER"/>		
+	<field-descriptor name="aspettoEsteriore" column="aspest" jdbc-type="VARCHAR"/>		
+	<field-descriptor name="dataTrasporto" column="dataTrasporto" jdbc-type="DATE"/>
+	<field-descriptor name="oraTrasporto" column="oraTrasporto" jdbc-type="TIME"/>
+	<field-descriptor name="pagato" column="pagato" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="acconto" column="acconto" jdbc-type="DECIMAL"/>
+    	<!-- 20161212 --> 
+	<field-descriptor name="idOrdine" column="idOrdine" jdbc-type="INTEGER"/>
+    	<!-- 20170125 --> 
+	<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER"/>
+	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
+		<foreignkey field-ref="idCliente"/>
+	</reference-descriptor>
+    	<!-- 20161212 --> 
+	<reference-descriptor name="ordine" class-ref="vo.Ordine" auto-retrieve="true">
+		<foreignkey field-ref="idOrdine"/>
+	</reference-descriptor>
+    	<!-- 20170125 --> 
+	<reference-descriptor name="autista" class-ref="vo.Autista" auto-retrieve="true">
+		<foreignkey field-ref="idAutista"/>
+	</reference-descriptor>
+	<reference-descriptor name="puntoConsegna" class-ref="vo.PuntoConsegna" auto-retrieve="false">
+		<foreignkey field-ref="idPuntoConsegna"/>
+	</reference-descriptor>
+	<reference-descriptor name="fattura" class-ref="vo.Fattura" auto-retrieve="false" auto-update="link" auto-delete="link">
+		<foreignkey field-ref="idFattura"/>
+	</reference-descriptor>
+	<collection-descriptor name="dettagliDDT" element-class-ref="vo.DettaglioDDT" auto-retrieve="true" auto-update="object" auto-delete="object">
+		<inverse-foreignkey field-ref="idDDT"/>
+	</collection-descriptor>
+</class-descriptor>
+
+	<!-- NOTA ACCREDITO -->
+	<class-descriptor class="vo.NotaAccredito" table="note_accredito">
+		<field-descriptor name="id" column="idNoteAccredito" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+		<field-descriptor name="numeroProgressivo" column="nprog1" jdbc-type="INTEGER"/>
+		<field-descriptor name="numeroProgressivo2" column="nprog2" jdbc-type="VARCHAR"/>		
+		<field-descriptor name="annoContabile" column="annoContabile" jdbc-type="INTEGER"/>
+		<field-descriptor name="causale" column="causale" jdbc-type="VARCHAR"/>				
+		<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
+		<field-descriptor name="idPuntoConsegna" column="idDestCliente" jdbc-type="INTEGER"/>
+		<field-descriptor name="data" column="data" jdbc-type="DATE"/>
+		<field-descriptor name="idFattura" column="idFattura" jdbc-type="INTEGER"/>		
+		<field-descriptor name="trasporto" column="trasporto" jdbc-type="VARCHAR"/>
+		<field-descriptor name="colli" column="colli" jdbc-type="INTEGER"/>		
+		<field-descriptor name="aspettoEsteriore" column="aspest" jdbc-type="VARCHAR"/>		
+		<field-descriptor name="dataTrasporto" column="dataTrasporto" jdbc-type="DATE"/>
+		<field-descriptor name="oraTrasporto" column="oraTrasporto" jdbc-type="TIME"/>
+		<field-descriptor name="pagato" column="pagato" jdbc-type="BOOLEAN"/>
+		<field-descriptor name="acconto" column="acconto" jdbc-type="DECIMAL"/>
+		<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
+			<foreignkey field-ref="idCliente"/>
+		</reference-descriptor>
+		<reference-descriptor name="puntoConsegna" class-ref="vo.PuntoConsegna" auto-retrieve="false">
+			<foreignkey field-ref="idPuntoConsegna"/>
+		</reference-descriptor>
+		<reference-descriptor name="fattura" class-ref="vo.Fattura" auto-retrieve="false" auto-update="link" auto-delete="link">
+			<foreignkey field-ref="idFattura"/>
+		</reference-descriptor>
+		<collection-descriptor name="dettagliNotaAccredito" element-class-ref="vo.DettaglioNotaAccredito" auto-retrieve="true" auto-update="object" auto-delete="object">
+			<inverse-foreignkey field-ref="idNotaAccredito"/>
+		</collection-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="vo.DettaglioNotaAccredito" table="invnote_accredito">
+		<field-descriptor name="id" column="idInvNote_accredito" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+		<field-descriptor name="idArticolo" column="idArticolo" jdbc-type="INTEGER"/>
+		<field-descriptor name="codiceArticolo" column="codice" jdbc-type="VARCHAR"/>
+		<field-descriptor name="descrizioneArticolo" column="descrizione" jdbc-type="VARCHAR"/>
+		<field-descriptor name="um" column="um" jdbc-type="VARCHAR"/>						
+		<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
+		<field-descriptor name="prezzo" column="prezzo" jdbc-type="DECIMAL"/>
+		<field-descriptor name="iva" column="iva" jdbc-type="DECIMAL"/>
+		<field-descriptor name="sconto" column="sconto" jdbc-type="DECIMAL"/>
+		<field-descriptor name="totale" column="totale" jdbc-type="DECIMAL"/>
+		<field-descriptor name="lotto" column="lotto" jdbc-type="VARCHAR"/>
+		<field-descriptor name="pezzi" column="pezzi" jdbc-type="INTEGER"/>
+		<field-descriptor name="idNotaAccredito" column="idNoteAccredito" jdbc-type="INTEGER"/>
+		<reference-descriptor name="notaAccredito" class-ref="vo.NotaAccredito" auto-retrieve="true">
+			<foreignkey field-ref="idNotaAccredito"/>
+		</reference-descriptor>
+		<reference-descriptor name="articolo" class-ref="vo.Articolo" auto-retrieve="false">
+			<foreignkey field-ref="idArticolo"/>
+		</reference-descriptor>
+	</class-descriptor>
+	
+	
+<!-- OGGETTO LISTINO ASSOCIATO -->
+<class-descriptor class="vo.ListinoAssociato" table="listiniassociati">
+	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="idListino" column="idListino" jdbc-type="INTEGER"/>
+	<field-descriptor name="idFornitore" column="idFornitore" jdbc-type="INTEGER" primarykey="true"/>
+	
+	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="false">
+		<foreignkey field-ref="idCliente"/>
+	</reference-descriptor>
+	<reference-descriptor name="listino" class-ref="vo.Listino" auto-retrieve="true">
+		<foreignkey field-ref="idListino"/>
+	</reference-descriptor>
+	<reference-descriptor name="fornitore" class-ref="vo.Fornitore" auto-retrieve="true">
+		<foreignkey field-ref="idFornitore"/>
+	</reference-descriptor>
+</class-descriptor>
+
+<!-- SCONTI -->
+<class-descriptor class="vo.Sconto" table="sconti">
+	<field-descriptor name="id" column="idSconto" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
+	<field-descriptor name="idFornitore" column="idFornitore" jdbc-type="INTEGER"/>
+	<field-descriptor name="idArticolo" column="idArticolo" jdbc-type="INTEGER"/>		
+	<field-descriptor name="sconto" column="sconto" jdbc-type="DECIMAL"/>
+	<field-descriptor name="dataScontoDal" column="dataDal" jdbc-type="DATE"/>
+	<field-descriptor name="dataScontoAl" column="dataAl" jdbc-type="DATE"/>		
+	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
+		<foreignkey field-ref="idCliente"/>
+	</reference-descriptor>
+	<reference-descriptor name="fornitore" class-ref="vo.Fornitore" auto-retrieve="true">
+		<foreignkey field-ref="idFornitore"/>
+	</reference-descriptor>
+	<reference-descriptor name="articolo" class-ref="vo.Articolo" auto-retrieve="true">
+		<foreignkey field-ref="idArticolo"/>
+	</reference-descriptor>
+</class-descriptor>
+
+<!-- FATTURE -->
+<class-descriptor class="vo.Fattura" table="fatture">
+	<field-descriptor name="id" column="idFattura" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="numeroProgressivo" column="numeroProgressivo" jdbc-type="INTEGER"/>
+	<field-descriptor name="annoContabile" column="annoContabile" jdbc-type="INTEGER"/>
+	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
+	<field-descriptor name="causale" column="causale" jdbc-type="VARCHAR"/>
+	<field-descriptor name="data" column="data" jdbc-type="DATE"/>
+	<field-descriptor name="noteFattura" column="noteFattura" jdbc-type="VARCHAR"/>
+	<field-descriptor name="sconto" column="scontoFineFattura" jdbc-type="DECIMAL"/>
+	<field-descriptor name="pagato" column="pagato" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="spedito" column="spedito" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="acconto" column="acconto" jdbc-type="DECIMAL"/>
+	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
+		<foreignkey field-ref="idCliente"/>
+	</reference-descriptor>	
+	<collection-descriptor name="dettagliFattura" element-class-ref="vo.DDT" auto-retrieve="false">
+		<inverse-foreignkey field-ref="idFattura"/>
+	</collection-descriptor>
+</class-descriptor>
+
+<!-- GIACENZE -->
+<class-descriptor class="vo.Giacenza" table="giacenze">
+	<field-descriptor name="id" column="idGiacenza" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="idArticolo" column="idArticolo" jdbc-type="INTEGER"/>		
+	<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
+	<field-descriptor name="lotto" column="lotto" jdbc-type="VARCHAR"/>
+	<field-descriptor name="dataScadenza" column="dataScadenza" jdbc-type="DATE"/>		
+	<reference-descriptor name="articolo" class-ref="vo.Articolo" auto-retrieve="true">
+		<foreignkey field-ref="idArticolo"/>
+	</reference-descriptor>
+	<collection-descriptor name="movimenti" element-class-ref="vo.MovimentoGiacenza" auto-retrieve="false" auto-update="none" auto-delete="none">
+		<inverse-foreignkey field-ref="idGiacenza"/>
+	</collection-descriptor>
+</class-descriptor>
+
+<!-- MOVIMENTI GIACENZE -->
+<class-descriptor class="vo.MovimentoGiacenza" table="movimentigiacenze">
+	<field-descriptor name="id" column="idMovimentoGiacenza" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="idGiacenza" column="idGiacenza" jdbc-type="INTEGER"/>
+	<field-descriptor name="tipoMovim" column="tipoMovim" jdbc-type="INTEGER"/>
+	<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
+	<field-descriptor name="qtaDopoMovim" column="qtaDopoMovim" jdbc-type="DECIMAL"/>
+	<field-descriptor name="data" column="data" jdbc-type="DATE"/>	
+	<field-descriptor name="idDDT" column="idDDT" jdbc-type="INTEGER"/>
+	<field-descriptor name="idBollaAcquisto" column="idBollaAcquisto" jdbc-type="INTEGER"/>
+	<reference-descriptor name="giacenza" class-ref="vo.Giacenza" auto-retrieve="true">
+		<foreignkey field-ref="idGiacenza"/>
+	</reference-descriptor>
+	<reference-descriptor name="ddt" class-ref="vo.DDT" auto-retrieve="false">
+		<foreignkey field-ref="idDDT"/>
+	</reference-descriptor>
+	<reference-descriptor name="bollaAcquisto" class-ref="vo.BollaAcquisto" auto-retrieve="false">
+		<foreignkey field-ref="idBollaAcquisto"/>
+	</reference-descriptor>
+</class-descriptor>
+
+<!-- BOLLA ACQUISTO -->
+<class-descriptor class="vo.BollaAcquisto" table="bolleacquisto">
+	<field-descriptor name="id" column="idBollaAcquisto" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="idFornitore" column="idFornitore" jdbc-type="INTEGER"/>
+	<field-descriptor name="numeroBolla" column="numeroBolla" jdbc-type="VARCHAR"/>
+	<field-descriptor name="annoContabile" column="annoContabile" jdbc-type="INTEGER"/>
+	<field-descriptor name="data" column="data" jdbc-type="DATE"/>
+	<field-descriptor name="colli" column="colli" jdbc-type="INTEGER"/>
+	<reference-descriptor name="fornitore" class-ref="vo.Fornitore" auto-retrieve="true">
+		<foreignkey field-ref="idFornitore"/>
+	</reference-descriptor>
+	<collection-descriptor name="inventario" element-class-ref="vo.DettaglioBollaAcquisto" auto-retrieve="true" auto-update="object" auto-delete="object">
+		<inverse-foreignkey field-ref="idBollaAcquisto"/>
+	</collection-descriptor>
+</class-descriptor>
+
+<!-- INVENTARIO BOLLA ACQUISTO -->
+<class-descriptor class="vo.DettaglioBollaAcquisto" table="invbolleacquisto">
+	<field-descriptor name="id" column="idInvBollaAcquisto" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="idBollaAcquisto" column="idBollaAcquisto" jdbc-type="INTEGER"/>
+	<field-descriptor name="idArticolo" column="idArticolo" jdbc-type="INTEGER"/>
+	<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
+	<field-descriptor name="prezzo" column="prezzo" jdbc-type="DECIMAL"/>
+	<field-descriptor name="sconto" column="sconto" jdbc-type="DECIMAL"/>
+	<field-descriptor name="lotto" column="lotto" jdbc-type="VARCHAR"/>
+	<field-descriptor name="dataScadenza" column="dataScadenza" jdbc-type="DATE"/>
+	<reference-descriptor name="bollaAcquisto" class-ref="vo.BollaAcquisto" auto-retrieve="false">
+		<foreignkey field-ref="idBollaAcquisto"/>
+	</reference-descriptor>
+	<reference-descriptor name="articolo" class-ref="vo.Articolo" auto-retrieve="false">
+		<foreignkey field-ref="idArticolo"/>
+	</reference-descriptor>
+</class-descriptor>
+
+<!-- ORDINE CLIENTE-->
+<class-descriptor class="vo.Ordine" table="ordini">
+	<field-descriptor name="id" column="idOrdine" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="numeroProgressivo" column="numeroProgressivo" jdbc-type="INTEGER"/>
+	<field-descriptor name="annoContabile" column="annoContabile" jdbc-type="INTEGER"/>
+	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
+		<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER"/>
+	<field-descriptor name="idAgente" column="idAgente" jdbc-type="INTEGER"/>
+	<field-descriptor name="idPuntoConsegna" column="idPuntoConsegna" jdbc-type="INTEGER"/>
+		<field-descriptor name="statoOrdine" column="statoOrdine" jdbc-type="INTEGER"/>
+	<field-descriptor name="dataCreazione" column="dataCreazione" jdbc-type="DATE"/>
+	<field-descriptor name="dataSpedizione" column="dataSpedizione" jdbc-type="DATE"/>
+	<field-descriptor name="orarioSpedizione" column="orarioSpedizione" jdbc-type="INTEGER"/>
+	<field-descriptor name="note" column="note" jdbc-type="LONGVARCHAR"/>
+		<reference-descriptor name="autista" class-ref="vo.Autista" auto-retrieve="true">
+		    <foreignkey field-ref="idAutista"/>
+		</reference-descriptor>
+		<reference-descriptor name="agente" class-ref="vo.Agente" auto-retrieve="true">
+		    <foreignkey field-ref="idAgente"/>
+		</reference-descriptor>
+	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
+		<foreignkey field-ref="idCliente"/>
+	</reference-descriptor>
+	<reference-descriptor name="puntoConsegna" class-ref="vo.PuntoConsegna" auto-retrieve="true">
+		<foreignkey field-ref="idPuntoConsegna"/>
+	</reference-descriptor>
+	<collection-descriptor name="dettagliOrdine" element-class-ref="vo.DettaglioOrdine" auto-retrieve="true" auto-update="object" auto-delete="object">
+		<inverse-foreignkey field-ref="idOrdine"/>
+	</collection-descriptor>
+</class-descriptor>
+
+<!-- INVENTARIO ORDINE CLIENTE -->
+<class-descriptor class="vo.DettaglioOrdine" table="invordini">
+	<field-descriptor name="id" column="idInvOrdine" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="idOrdine" column="idOrdine" jdbc-type="INTEGER"/>
+	<field-descriptor name="idArticolo" column="idArticolo" jdbc-type="INTEGER"/>
+	<field-descriptor name="pezziOrdinati" column="pezziOrdinati" jdbc-type="INTEGER"/>
+	<field-descriptor name="pezziDaEvadere" column="pezziDaEvadere" jdbc-type="INTEGER"/>
+	<field-descriptor name="pezziDaOrdinare" column="pezziDaOrdinare" jdbc-type="INTEGER"/>	
+	<reference-descriptor name="ordine" class-ref="vo.Ordine" auto-retrieve="true">
+		<foreignkey field-ref="idOrdine"/>
+	</reference-descriptor>
+	<reference-descriptor name="articolo" class-ref="vo.Articolo" auto-retrieve="true">
+		<foreignkey field-ref="idArticolo"/>
+	</reference-descriptor>
+</class-descriptor>
+
+<!-- EVASIONI ORDINI CLIENTE-->
+<class-descriptor class="vo.EvasioneOrdine" table="evasioniordini">
+	<field-descriptor name="idDettaglioOrdine" column="idInvOrdine" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="idDettaglioDDT" column="idInvDDT" jdbc-type="INTEGER" primarykey="true"/>
+	<reference-descriptor name="dettaglioOrdine" class-ref="vo.DettaglioOrdine" auto-retrieve="true">
+		<foreignkey field-ref="idDettaglioOrdine"/>
+	</reference-descriptor>
+	<reference-descriptor name="dettaglioDDT" class-ref="vo.DettaglioDDT" auto-retrieve="true">
+		<foreignkey field-ref="idDettaglioDDT" />
+	</reference-descriptor>
+</class-descriptor>
+
+<!-- ORDINE FORNITORE-->
+<class-descriptor class="vo.OrdineFornitore" table="ordinifornitori">
+	<field-descriptor name="id" column="idOrdineFornitore" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="numeroProgressivo" column="numeroProgressivo" jdbc-type="INTEGER"/>
+	<field-descriptor name="annoContabile" column="annoContabile" jdbc-type="INTEGER"/>
+	<field-descriptor name="dataCreazione" column="dataCreazione" jdbc-type="DATE"/>
+	<field-descriptor name="idFornitore" column="idFornitore" jdbc-type="INTEGER"/>
+	<field-descriptor name="note" column="note" jdbc-type="LONGVARCHAR"/>
+	<field-descriptor name="spedito" column="spedito" jdbc-type="BOOLEAN"/>
+	<reference-descriptor name="fornitore" class-ref="vo.Fornitore" auto-retrieve="true">
+		<foreignkey field-ref="idFornitore"/>
+	</reference-descriptor>
+	<collection-descriptor name="dettagliOrdineFornitore" element-class-ref="vo.DettaglioOrdineFornitore" auto-retrieve="false" auto-update="object" auto-delete="object">
+		<inverse-foreignkey field-ref="idOrdineFornitore"/>
+	</collection-descriptor>
+</class-descriptor>
+
+<!-- INVENTARIO ORDINE FORNITORE -->
+<class-descriptor class="vo.DettaglioOrdineFornitore" table="invordinifornitori">
+	<field-descriptor name="id" column="idInvOrdineFornitore" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="idOrdineFornitore" column="idOrdineFornitore" jdbc-type="INTEGER"/>
+	<field-descriptor name="idArticolo" column="idArticolo" jdbc-type="INTEGER"/>
+	<field-descriptor name="pezziOrdinati" column="pezzi" jdbc-type="INTEGER"/>
+	<reference-descriptor name="ordineFornitore" class-ref="vo.OrdineFornitore" auto-retrieve="true">
+		<foreignkey field-ref="idOrdineFornitore"/>
+	</reference-descriptor>
+	<reference-descriptor name="articolo" class-ref="vo.Articolo" auto-retrieve="true">
+		<foreignkey field-ref="idArticolo"/>
+	</reference-descriptor>
+	<collection-descriptor name="richiesteOrdini" element-class-ref="vo.RichiestaOrdine" auto-retrieve="true" auto-update="object" auto-delete="object">
+		<inverse-foreignkey field-ref="idDettaglioOrdineFornitore"/>
+	</collection-descriptor>
+</class-descriptor>
+
+	<!-- RICHIESTE ORDINI FORNITORI -->
+<class-descriptor class="vo.RichiestaOrdine" table="richiesteOrdini">
+	<field-descriptor name="id" column="idInvOrdineFornitore" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly"/>
+	<field-descriptor name="idDettaglioOrdineFornitore" column="idInvOrdineFornitore" jdbc-type="INTEGER"/>
+	<field-descriptor name="idDettaglioOrdine" column="idInvOrdine" jdbc-type="INTEGER"/>
+	<field-descriptor name="qta" column="qta" jdbc-type="INTEGER"/>
+	
+	<reference-descriptor name="dettaglioOrdineFornitore" class-ref="vo.DettaglioOrdineFornitore" auto-retrieve="false">
+		<foreignkey field-ref="idDettaglioOrdineFornitore"/>
+	</reference-descriptor>
+	
+	<reference-descriptor name="dettaglioOrdine" class-ref="vo.DettaglioOrdine" auto-retrieve="false">
+		<foreignkey field-ref="idDettaglioOrdine"/>
+	</reference-descriptor>
+</class-descriptor>
+   
+
+</descriptor-repository>
+

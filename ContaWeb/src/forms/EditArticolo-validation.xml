@@ -1,0 +1,19 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="articolo.codiceArticolo">
+        <field-validator type="requiredstring">
+            <message>E' richiesto il codice dell'articolo</message>
+        </field-validator>
+    </field>
+    <field name="articolo.descrizione">
+        <field-validator type="requiredstring">
+            <message>E' richiesta la descrizione dell'articolo</message>
+        </field-validator>
+    </field>
+    <field name="articolo.um">
+        <field-validator type="requiredstring">
+            <message>E' richiesta l'unità di misura dell'articolo</message>
+        </field-validator>
+    </field>
+</validators>

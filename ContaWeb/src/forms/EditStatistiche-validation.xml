@@ -1,0 +1,14 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="dataDal">
+        <field-validator type="conversion">
+            <message>La data è sbagliata (gg/mm/aa)</message>
+        </field-validator>
+    </field>
+    <field name="dataAl">
+		<field-validator type="conversion">
+		    <message>La data è sbagliata (gg/mm/aa)</message>
+		</field-validator>
+    </field>
+</validators>

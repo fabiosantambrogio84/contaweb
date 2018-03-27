@@ -1,0 +1,1034 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+		
+	<package name="web" extends="struts-default,json-default">
+	 
+		<result-types>
+			<result-type name="chart" class="org.apache.struts2.dispatcher.ChartResult" />
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+			<result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult" />
+			<result-type name="pdf" class="resultset.PdfResult" />
+			<result-type name="testo" class="resultset.TextResult" />
+			<result-type name="fileConad" class="resultset.ConadTextFileResult" />
+			<result-type name="fileCommercianti" class="resultset.CommerciantiTextFileResult" />
+			<result-type name="fileRiba" class="resultset.RibaTextFileResult" />
+		</result-types>	
+
+	  	<action name="welcome" class="web.Welcome">
+	      <result type="tiles">.welcome</result> 
+		  <result name="warning" type="tiles">.welcome</result>
+		</action>
+			
+		<action name="cliente" class="web.DdtApiAction" method="getCliente">
+       	   <result type="testo" />
+      	</action>
+      	
+      	<action name="clienteSelect2" class="web.DdtApiAction" method="getClienteSelect2">
+       	   <result type="testo" />
+      	</action>
+      	
+      	<action name="articoloSelect2" class="web.DdtApiAction" method="getArticoloSelect2">
+       	   <result type="testo" />
+      	</action>
+			
+		<action name="clienteDestinazione" class="web.DdtApiAction" method="getClienteDestinazione">
+       	   <result type="testo" />
+      	</action>
+      	
+      	<action name="salvaDDT" class="web.DdtApiAction" method="saveChanges">
+       	   <result type="testo" />
+      	</action>
+      	
+      	<action name="articolo" class="web.DdtApiAction" method="getArticolo">
+       	   <result type="testo" />
+      	</action>
+      	
+      	<action name="articoloSelect2" class="web.DdtApiAction" method="getArticoloSelect2">
+       	   <result type="testo" />
+      	</action>
+			
+		<action name="clientiFindList" class="web.ClientiFindListAction">
+            <result type="tiles">.clientiFindList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="articoliFindList" class="web.ArticoliFindListAction">
+            <result type="tiles">.articoliFindList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="ddt" class="web.DdtAction">
+            <result type="tiles">.ddt</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<!-- AZIONI LISTA PRODOTTI FORNITORI -->
+		<action name="articoliFornitoriList" class="web.ArticoliFornitoriList">
+	      <result type="tiles">.articoliFornitoriList</result>
+		</action>
+		
+		<!-- AZIONI RELATIVE TELEFONATE -->
+		<action name="telefonateList" class="web.TelefonateList">
+            <result type="tiles">.telefonateList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="telefonateOggi" class="web.TelefonateList" method="telefonateOggi">
+            <result type="tiles">.telefonateOggiList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="getPuntiConsegna" class="forms.EditTelefonata" method="getPuntiConsegna">
+            <result type="tiles">.getPuntiConsegna</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="telefonataEdit_*" method="{1}" class="forms.EditTelefonata">
+			<result name="input" type="tiles">.telefonataForm</result>
+			<result name="success" type="redirect-action">
+           		<param name="actionName">telefonateOggi</param>
+       		</result>
+       		<result name="success_settimana" type="redirect-action">
+           		<param name="actionName">telefonateList</param>
+       		</result>
+       		<result name="error" type="tiles">.error</result>
+       		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		<!-- FINE AZIONI RELATIVE TELEFONATE -->
+		
+		<!-- AZIONI RELATIVE FORNITORI -->
+		<action name="fornitoriList" class="web.List">
+            <result type="tiles">.fornitoriList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="fornitoriEdit_*" method="{1}" class="forms.EditFornitore">
+			<result name="input" type="tiles">.fornitoriForm</result>
+			<result name="success" type="redirect-action">
+           	<param name="actionName">fornitoriList</param>
+       		</result>
+       		<result name="error" type="tiles">.error</result>
+       		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		<!-- FINE AZIONI RELATIVE FORNITORI -->
+		
+		<!-- AZIONI RELATIVE ARTICOLI -->
+		<action name="articoliList" class="web.List">
+        	<result type="tiles" name="success">.articoliList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="articoliEdit_*" method="{1}" class="forms.EditArticolo">
+			<interceptor-ref name="fileUpload">  
+                <param name="maximumSize">20971520</param>  
+            </interceptor-ref>  
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="input" type="tiles">.articoliForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">articoliList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+			<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		<!-- FINE AZIONI RELATIVE ARTICOLI -->
+		
+		<!-- AZIONI RELATIVE Autisti -->
+		<action name="autistiList" class="web.List">
+            <result type="tiles">.autistiList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="autistiEdit_*" method="{1}" class="forms.EditAutista">
+			<result name="input" type="tiles">.autistiForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">autistiList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+			<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<!-- AZIONI RELATIVE AGENTI -->
+		<action name="agentiList" class="web.List">
+            <result type="tiles">.agentiList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="agentiEdit_*" method="{1}" class="forms.EditAgente">
+			<result name="input" type="tiles">.agentiForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">agentiList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+			<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<!-- AZIONI RELATIVE Categorie Articoli -->
+		<action name="categorieArticoliList" class="web.List">
+            <result type="tiles">.categorieArticoliList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="categorieArticoliEdit_*" method="{1}" class="forms.EditCategoriaArticoli">
+			<result name="input" type="tiles">.categorieArticoliForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">categorieArticoliList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+			<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<!-- AZIONI RELATIVE Destinazione Articoli -->
+		<action name="destinazioniArticoliList" class="web.List">
+            <result type="tiles">.destinazioniArticoliList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="destinazioniArticoliEdit_*" method="{1}" class="forms.EditDestinazioneArticoli">
+			<result name="input" type="tiles">.destinazioneArticoliForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">destinazioniArticoliList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+			<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<!-- AZIONI RELATIVE IVA -->
+		<action name="ivaList" class="web.List">
+            <result type="tiles">.ivaList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="ivaEdit_*" method="{1}" class="forms.EditIva">
+			<result name="input" type="tiles">.ivaForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">ivaList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+			<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<!-- AZIONI RELATIVE LISTINI -->
+		<action name="listiniList" class="web.List">
+            <result type="tiles">.listiniList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="listinoEdit_*" method="{1}" class="forms.EditListino">
+			<result name="input" type="tiles">.listinoForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">listiniList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+			<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+				
+		
+		<!-- FINE AZIONI RELATIVE Autisti -->
+		
+		<!-- AZIONI RELATIVE CLIENTI -->
+		<action name="clientiList" class="web.List">
+            <result type="tiles">.clientiList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="clientiEdit_*" method="{1}" class="forms.EditCliente">
+			<result name="input" type="tiles">.clientiForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">clientiList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+			<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+
+		<action name="attivaPuntoConsegna" class="forms.EditPC" method="attiva">
+        	<result type="tiles" name="success">.successajax</result>
+        	<result name="error" type="tiles">.errorajax</result>
+		</action>
+		
+		<action name="puntiConsegnaList_*" method="{1}" class="forms.EditPC">
+			<result type="tiles" name="input">.puntiConsegnaList</result>
+			<result type="tiles">.puntiConsegnaList</result>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="listiniAssociatiList_*" method="{1}" class="forms.EditListiniAssociati">
+			<result name="input" type="tiles">.listiniAssociatiForm</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">clientiList</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		<!-- FINE AZIONI RELATIVE CLIENTI -->
+		
+		<!-- AZIONI RELATIVE PAGAMENTI -->
+		<action name="pagamentiList" class="web.List">
+        	<result type="tiles">.pagamentiList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="pagamentiEdit_*" method="{1}" class="forms.EditPagamento">
+				<result name="input" type="tiles">.pagamentiForm</result>
+				<result name="success" type="redirect-action">
+            		<param name="actionName">pagamentiList</param>
+        		</result>
+        		<result name="error" type="tiles">.error</result>
+        		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		<!-- FINE AZIONI RELATIVE PAGAMENTI -->
+		
+		<!-- AZIONI RELATIVE ORDINI -->
+		<action name="ordiniList" class="web.List">
+        	<result type="tiles">.ordiniList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		<action name="ordiniAutistaList" class="web.OrdiniAutistaList">
+        	<result type="tiles">.ordiniAutistaList</result> 
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<!--<action name="ordiniAutistaListGiorno" class="web.OrdiniAutistaList"> -->
+        <!--	<result type="tiles">.ordiniAutistaListGiorno</result> --> 
+        <!--	<result name="error" type="tiles">.error</result> -->
+		<!--</action> -->
+		
+		<action name="getPuntiConsegnaPerOrdini" class="forms.EditOrdine" method="getPuntiConsegnaPerOrdini">
+            <result type="tiles">.getPuntiConsegna</result>
+            <result name="error" type="tiles">.error</result>
+            <result name="input" type="tiles">.error</result>
+		</action>
+		<action name="storeAutista" class="forms.EditOrdine" method="storeAutista">
+<!--             <result type="tiles">.getstoreAutista</result> -->
+          <result name="error" type="tiles">.error</result> 
+            <param name="idAutista"></param>
+            <param name="idOrdine"></param>
+		</action>
+		<action name="storeAutistaDDT" class="forms.EditDDT" method="storeAutista">
+<!--             <result type="tiles">.getstoreAutista</result> -->
+          <result name="error" type="tiles">.error</result> 
+            <param name="idAutista"></param>
+            <param name="idDDT"></param>
+		</action>
+		<action name="storeAutistaTelefonata" class="forms.EditOrdine" method="storeAutistaTelefonata">
+            <param name="idAutista"></param>
+            <param name="idOrdine"></param>
+		</action>
+		
+		
+		
+		<action name="storeDateShip" class="forms.EditOrdine" method="storeDateShip">
+          <result name="error" type="tiles">.error</result> 
+            <param name="dataSpedizione"></param>
+            <param name="idOrdine"></param>
+		</action>
+		<action name="searchCodiciArticoli" class="forms.EditOrdine" method="searchCodiciArticoli">
+            <result type="testo"/>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		<action name="getStatisticheOrdine" class="forms.EditOrdine" method="getStatistiche">
+            <result type="tiles">.statisticheOrdine</result>
+            <result name="error" type="tiles">.error</result>
+            <result name="input" type="tiles">.error</result>
+		</action>		
+		<action name="getArticoloDetails" class="forms.EditOrdine" method="getArticoloDetails">
+  			<result type="stream">
+  				<param name="contentType">text/html</param>
+  				<param name="inputName">stream</param>
+  			</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		<action name="ordiniEdit_*" method="{1}" class="forms.EditOrdine">
+				<result name="input" type="tiles">.ordiniForm</result>
+				<result name="success" type="redirect-action">
+            		<param name="actionName">ordiniList</param>
+        		</result>
+        		<result name="success_giorno" type="redirect-action">
+            		<param name="actionName">telefonateOggi</param>
+        		</result>
+        		<result name="success_week" type="redirect-action">
+            		<param name="actionName">telefonateList</param>
+        		</result>
+        		<result name="error" type="tiles">.error</result>
+        		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<action name="storeTelefonataEseguita" class="web.TelefonateList" method="eseguita">
+            <param name="idTelefonata"></param>
+            <param name="eseguita"></param>
+            <result type="tiles" name="success">.successajax</result>
+        	<result name="error" type="tiles">.errorajax</result>
+		</action>
+		
+		<!-- FINE AZIONI RELATIVE ORDINI -->
+		
+		<!-- AZIONI RELATIVE ORDINI FORNITORI -->
+		<action name="ordiniFornitoriList" class="web.List">
+        	<result type="tiles">.ordiniFornitoriList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="ordiniFornitoriEdit_*" method="{1}" class="forms.EditOrdineFornitore">
+				<result name="input" type="tiles">.ordiniFornitoriForm</result>
+				<result name="dettagli" type="tiles">.ordiniFornitoriDettagli</result>
+				<result name="success" type="redirect-action">
+            		<param name="actionName">ordiniFornitoriList</param>
+        		</result>
+        		<result name="error" type="tiles">.error</result>
+        		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<action name="aggiornaDettagliOrdiniFornitori" class="forms.EditOrdineFornitore" method="listaDettagliFornitori">
+        	<result name="success" type="tiles">.listaDettagliFornitori</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		<action name="getArticoloFornitoreDetails" class="forms.EditOrdineFornitore" method="getArticoloDetails">
+  			<result type="stream">
+  				<param name="contentType">text/html</param>
+  				<param name="inputName">stream</param>
+  			</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="ordiniFornitoriMail" class="forms.EditOrdineFornitore" method="spedisciMail">
+        	<result name="success" type="redirect-action">
+           		<param name="actionName">ordiniFornitoriList</param>
+           		<param name="messageSuccess">Mail spedita con successo</param>
+       		</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		<!-- FINE AZIONI RELATIVE ORDINI FORNITORI -->
+		
+		<!-- AZIONI RELATIVE SCONTI -->
+		<action name="scontiList" class="web.List">
+        	<result type="tiles">.scontiList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		<action name="scontiEdit_*" method="{1}" class="forms.EditSconto">
+				<result name="input" type="tiles">.scontiForm</result>
+				<result name="success" type="redirect-action">
+            		<param name="actionName">scontiList</param>
+        		</result>
+        		<result name="error" type="tiles">.error</result>
+        		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>		
+		<!-- FINE AZIONI RELATIVE SCONTI -->
+
+		<!-- AZIONI RELATIVE STATISTICHE -->
+		<action name="statisticheEdit_*" method="{1}" class="forms.EditStatistiche">
+				<result name="input" type="tiles">.statisticheForm</result>
+				<result type="tiles">.statisticheList</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="ricercaLotti" method="ricercaLotti" class="forms.EditStatistiche">
+				<result type="tiles">.ricercaLottiList</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="viewChart" method="viewChart" class="forms.EditStatistiche">
+				<result name="input" type="tiles">.statisticheForm</result>
+				<result name="success" type="chart">
+					<param name="width">1024</param>
+				    <param name="height">768</param> 
+				</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+		<!-- FINE AZIONI RELATIVE STATISTICHE -->
+		
+		<!-- AZIONI RELATIVE PASSWORD -->
+		<!-- <action name="passwordEdit_*" method="{1}" class="forms.EditPassword"> -->
+			<!-- 	<result name="input" type="tiles">.passwordForm</result> -->
+			<!-- 	<result type="tiles">.passwordForm</result> -->
+			<!-- 	<result name="NONE" type="tiles">.PasswordForm</result> -->
+        	<!-- 	<result name="error" type="tiles">.error</result> -->
+		<!-- </action> -->
+		
+		<action name="passwordEdit_*" method="{1}" class="forms.EditPassword">
+				<result name="input" type="tiles">.passwordForm</result>
+				<result type="tiles">.passwordForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="checkAccessPassword" method="checkAccessPassword" class="forms.EditPassword">
+				<result type="tiles">.welcome</result>
+        		<result name="NONE" type="tiles">.passwordForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<!-- AZIONI RELATIVE PROPERTIES -->
+		<action name="propertiesEdit_*" method="{1}" class="forms.EditProperties">
+				<result name="input" type="tiles">.propertiesForm</result>
+				<result type="tiles">.propertiesForm</result>
+				<result name="passwordRequest" type="tiles">.passwordForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="updateData" method="updatedata" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeAppletUrl" method="writeAppletUrl" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeArticoliImgRepository" method="writeArticoliImgRepository" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeFattureFromAddress" method="writeFattureFromAddress" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeFattureMailContent" method="writeFattureMailContent" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeFattureMailSubjectPrefix" method="writeFattureMailSubjectPrefix" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeListElementi" method="writeListElementi" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeMailRepositoryFatture" method="writeMailRepositoryFatture" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeMailRepositoryOrdiniFornitori" method="writeMailRepositoryOrdiniFornitori" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeMailSmtpHost" method="writeMailSmtpHost" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeMailSmtpPassword" method="writeMailSmtpPassword" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeMailSmtpUser" method="writeMailSmtpUser" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeOrdiniFornitoriFromAddress" method="writeOrdiniFornitoriFromAddress" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeOrdiniFornitoriMailContent" method="writeOrdiniFornitoriMailContent" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeOrdiniFornitoriMailSubjectPrefix" method="writeOrdiniFornitoriMailSubjectPrefix" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writePecSmtpHost" method="writePecSmtpHost" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writePecSmtpPassword" method="writePecSmtpPassword" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writePecSmtpUser" method="writePecSmtpUser" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writePrintPdfRepository" method="writePrintPdfRepository" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writePasswordAccessoCompleto" method="writePasswordAccessoCompleto" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writePasswordAccessoNormale" method="writePasswordAccessoNormale" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writePasswordAccessoLimitato" method="writePasswordAccessoLimitato" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="writeBackupLocation" method="writeBackupLocation" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="backupDB" method="backupDB" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="restoreDB" method="restoreDB" class="forms.EditProperties">
+				<result type="tiles">.propertiesForm</result>
+        		<result name="error" type="tiles">.error</result>
+		</action>
+
+
+		<!-- FINE AZIONI RELATIVE PASSWORD -->
+		
+		<!--  AZIONI RELATIVE NOTE ACCREDITO -->
+		<action name="noteAccreditoList" class="web.List">
+            <result type="tiles">.noteAccreditoList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="editNotaAccredito_*" method="{1}" class="forms.EditNotaAccredito">
+            <result name="input" type="tiles">.appletNotaAccredito</result>
+            <result name="success" type="redirect-action">
+        		<param name="actionName">noteAccreditoList</param>
+        	</result>
+        	<result name="error" type="tiles">.error</result>
+        	<result name="error_delete" type="tiles">.errorajax</result>
+		</action>	
+		
+		<action name="pagatoNotaAccredito" method="pagato" class="forms.EditNotaAccredito">
+            <result name="success" type="redirect-action">
+        		<param name="actionName">noteAccreditoList</param>
+        	</result>
+        	<result name="error" type="tiles">.error</result>        	
+		</action>		
+		
+		<!--  AZIONI RELATIVE DDT -->
+		<action name="ddtList" class="web.List">
+            <result type="tiles">.ddtList</result>
+            <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="editDDT_*" method="{1}" class="forms.EditDDT">
+            <result name="input" type="tiles">.applet</result>
+            <result name="success" type="redirect-action">
+        		<param name="actionName">ddtList</param>
+        	</result>
+        	<result name="error" type="tiles">.error</result>
+        	<result name="error_delete" type="tiles">.errorajax</result>
+		</action>	
+		
+		<action name="editDDT_pagamento" method="ddt" class="forms.EditPagamentoEseguito">
+            <result name="input" type="tiles">.EditPagamentoEseguito_DDT</result>
+            <result name="success" type="redirect-action">
+        		<param name="actionName">ddtList</param>
+        	</result>
+        	<result name="error" type="tiles">.error</result>
+        	<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<action name="pagamentoEseguitoEdit_*" method="{1}" class="forms.EditPagamentoEseguito">
+				<result name="input" type="tiles">.pagamentoEseguitoEdit</result>
+				<result name="success" type="redirect-action">
+            		<param name="actionName">pagamentiEseguitiList</param>
+        		</result>        		
+        		<result name="error" type="tiles">.error</result>
+        		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<action name="getPagamenti" class="dao.PagamentiEseguiti" method="getPagamenti"></action>
+		
+		<!-- AZIONI RELATIVE FATTURE -->
+		<action name="fattureList" class="web.List">
+        	<result type="tiles">.fattureList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="exportCommercianti" class="stampe.ExportCommercianti">
+		    <result name="success" type="fileCommercianti" />
+		    <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="exportRiba" class="stampe.ExportRiba">
+		    <result name="success" type="fileRiba" />
+		    <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="aggiornaDDTs" class="forms.EditFattura" method="aggiornaDDTs">
+        	<result type="tiles" name="success">.listaDDTs</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="calcolaTotaleFattura" class="forms.EditFattura" method="calcolaTotaleFattura">
+        	<result type="tiles" name="success">.totaleFattura</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="fattureEdit_*" method="{1}" class="forms.EditFattura">
+			<result name="input" type="tiles">.fatturaForm</result>
+			<result name="input_read_only" type="tiles">.fatturaEditForm</result>
+			<result name="success" type="redirect-action">
+           		<param name="actionName">fattureList</param>
+       		</result>
+       		<result name="error" type="tiles">.error</result>
+       		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<action name="editFattura_pagamento" method="fattura" class="forms.EditPagamentoEseguito">
+            <result name="input" type="tiles">.EditPagamentoEseguito_Fattura</result>
+            <result name="success" type="redirect-action">
+        		<param name="actionName">fattureList</param>
+        	</result>
+        	<result name="error" type="tiles">.error</result>
+        	<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<action name="processaFatture_*" class="forms.EditProcessaFatture" method="{1}">
+        	<result type="tiles" name="input">.processaFattureForm</result>
+        	<result type="tiles" name="success">.processaFatturaBox</result>
+        	<result name="error" type="testo"/>
+		</action>
+		
+		<action name="calcolaFatture" class="forms.EditProcessaFatture">
+        	<result name="input" type="tiles">.processaFatturaBox</result>
+        	<result type="tiles" name="success">.processaFatturaBox</result>
+        	<result name="error" type="testo"/>
+		</action>
+		
+		<action name="statoProcessoFatture" class="forms.EditProcessaFatture" method="statoProcesso">
+        	<result type="tiles" name="success">.statoProcessoFatture</result>
+		</action>
+		<!-- FINE AZIONI RELATIVE FATTURE -->
+		
+		<!-- AZIONI RELATIVE GIACENZE -->
+		<action name="giacenzeList" class="web.List">
+        	<result type="tiles">.giacenzeList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		<action name="giacenzaEdit_*" method="{1}" class="forms.EditGiacenza">
+				<result name="input" type="tiles">.giacenzaForm</result>
+				<result name="dettagli" type="tiles">.giacenzaDettagli</result>
+				<result name="success" type="redirect-action">
+            		<param name="actionName">giacenzeList</param>
+        		</result>
+        		<result name="error" type="tiles">.error</result>
+        		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>		
+		<!-- FINE AZIONI RELATIVE GIACENZE -->
+		
+		<!-- AZIONI RELATIVE BOLLE ACQUISTO -->
+		<action name="bolleAcquistoList" class="web.List">
+        	<result type="tiles">.bolleAcquistoList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		<action name="bollaAcquistoEdit_*" method="{1}" class="forms.EditBollaAcquisto">
+				<result name="input" type="tiles">.appletBollaAcquisto</result>
+				<result name="success" type="redirect-action">
+            		<param name="actionName">bolleAcquistoList</param>
+        		</result>
+        		<result name="error" type="tiles">.error</result>
+        		<result name="error_delete" type="tiles">.errorajax</result>
+		</action>
+		
+		<action name="bollaAcquistoImportMondin" method="importMondin" class="forms.EditBollaAcquisto">
+			 <interceptor-ref name="exception"/>
+             <interceptor-ref name="i18n"/>
+             <interceptor-ref name="fileUpload">
+       			 <param name="allowedTypes">text/plain</param>
+       		 	<param name="maximumSize">10240000</param>
+  	    	</interceptor-ref> 
+            <interceptor-ref name="params">
+                <param name="excludeParams">dojo\..*,^struts\..*</param>
+            </interceptor-ref>
+              <param name="allowedTypes">
+			     text/plain, application/octet-stream
+			  </param>
+            <interceptor-ref name="validation">
+                <param name="excludeMethods">input,back,cancel,browse</param>
+            </interceptor-ref>
+            <interceptor-ref name="workflow">
+                <param name="excludeMethods">input,back,cancel,browse</param>
+            </interceptor-ref>
+ 
+    		<result name="input" type="tiles">.bollaAcquistoImportMondin</result>
+			<result name="success" type="redirect-action">
+           		<param name="actionName">bolleAcquistoList</param>
+       		</result>
+       		<result name="error" type="tiles">.error</result>
+       		<result name="error_delete" type="tiles">.errorajax</result>
+        			
+		</action>
+		
+		
+		<!-- FINE AZIONI RELATIVE BOLLE ACQUISTO -->
+		
+		<action name="pagamentiEseguitiList" class="web.List">
+        	<result type="tiles">.pagamentiEseguitiList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<!-- STAMPE -->
+		<action name="printOrdineFornitore" class="stampe.PrintOrdineFornitore">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printOrdineAutista" class="stampe.PrintOrdineAutista">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printRiepilogoOrdineAutista" class="stampe.PrintRiepilogoOrdineAutista">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printDDT" class="stampe.PrintDDT">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printNotaAccredito" class="stampe.PrintNotaAccredito">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printFattureRiepilogo" class="dao.Fatture" method="printRiepilogo">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printListino" class="stampe.PrintListino" method="execute">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printDDTRiepilogo" class="dao.DDTs" method="printRiepilogo">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printFattura" class="stampe.PrintFattura">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		<action name="pecFattura" class="stampe.PrintFattura" method="pec">
+			<result name="success" type="redirect-action">
+           		<param name="actionName">fattureList</param>
+       		</result>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="mailFattura" class="stampe.PrintFattura" method="mail">
+			<result name="success" type="redirect-action">
+           		<param name="actionName">fattureList</param>
+       		</result>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printListaVendite" class="stampe.PrintVendite">
+			<result name="success" type="jasper">
+				<param name="location">/stampe/RiepilogoVenditeCC.jasper</param>
+				<param name="dataSource">listaTotali</param>
+				<param name="format">PDF</param>
+				<param name="parse">true</param>
+			</result>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<!--  inserire qui l'azione per l'export delle fatture -->
+		<action name="exportConad" class="stampe.ExportConad">
+		    <result name="success" type="fileConad" />
+		    <result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printListaFatture" class="stampe.PrintFatture">
+			<result type="tiles" name="input">.stampeList</result>
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printListaFattureNoPEC" class="stampe.PrintFatture" method="printNoPec">
+			<result type="tiles" name="input">.stampeList</result>
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printListaFattureMail" class="stampe.PrintFatture" method="printListaFattureMail">
+			<result type="tiles" name="input">.stampeList</result>
+			<result name="success" type="redirect-action">
+           		<param name="actionName">stampeList_input</param>
+       		</result>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="printListaFatturePEC" class="stampe.PrintFatture" method="printListaFatturePec">
+			<result type="tiles" name="input">.stampeList</result>
+			<result name="success" type="redirect-action">
+           		<param name="actionName">stampeList_input</param>
+       		</result>
+			<result name="error" type="tiles">.error</result>
+		</action>
+				
+		<action name="printRiepilogoFatture" method="printRiepilogoFatture" class="stampe.PrintFatture">
+<!-- 			<result type="tiles" name="input">.stampeList</result> -->
+<!-- 			<result name="success" type="jasper"> -->
+<!-- 				<param name="location">/stampe/RiepilogoFatture.jasper</param> -->
+<!-- 				<param name="dataSource">listaFatture</param> -->
+<!-- 				<param name="format">PDF</param> -->
+<!-- 				<param name="parse">true</param> -->
+<!-- 			</result> -->
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.errorList</result>
+		</action>
+		
+		<action name="printRiepilogoFattureNP" method="printRiepilogoFattureNP" class="stampe.PrintFatture">
+<!-- 			<result type="tiles" name="input">.stampeList</result> -->
+<!-- 			<result name="success" type="jasper"> -->
+<!-- 				<param name="location">/stampe/RiepilogoFattureNonPagate.jasper</param> -->
+<!-- 				<param name="dataSource">listaFatture</param> -->
+<!-- 				<param name="format">PDF</param> -->
+<!-- 				<param name="parse">true</param> -->
+<!-- 			</result> -->
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.errorList</result>
+		</action>
+		
+		<action name="printRiepilogoFattureCC" method="printRiepilogoFattureCC" class="stampe.PrintFatture">
+<!-- 			<result type="tiles" name="input">.stampeList</result> -->
+<!-- 			<result name="success" type="jasper"> -->
+<!-- 				<param name="location">/stampe/RiepilogoFattureCC.jasper</param> -->
+<!-- 				<param name="dataSource">listaFatture</param> -->
+<!-- 				<param name="format">PDF</param> -->
+<!-- 				<param name="parse">true</param> -->
+<!-- 			</result> -->
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.errorList</result>
+		</action>
+
+		<action name="stampeList_*" method="{1}" class="web.Stampe">
+			<result type="tiles" name="input">.stampeList</result>
+        	<result type="tiles" name="success">.stampeList</result>
+        	<result name="error" type="tiles">.error</result>
+		</action>
+	</package>
+	
+	<package name="applet" extends="struts-default" namespace="/applet">
+		<result-types>
+           <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+           <result-type name="object" class="resultset.ObjectResult" />
+	 	</result-types>
+	 	
+	 	<interceptors>
+			<interceptor name="parseNotaAccredito" class="interceptor.ParseNotaAccredito"/>
+			<interceptor name="parseDDT" class="interceptor.ParseDDT"/>
+			<interceptor name="parseBollaAcquisto" class="interceptor.ParseBollaAcquisto"/>
+		</interceptors>
+	 	
+	 	<action name="getNotaAccredito" class="forms.EditNotaAccredito" method="getNotaAccredito">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="saveNotaAccredito" class="forms.EditNotaAccredito" method="store">
+			<interceptor-ref name="parseNotaAccredito"/>
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+	 	
+		<action name="listaClienti" class="forms.EditDDT" method="listaClienti">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="listaFornitori" class="web.AppletController" method="listaFornitori">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>		
+		
+		<action name="listaArticoli" class="web.AppletController" method="listaArticoli">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="listaIva" class="forms.EditDDT" method="listaIva">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="getCliente" class="forms.EditDDT" method="getCliente">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="getArticolo" class="web.AppletController" method="getArticolo">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="getArticoloByBarCode" class="web.AppletController" method="getArticoloByBarCode">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="getDDT" class="forms.EditDDT" method="getDDT">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="getFornitore" class="web.AppletController" method="getFornitore">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>		
+		
+		<action name="saveDDT" class="forms.EditDDT" method="store">
+			<interceptor-ref name="parseDDT"/>
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="saveDDT2" class="forms.EditDDT" method="store2">
+			<interceptor-ref name="parseDDT"/>
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="getPrezzoArticolo" class="forms.EditDDT" method="getPrezzoArticolo">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="getPrezzoArticoloDaBC" class="forms.EditDDT" method="getPrezzoArticoloDaBC">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="saveBollaAcquisto" class="web.AppletController" method="saveBollaAcquisto">
+			<interceptor-ref name="parseBollaAcquisto"/>
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="getBollaAcquisto" class="web.AppletController" method="getObjBollaAcquisto">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+
+		<action name="getDettagliOrdini" class="web.AppletController" method="getDettagliOrdini">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+		<action name="cancRigaOrdine" class="web.AppletController" method="cancRigaOrdine">
+			<result name="success" type="object"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
+	</package>
+</struts>

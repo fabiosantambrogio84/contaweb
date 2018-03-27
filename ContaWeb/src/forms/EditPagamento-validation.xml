@@ -1,0 +1,18 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="pagamento.descrizione">
+        <field-validator type="requiredstring">
+            <message>E' richiesta la descrizione del pagamento</message>
+        </field-validator>
+    </field>
+    <field name="pagamento.scadenza">
+		<field-validator type="int">
+		    <param name="min">0</param>
+		    <message>Il campo scadenza deve essere maggiore o uguale a 0</message>
+		</field-validator>
+		<field-validator type="required">
+            <message>Il campo scadenza è obbligatorio</message>
+        </field-validator>   
+    </field>
+</validators>

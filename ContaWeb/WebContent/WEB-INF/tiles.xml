@@ -1,0 +1,1204 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+<definition name=".menu" template="/jsp/menu.jsp">
+</definition>
+
+<definition name=".page" template="/jsp/template.jsp">
+	<put-attribute name="header" value="/jsp/header.jsp"/>
+	<put-attribute name="footer" value="/jsp/footer.jsp"/>
+	<put-attribute name="menu" value=".menu"/>
+</definition>
+
+<definition name=".page-ajax" template="/jsp/template-ajax.jsp">
+</definition>
+
+<definition name=".page-nomenu" template="/jsp/template-nomenu.jsp">
+</definition>
+
+<definition name=".welcome" extends=".page">
+	<put-attribute name="title" value="Conta Web - Welcome"/>
+	<put-attribute name="content" value="/jsp/welcomeContent.jsp"/>
+</definition>
+
+<definition name=".list" template="/jsp/listContent.jsp">
+</definition>
+
+<definition name=".telefonateList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Telefonate per oggi"/>
+	<put-attribute name="content" value=".telefonateList-content"/>
+</definition>
+
+<definition name=".telefonateList-content" template="/jsp/listTelefonate.jsp">
+	<put-attribute name="title" value="Telefonate nella settimana"/>
+</definition>
+
+<definition name=".ddt" extends=".page-ajax">
+	<put-attribute name="title" value="Conta Web - DDT"/>
+	<put-attribute name="content" value=".ddt-content"/>
+</definition>
+
+<definition name=".ddt-content" template="/jsp/ddt.jsp">
+	<put-attribute name="title" value="DDT"/>
+</definition>
+
+<definition name=".clientiFindList" extends=".page-ajax">
+	<put-attribute name="title" value="Clienti"/>
+	<put-attribute name="content" value=".clientiFindList-content"/>
+</definition>
+
+<definition name=".clientiFindList-content" template="/jsp/clientiFindList.jsp">
+	<put-attribute name="title" value="Clienti"/>
+</definition>
+
+<definition name=".articoliFindList" extends=".page-ajax">
+	<put-attribute name="title" value="Articoli"/>
+	<put-attribute name="content" value=".articoliFindList-content"/>
+</definition>
+
+<definition name=".articoliFindList-content" template="/jsp/articoliFindList.jsp">
+	<put-attribute name="title" value="Articoli"/>
+</definition>
+
+<definition name=".telefonateOggiList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Telefonate per oggi"/>
+	<put-attribute name="content" value=".telefonateOggiList-content"/>
+</definition>
+
+<definition name=".telefonateOggiList-content" template="/jsp/listTelefonateGiorno.jsp">
+	<put-attribute name="title" value="Telefonate per oggi"/>
+	<put-attribute name="showTodayDate" value="true"/>
+</definition>
+
+<definition name=".getPuntiConsegna" template="/jsp/ajax/listaPuntiConsegna.jsp"/>
+
+<definition name=".getStoreAutista" template="/jsp/ajax/storeSuccess.jsp"/>
+<!-- <definition name=".getDateShip" template="/jsp/ajax/storeSuccess.jsp"/> -->
+<definition name=".getStoreDateShip" template="/jsp/ajax/storeSuccess.jsp"/>
+
+<definition name=".articoliList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Articoli"/>
+	<put-attribute name="newActionCaption" value="Nuovo Articolo"/>
+	<put-attribute name="editAction" value="articoliEdit"/>
+	<put-attribute name="pagDownAction" value="articoliList"/>
+	<put-attribute name="pagUpAction" value="articoliList"/>
+	<put-attribute name="trova" value="true"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Codice</add-attribute>
+		<add-attribute>Descrizione</add-attribute>
+		<add-attribute>Fornitore</add-attribute>
+		<add-attribute>Data</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>250</add-attribute>
+		<add-attribute>109</add-attribute>
+		<add-attribute>50</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>codiceArticolo</add-attribute>
+		<add-attribute>descrizione</add-attribute>
+		<add-attribute>fornitore.descrizione</add-attribute>
+		<add-attribute>data</add-attribute>
+	</put-list-attribute>
+</definition>
+
+<definition name=".articoliList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista articoli"/>
+	<put-attribute name="content" value=".articoliList-content"/>
+</definition>
+
+<definition name=".fornitoriList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Fornitori"/>
+	<put-attribute name="newActionCaption" value="Nuovo Fornitore"/>
+	<put-attribute name="editAction" value="fornitoriEdit"/>
+	<put-attribute name="pagDownAction" value="fornitoriList"/>
+	<put-attribute name="pagUpAction" value="fornitoriList"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Descrizione</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>480</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>descrizione</add-attribute>
+	</put-list-attribute>
+</definition>
+
+<definition name=".fornitoriList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista fornitori"/>
+	<put-attribute name="content" value=".fornitoriList-content"/>
+</definition>
+
+<definition name=".ordiniAutistaList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista ordini autisti"/>
+	<put-attribute name="content" value=".ordiniAutistaList-content"/>
+</definition>
+
+<definition name=".ordiniAutistaList-content" template="/jsp/listOrdiniAutisti.jsp">
+	<put-attribute name="title" value="Lista ordini autisti"/>
+</definition>
+
+<definition name="ordiniAutistaListGiorno" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista ordini autisti"/>
+	<put-attribute name="content" value=".ordiniAutistaListGiorno-content"/>
+</definition>
+
+<definition name=".ordiniAutistaListGiorno-content" template="/jsp/listOrdiniAutistiGiorno.jsp">
+	<put-attribute name="title" value="Lista ordini autisti"/>
+</definition>
+
+<definition name=".ordiniList-content" extends=".list">
+	<!-- <put-attribute name="customBttLabel" value="Cancella Ordini"/> -->
+	<!-- <put-attribute name="customBttAction" value="confermaCancellazioneTuttiDDT"/> -->
+	<put-attribute name="titleList" value="Lista Ordini Clienti"/>
+	<put-attribute name="newActionCaption" value="Nuovo Ordine"/>
+	<put-attribute name="editAction" value="ordiniEdit"/>
+	<put-attribute name="editAutista" value="true"/>
+	<put-attribute name="editDateShip" value="true"/>
+	<put-attribute name="selectAutista" value="autistiForm-select"/>
+	<put-attribute name="pagDownAction" value="ordiniList"/>
+	<put-attribute name="pagUpAction" value="ordiniList"/>
+	<put-attribute name="selectAutista" value="autistaForm-select"/>
+	<put-attribute name="storeAutista" value="getStoreAutista"/>
+	<put-attribute name="DateShip" value="getStoreDateShip"/>
+	<put-attribute name="filtroStato" value="true"/>
+	<!-- <put-attribute name="customListBttLabel" value="Crea DDT"/>
+	<put-attribute name="customListBttActionParam" value="insertWithOrdine"/>
+	<put-attribute name="customListBttAction" value="editDDT"/>
+	<put-attribute name="customListNewWindow" value="true"/> -->
+	<put-list-attribute name="headersList">
+		<add-attribute>Num.</add-attribute>
+		<add-attribute>Cliente</add-attribute>
+<!-- 		<add-attribute>Data sped.</add-attribute> -->
+		<add-attribute>Data mod.</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>20</add-attribute> 
+		<add-attribute>300</add-attribute> 
+<!-- 		<add-attribute>90</add-attribute> -->
+		<add-attribute>90</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>progressivoCompleto</add-attribute>
+		<add-attribute>cliente.rs</add-attribute>
+<!-- 		<add-attribute>dataSpedizione</add-attribute> -->
+		<add-attribute>dataCreazione</add-attribute>
+	</put-list-attribute>
+</definition>
+
+<!-- <definition name=".autistiForm-select-content" extends=".form"> -->
+<definition name=".autistaForm-select-content" extends=".form">
+	<put-attribute name="azioneLista" value="ordiniList"/>
+</definition>
+
+<definition name=".autistaForm-select" extends=".page">
+	<put-attribute name="content" value=".autistaForm-select-content"/>
+</definition>
+
+<definition name=".ordiniList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista ordini clienti"/>
+	<put-attribute name="content" value=".ordiniList-content"/>
+</definition>
+
+<definition name=".ordiniFornitoriList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Ordini Fornitori"/>
+	<put-attribute name="newActionCaption" value="Nuovo Ordine"/>
+	<put-attribute name="editAction" value="ordiniFornitoriEdit"/>
+	<put-attribute name="editButtonModifica" value="false"/>
+	<put-attribute name="printAction" value="printOrdineFornitore"/>
+	<put-attribute name="dettagliAction" value="ordiniFornitoriEdit"/>
+	<put-attribute name="pagDownAction" value="ordiniFornitoriList"/>
+	<put-attribute name="pagUpAction" value="ordiniFornitoriList"/>
+	<put-attribute name="customListBttLabel" value="Mail"/>
+	<put-attribute name="customListBttAction" value="ordiniFornitoriMail"/>
+
+	<put-list-attribute name="headersList">
+		<add-attribute>Num.</add-attribute>
+		<add-attribute>Fornitore</add-attribute>
+		<add-attribute>Data creazione</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>300</add-attribute>
+		<add-attribute>100</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>progressivoCompleto</add-attribute>
+		<add-attribute>fornitore.descrizione</add-attribute>
+		<add-attribute>dataCreazione</add-attribute>
+	</put-list-attribute>
+</definition>
+
+<definition name=".ordiniFornitoriList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista ordini fornitori"/>
+	<put-attribute name="content" value=".ordiniFornitoriList-content"/>
+</definition>
+
+<definition name=".pagamentiList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Pagamenti"/>
+	<put-attribute name="newActionCaption" value="Nuovo Pagamento"/>
+	<put-attribute name="editAction" value="pagamentiEdit"/>
+	<put-attribute name="pagDownAction" value="pagamentiList"/>
+	<put-attribute name="pagUpAction" value="pagamentiList"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Descrizione</add-attribute>
+		<add-attribute>Scadenza</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>410</add-attribute>
+		<add-attribute>50</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>descrizione</add-attribute>
+		<add-attribute>scadenza</add-attribute>
+	</put-list-attribute>
+</definition>
+
+<definition name=".pagamentiList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista pagamenti"/>
+	<put-attribute name="content" value=".pagamentiList-content"/>
+</definition>
+
+<definition name=".autistiList-content" extends=".list">
+    <put-attribute name="titleList" value="Lista autisti"/>
+	<put-attribute name="newActionCaption" value="Nuovo autista"/>
+	<put-attribute name="editAction" value="autistiEdit"/>
+	<put-attribute name="pagDownAction" value="autistiList"/>
+	<put-attribute name="pagUpAction" value="autistiList"/>
+	<put-attribute name="trova" value="false"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Codice</add-attribute>
+		<add-attribute>Nome</add-attribute>
+		<add-attribute>Cognome</add-attribute>
+		<add-attribute>Telefono</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>150</add-attribute>
+		<add-attribute>150</add-attribute>
+		<add-attribute>150</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>id</add-attribute>
+		<add-attribute>nome</add-attribute>
+		<add-attribute>cognome</add-attribute>
+		<add-attribute>telefono</add-attribute>
+	</put-list-attribute>	
+</definition>
+
+<definition name=".autistiList" extends=".page">
+    <put-attribute name="title" value="Conta Web - Lista autisti"/>
+    <put-attribute name="content" value=".autistiList-content"/>
+</definition>
+<definition name=".agentiList-content" extends=".list">
+    <put-attribute name="titleList" value="Lista agenti"/>
+	<put-attribute name="newActionCaption" value="Nuovo agente"/>
+	<put-attribute name="editAction" value="agentiEdit"/>
+	<put-attribute name="pagDownAction" value="agentiList"/>
+	<put-attribute name="pagUpAction" value="agentiList"/>
+	<put-attribute name="trova" value="false"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Codice</add-attribute>
+		<add-attribute>Nome</add-attribute>
+		<add-attribute>Cognome</add-attribute>
+		<add-attribute>Telefono</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>150</add-attribute>
+		<add-attribute>150</add-attribute>
+		<add-attribute>150</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>id</add-attribute>
+		<add-attribute>nome</add-attribute>
+		<add-attribute>cognome</add-attribute>
+		<add-attribute>telefono</add-attribute>
+	</put-list-attribute>	
+</definition>
+
+<definition name=".agentiList" extends=".page">
+    <put-attribute name="title" value="Conta Web - Lista agenti"/>
+    <put-attribute name="content" value=".agentiList-content"/>
+</definition>
+<definition name=".ivaList-content" extends=".list">
+    <put-attribute name="titleList" value="Lista Aliquote Iva"/>
+	<put-attribute name="newActionCaption" value="Nuovo Aliquota"/>
+	<put-attribute name="editAction" value="ivaEdit"/>
+	<put-attribute name="pagDownAction" value="ivaList"/>
+	<put-attribute name="pagUpAction" value="ivaList"/>
+	<put-attribute name="trova" value="false"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Id</add-attribute>
+		<add-attribute>Valore</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>150</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>id</add-attribute>
+		<add-attribute>valore</add-attribute>
+	</put-list-attribute>	
+</definition>
+
+<definition name=".ivaList" extends=".page">
+    <put-attribute name="title" value="Conta Web - Lista aliquote iva"/>
+    <put-attribute name="content" value=".ivaList-content"/>
+</definition>
+
+<definition name=".listiniList-content" extends=".list">
+    <put-attribute name="titleList" value="Elenco Listini"/>
+	<put-attribute name="newActionCaption" value="Nuovo Listino"/>
+	<put-attribute name="editAction" value="listinoEdit"/>
+	<put-attribute name="printAction" value="printListino"/>
+	<put-attribute name="pagDownAction" value="lisitiniList"/>
+	<put-attribute name="pagUpAction" value="lisitiniList"/>
+	<put-attribute name="trova" value="false"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Id</add-attribute>
+		<add-attribute>Nome</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>150</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>id</add-attribute>
+		<add-attribute>descrizione</add-attribute>
+	</put-list-attribute>	
+</definition>
+
+<definition name=".listiniList" extends=".page">
+    <put-attribute name="title" value="Conta Web - Elenco Listini"/>
+    <put-attribute name="content" value=".listiniList-content"/>
+</definition>
+
+
+<definition name=".categorieArticoliList-content" extends=".list">
+    <put-attribute name="titleList" value="Elenco Categorie Articolo"/>
+	<put-attribute name="newActionCaption" value="Nuova Categoria Articolo"/>
+	<put-attribute name="editAction" value="categorieArticoliEdit"/>
+	<put-attribute name="pagDownAction" value="categorieArticoliList"/>
+	<put-attribute name="pagUpAction" value="categorieArticoliList"/>
+	<put-attribute name="trova" value="false"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Pos.</add-attribute>
+		<add-attribute>Nome</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>150</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>posizione</add-attribute>
+		<add-attribute>nome</add-attribute>
+	</put-list-attribute>	
+</definition>
+
+<definition name=".categorieArticoliList" extends=".page">
+    <put-attribute name="title" value="Conta Web - Lista Categorie Articolo"/>
+    <put-attribute name="content" value=".categorieArticoliList-content"/>
+</definition>
+
+<definition name=".destinazioniArticoliList-content" extends=".list">
+    <put-attribute name="titleList" value="Elenco Destinazioni Articolo"/>
+	<put-attribute name="newActionCaption" value="Nuova Destinazione Articolo"/>
+	<put-attribute name="editAction" value="destinazioniArticoliEdit"/>
+	<put-attribute name="pagDownAction" value="destinazioniArticoliList"/>
+	<put-attribute name="pagUpAction" value="destinazioniArticoliList"/>
+	<put-attribute name="trova" value="false"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Pos.</add-attribute>
+		<add-attribute>Nome</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>150</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>posizione</add-attribute>
+		<add-attribute>nome</add-attribute>
+	</put-list-attribute>	
+</definition>
+
+<definition name=".destinazioniArticoliList" extends=".page">
+    <put-attribute name="title" value="Conta Web - Lista Destinazioni Articolo"/>
+    <put-attribute name="content" value=".destinazioniArticoliList-content"/>
+</definition>
+
+<definition name=".clientiList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Clienti"/>
+	<put-attribute name="newActionCaption" value="Nuovo Cliente"/>
+	<put-attribute name="editAction" value="clientiEdit"/>
+	<put-attribute name="pagDownAction" value="clientiList"/>
+	<put-attribute name="pagUpAction" value="clientiList"/>
+	<put-attribute name="trova" value="true"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Codice</add-attribute>
+		<add-attribute>Ragione sociale</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>100</add-attribute>
+		<add-attribute>429</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>id</add-attribute>
+		<add-attribute>rs</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsTypes">
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>		
+	</put-list-attribute>
+</definition>
+
+<definition name=".clientiList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista clienti"/>
+	<put-attribute name="content" value=".clientiList-content"/>
+</definition>
+
+<definition name=".noteAccreditoList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Note Accredito"/>
+	<put-attribute name="newActionCaption" value="Nuovo Nota Accredito"/>
+	<put-attribute name="editAction" value="editNotaAccredito"/>
+	<put-attribute name="printAction" value="printNotaAccredito"/>
+	<put-attribute name="pagatoAction" value="pagatoNotaAccredito"/>
+	<put-attribute name="pagDownAction" value="noteAccreditoList"/>	
+	<put-attribute name="pagUpAction" value="noteAccreditoList"/>
+	<put-attribute name="editNewWindow" value="true"/>
+	<put-attribute name="trova" value="true"/>
+	<put-attribute name="filtroData" value="true"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Numero</add-attribute>
+		<add-attribute>Data</add-attribute>
+		<add-attribute>Ragione sociale</add-attribute>
+		<add-attribute>Agente</add-attribute>
+		<add-attribute>Importo</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>20</add-attribute>
+		<add-attribute>50</add-attribute>
+		<add-attribute>200</add-attribute>
+		<add-attribute>100</add-attribute>
+		<add-attribute>50</add-attribute>			
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>numeroProgressivoCompleto</add-attribute>
+		<add-attribute>data</add-attribute>
+		<add-attribute>cliente.rs</add-attribute>
+		<add-attribute>cliente.agente.nominativo</add-attribute>
+		<add-attribute>totale</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsTypes">
+		<add-attribute>String</add-attribute>
+		<add-attribute>Date</add-attribute>		
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+	</put-list-attribute>	
+</definition>
+
+<definition name=".noteAccreditoList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista Note Accredito"/>
+	<put-attribute name="content" value=".noteAccreditoList-content"/>
+</definition>
+
+<definition name=".ddtList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista DDT"/>
+	<put-attribute name="newActionCaption" value="Nuovo DDT"/>
+	<put-attribute name="onModal" value="False"/>
+	<put-attribute name="editAction" value="editDDT"/>
+	<put-attribute name="editAutista" value="true"/>
+	<put-attribute name="printAction" value="printDDT"/>
+	<put-attribute name="customBttLabel2" value="Stampa Riepilogo"/>
+	<put-attribute name="customBttAction2" value="printDDTRiepilogo"/>
+	<put-attribute name="pagDownAction" value="ddtList"/>
+	<put-attribute name="pagUpAction" value="ddtList"/>
+	<put-attribute name="editNewWindow" value="true"/>
+	<put-attribute name="trova" value="true"/>
+	<put-attribute name="filtroData" value="true"/>
+	<put-attribute name="pagamentoAction" value="editDDT_pagamento"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Numero</add-attribute>
+		<add-attribute>Data</add-attribute>
+		<add-attribute>F.</add-attribute>
+		<add-attribute>Ragione sociale</add-attribute>
+		<add-attribute>Agente</add-attribute>
+		<add-attribute>Acconto</add-attribute>
+		<add-attribute>Importo</add-attribute>
+		<add-attribute>Imponibile</add-attribute>
+		<add-attribute>tot. Costo</add-attribute>
+		<add-attribute>Aut. Ord.</add-attribute>
+		<add-attribute>Guad.</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>20</add-attribute>
+		<add-attribute>50</add-attribute>
+		<add-attribute>10</add-attribute>
+		<add-attribute>200</add-attribute>
+		<add-attribute>100</add-attribute>
+		<add-attribute>50</add-attribute>
+		<add-attribute>50</add-attribute>			
+		<add-attribute>50</add-attribute>			
+		<add-attribute>50</add-attribute>			
+		<add-attribute>100</add-attribute>
+		<add-attribute>50</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>numeroProgressivoCompleto</add-attribute>
+		<add-attribute>data</add-attribute>
+		<add-attribute>fatturato</add-attribute>
+		<add-attribute>cliente.rs</add-attribute>
+		<add-attribute>cliente.agente.nominativo</add-attribute>
+		<add-attribute>acconto</add-attribute>			
+		<add-attribute>totale</add-attribute>
+		<add-attribute>totaleImponibile</add-attribute>
+		<add-attribute>totaleCosto</add-attribute>
+		<add-attribute>autista.nominativo</add-attribute>
+		<add-attribute>guadagno</add-attribute>			
+	</put-list-attribute>
+	<put-list-attribute name="columnsTypes">
+		<add-attribute>String</add-attribute>
+		<add-attribute>Date</add-attribute>		
+		<add-attribute>Boolean</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+	</put-list-attribute>	
+</definition>
+
+
+<definition name=".ddtList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista ddt"/>
+	<put-attribute name="content" value=".ddtList-content"/>
+</definition>
+
+<definition name=".fattureList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Fatture"/>
+	<put-attribute name="newActionCaption" value="Nuova Fattura"/>
+	<put-attribute name="editAction" value="fattureEdit"/>
+	<put-attribute name="printAction" value="printFattura"/>
+	<put-attribute name="pecAction" value="pecFattura" />
+	<put-attribute name="mailAction" value="mailFattura"/>
+	<put-attribute name="pagDownAction" value="fattureList"/>
+	<put-attribute name="pagUpAction" value="fattureList"/>
+	<put-attribute name="customBttLabel" value="Creazione guidata Fatture"/>
+	<put-attribute name="customBttAction" value="processaFatture_input"/>
+	<put-attribute name="customBttLabel2" value="Stampa Riepilogo"/>
+	<put-attribute name="customBttAction2" value="printFattureRiepilogo"/>
+	<put-attribute name="trova" value="true"/>
+	<put-attribute name="filtroData" value="true"/>
+	<put-attribute name="pagamentoAction" value="editFattura_pagamento"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Numero</add-attribute>
+		<add-attribute>Data</add-attribute>
+		<add-attribute>Cliente</add-attribute>
+		<add-attribute>Agente</add-attribute>
+		<add-attribute>Acconto</add-attribute>
+		<add-attribute>Importo</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>20</add-attribute>
+		<add-attribute>50</add-attribute> 
+		<add-attribute>230</add-attribute>
+		<add-attribute>100</add-attribute>
+		<add-attribute>50</add-attribute>
+		<add-attribute>50</add-attribute>			
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>numeroProgressivo</add-attribute>
+		<add-attribute>data</add-attribute>
+		<add-attribute>cliente.rs</add-attribute>
+		<add-attribute>cliente.agente.nominativo</add-attribute>
+		<add-attribute>acconto</add-attribute>
+		<add-attribute>totaleFattura</add-attribute>	
+	</put-list-attribute>
+	<put-list-attribute name="columnsTypes">
+		<add-attribute>Integer</add-attribute>
+		<add-attribute>Date</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+		<add-attribute>Prezzo</add-attribute>		
+	</put-list-attribute>
+</definition>
+
+<definition name=".fattureList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista fatture"/>
+	<put-attribute name="content" value=".fattureList-content"/>
+</definition>
+
+<definition name=".scontiList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Sconti"/>
+	<put-attribute name="newActionCaption" value="Inserisci nuovo sconto"/>
+	<put-attribute name="editAction" value="scontiEdit"/>
+	<put-attribute name="pagDownAction" value="scontiList"/>
+	<put-attribute name="pagUpAction" value="scontiList"/>
+	<put-attribute name="trova" value="true"/>
+	<put-attribute name="editButtonModifica" value="false"/>
+	
+	<put-list-attribute name="headersList">
+		<add-attribute>Cliente</add-attribute>
+		<add-attribute>T. sconto</add-attribute>
+		<add-attribute>Fornitore/Articolo</add-attribute>
+		<add-attribute>Sc. (%)</add-attribute>
+		<add-attribute>Dal</add-attribute>
+		<add-attribute>Al</add-attribute>		
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>122</add-attribute>
+		<add-attribute>70</add-attribute>
+		<add-attribute>250</add-attribute>
+		<add-attribute>60</add-attribute>
+		<add-attribute>70</add-attribute>
+		<add-attribute>70</add-attribute>	
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>cliente.rs</add-attribute>
+		<add-attribute>tipoSconto</add-attribute>
+		<add-attribute>descrizioneSconto</add-attribute>
+		<add-attribute>sconto</add-attribute>
+		<add-attribute>dataScontoDal</add-attribute>
+		<add-attribute>dataScontoAl</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsTypes">
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+		<add-attribute>Date</add-attribute>
+		<add-attribute>Date</add-attribute>		
+	</put-list-attribute>
+</definition>
+
+<definition name=".scontiList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista sconti"/>
+	<put-attribute name="content" value=".scontiList-content"/>
+</definition>
+
+<definition name=".giacenzeList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Giacenze"/>
+	<put-attribute name="newActionCaption" value="Inserisci nuova giacenza"/>
+	<put-attribute name="dettagliAction" value="giacenzaEdit"/>	
+	<put-attribute name="editAction" value="giacenzaEdit"/>
+	<put-attribute name="editButtons" value="false"/>
+	<put-attribute name="pagDownAction" value="giacenzeList"/>
+	<put-attribute name="pagUpAction" value="giacenzeList"/>
+	<put-attribute name="trova" value="true"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Codice</add-attribute>
+		<add-attribute>Descrizione</add-attribute>
+		<add-attribute>Q.tà</add-attribute>	
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>100</add-attribute>
+		<add-attribute>500</add-attribute>
+		<add-attribute>50</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>codiceArticolo</add-attribute>
+		<add-attribute>descrizione</add-attribute>
+		<add-attribute>qta</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsTypes">
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>Qta</add-attribute>
+	</put-list-attribute>
+</definition>
+
+<definition name=".giacenzeList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista giacenze"/>
+	<put-attribute name="content" value=".giacenzeList-content"/>
+</definition>
+
+<definition name=".bolleAcquistoList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Bolle Acquisto"/>
+	<put-attribute name="newActionCaption" value="Inserisci nuova bolla"/>
+	<put-attribute name="editAction" value="bollaAcquistoEdit"/>
+	<put-attribute name="importMondinAction" value="bollaAcquistoImportMondin"/>
+	<put-attribute name="editNewWindow" value="true"/>
+	<put-attribute name="pagDownAction" value="bolleAcquistoList"/>
+	<put-attribute name="pagUpAction" value="bolleAcquistoList"/>
+	<put-attribute name="trova" value="true"/>
+	<put-list-attribute name="headersList">
+		<add-attribute>Numero</add-attribute>
+		<add-attribute>Data</add-attribute>	
+		<add-attribute>Fornitore</add-attribute>
+		<add-attribute>Importo</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>50</add-attribute>
+		<add-attribute>70</add-attribute>
+		<add-attribute>450</add-attribute>
+		<add-attribute>50</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>numeroBolla</add-attribute>
+		<add-attribute>data</add-attribute>
+		<add-attribute>fornitore.descrizione</add-attribute>
+		<add-attribute>totale</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsTypes">
+		<add-attribute>String</add-attribute>
+		<add-attribute>Date</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+	</put-list-attribute>
+</definition>
+<definition name=".bolleAcquistoList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista Bolle Acquisto"/>
+	<put-attribute name="content" value=".bolleAcquistoList-content"/>
+</definition>
+
+<definition name=".giacenzaDettagli" extends=".page">
+	<put-attribute name="title" value="Conta Web - Dettagli giacenza"/>
+	<put-attribute name="content" value="/jsp/giacenzaDettagli.jsp"/>
+</definition>
+
+<definition name=".articoliFornitoriList-content" template="/jsp/articoliFornitoriList.jsp">
+	<put-attribute name="title" value="Articoli fornitori"/>
+</definition>
+
+<definition name=".articoliFornitoriList" extends=".page-nomenu">
+	<put-attribute name="title" value="Conta Web - Articoli fornitori"/>
+	<put-attribute name="content" value=".articoliFornitoriList-content"/>
+</definition>
+
+<definition name=".articoliFornitori" extends=".page-nomenu">
+	<put-attribute name="title" value="Conta Web - Articoli fornitori"/>
+	<put-attribute name="content" value=".articoliFornitori-content"/>
+</definition>
+
+<definition name=".articoliFornitori-content" template="/jsp/articoliFornitori.jsp">
+	<put-attribute name="title" value="Articoli fornitori"/>
+</definition>
+
+<definition name=".puntiConsegnaList" extends=".page">
+	<put-attribute name="title" value="Conta Web - List"/>
+	<put-attribute name="content" value="/jsp/listPuntiConsegnaContent.jsp"/>
+</definition>
+
+<definition name=".statisticheList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Statistiche"/>
+	<put-attribute name="content" value="/jsp/listStatistiche.jsp"/>
+</definition>
+
+<definition name=".ricercaLottiList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Ricerca lotti"/>
+	<put-attribute name="content" value="/jsp/listRicercaLotti.jsp"/>
+</definition>
+
+<definition name=".stampeList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Stampe"/>
+	<put-attribute name="content" value="/jsp/listStampeContent.jsp"/>
+</definition>
+
+
+<definition name=".pagamentiEseguitiList-content" extends=".list">
+	<put-attribute name="titleList" value="Lista Pagamenti"/>
+	<put-attribute name="pagDownAction" value="pagamentiEseguitiList"/>
+	<put-attribute name="pagUpAction" value="pagamentiEseguitiList"/>
+	<put-attribute name="editButtons" value="true"/>
+	<put-attribute name="editAction" value="pagamentoEseguitoEdit"/>
+	<put-attribute name="editButtonModifica" value="false"/>	
+	<put-attribute name="trova" value="true"/>
+	<put-attribute name="filtroData" value="true"/>	
+	<put-list-attribute name="headersList">
+		<add-attribute>Data</add-attribute>
+		<add-attribute>Cliente</add-attribute>
+		<add-attribute>Descrizione</add-attribute>
+		<add-attribute>Importo</add-attribute>	
+		<add-attribute>Pagamento</add-attribute>
+		<add-attribute>Note</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsWidth">
+		<add-attribute>70</add-attribute>
+		<add-attribute>250</add-attribute>
+		<add-attribute>200</add-attribute>
+		<add-attribute>70</add-attribute>
+		<add-attribute>100</add-attribute>
+		<add-attribute>200</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsElements">
+		<add-attribute>data</add-attribute>
+		<add-attribute>cliente.rs</add-attribute>
+		<add-attribute>descrizione</add-attribute>
+		<add-attribute>importo</add-attribute>
+		<add-attribute>pagamento.descrizione</add-attribute>
+		<add-attribute>notes</add-attribute>
+	</put-list-attribute>
+	<put-list-attribute name="columnsTypes">
+		<add-attribute>Date</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>Prezzo</add-attribute>
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
+	</put-list-attribute>
+</definition>
+
+<definition name=".pagamentiEseguitiList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Lista Pagamenti"/>
+	<put-attribute name="content" value=".pagamentiEseguitiList-content"/>
+</definition>
+
+<!-- TEMPLATES FORMS -->
+
+<definition name=".form" template="/jsp/forms/templateForm.jsp">
+</definition>
+
+<definition name=".telefonataForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli telefonata:"/>
+	<put-attribute name="azioneLista" value="telefonateOggi"/>
+	<put-attribute name="templateForm" value="/jsp/forms/telefonataForm.jsp"/>
+</definition>
+
+<definition name=".telefonataForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita Telefonata"/>
+	<put-attribute name="content" value=".telefonataForm-content"/>
+</definition>
+
+<definition name=".fornitoriForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli fornitore:"/>
+	<put-attribute name="azioneLista" value="fornitoriList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/fornitoreForm.jsp"/>
+</definition>
+
+<definition name=".fornitoriForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita Fornitore"/>
+	<put-attribute name="content" value=".fornitoriForm-content"/>
+</definition>
+
+<definition name=".pagamentiForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli pagamento:"/>
+	<put-attribute name="azioneLista" value="pagamentiList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/pagamentoForm.jsp"/>
+</definition>
+
+<definition name=".pagamentiForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita pagamento"/>
+	<put-attribute name="content" value=".pagamentiForm-content"/>
+</definition>
+
+<definition name=".articoliForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli articolo:"/>
+	<put-attribute name="azioneLista" value="articoliList"/>
+	<put-attribute name="wideContainer" value="1"/>
+	<put-attribute name="templateForm" value="/jsp/forms/articoloForm.jsp"/>
+</definition>
+
+<definition name=".articoliForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita articolo"/>
+	<put-attribute name="content" value=".articoliForm-content"/>
+</definition>
+
+<definition name=".clientiForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli cliente:"/>
+	<put-attribute name="azioneLista" value="clientiList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/clienteForm.jsp"/>
+</definition>
+
+<definition name=".clientiForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita cliente"/>
+	<put-attribute name="content" value=".clientiForm-content"/>
+</definition>
+
+<definition name=".autistiForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli autista:"/>
+	<put-attribute name="azioneLista" value="autistiList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/autistaForm.jsp"/>
+</definition>
+
+<definition name=".autistiForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita autista"/>
+	<put-attribute name="content" value=".autistiForm-content"/>
+</definition>
+<definition name=".agentiForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli agente:"/>
+	<put-attribute name="azioneLista" value="agentiList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/agenteForm.jsp"/>
+</definition>
+
+<definition name=".agentiForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita agente"/>
+	<put-attribute name="content" value=".agentiForm-content"/>
+</definition>
+
+<definition name=".categorieArticoliForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli Categoria Articolo"/>
+	<put-attribute name="azioneLista" value="categorieArticoliList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/categorieArticoloForm.jsp"/>
+</definition>
+
+<definition name=".categorieArticoliForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita Categoria Articolo"/>
+	<put-attribute name="content" value=".categorieArticoliForm-content"/>
+</definition>
+
+<definition name=".destinazioneArticoliForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli Destinazione Articolo"/>
+	<put-attribute name="azioneLista" value="destinazioneArticoliList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/destinazioneArticoloForm.jsp"/>
+</definition>
+
+<definition name=".destinazioneArticoliForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita Destinazione Articolo"/>
+	<put-attribute name="content" value=".destinazioneArticoliForm-content"/>
+</definition>
+
+
+<definition name=".ivaForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli Aliquota Iva"/>
+	<put-attribute name="azioneLista" value="ivaList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/ivaForm.jsp"/>
+</definition>
+
+<definition name=".ivaForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita Aliquota Iva"/>
+	<put-attribute name="content" value=".ivaForm-content"/>
+</definition>
+
+<definition name=".listiniForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli Listino"/>
+	<put-attribute name="azioneLista" value="listiniList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/listinoForm.jsp"/>
+</definition>
+
+<definition name=".listinoForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita Listino"/>
+	<put-attribute name="content" value=".listiniForm-content"/>
+</definition>
+
+<definition name=".listiniAssociatiForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Listini associati"/>
+	<put-attribute name="content" value="/jsp/forms/listiniAssociatiForm.jsp"/>
+</definition>
+
+<definition name=".scontiForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli sconto:"/>
+	<put-attribute name="azioneLista" value="scontiList"/>	
+	<put-attribute name="templateForm" value="/jsp/forms/scontiForm.jsp"/>
+</definition>
+
+<definition name=".scontiForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Sconti"/>
+	<put-attribute name="content" value=".scontiForm-content"/>
+</definition>
+
+<definition name=".giacenzaForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli giacenza"/>
+	<put-attribute name="azioneLista" value="giacenzeList"/>	
+	<put-attribute name="templateForm" value="/jsp/forms/giacenzaForm.jsp"/>
+</definition>
+
+<definition name=".giacenzaForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Giacenza"/>
+	<put-attribute name="content" value=".giacenzaForm-content"/>
+</definition>
+
+<definition name=".ordiniForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli ordine"/>
+	<put-attribute name="azioneLista" value="ordiniList"/>	
+	<put-attribute name="templateForm" value="/jsp/forms/ordineForm.jsp"/>
+	<put-attribute name="templateFormLeft" value="/jsp/forms/ordineFormLeft.jsp"/>
+	<put-attribute name="extraLeftContainer" value="yes"/>
+</definition>
+
+<definition name=".ordiniForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Ordine"/>
+	<put-attribute name="content" value=".ordiniForm-content"/>
+</definition>
+
+<definition name=".statisticheOrdine" template="/jsp/ajax/statisticheOrdine.jsp"/>
+
+<definition name=".ordiniFornitoriForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli ordine fornitore"/>
+	<put-attribute name="azioneLista" value="ordiniFornitoriList"/>	
+	<put-attribute name="templateForm" value="/jsp/forms/ordineFornitoreForm.jsp"/>
+</definition>
+
+<definition name=".ordiniFornitoriForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Ordine"/>
+	<put-attribute name="content" value=".ordiniFornitoriForm-content"/>
+</definition>
+
+<definition name=".ordiniFornitoriDettagli-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli ordine fornitore"/>
+	<put-attribute name="azioneLista" value="ordiniFornitoriList"/>	
+	<put-attribute name="templateForm" value="/jsp/forms/ordineFornitoreDettagli.jsp"/>
+</definition>
+
+<definition name=".ordiniFornitoriDettagli" extends=".page">
+	<put-attribute name="title" value="Conta Web - Ordine"/>
+	<put-attribute name="content" value=".ordiniFornitoriDettagli-content"/>
+</definition>
+
+<definition name=".listaDettagliFornitori" template="/jsp/ajax/dettagliOrdiniFornitori.jsp"/>
+
+<definition name=".statisticheForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Statistiche:"/>
+	<put-attribute name="azioneLista" value=""/>
+	<put-attribute name="templateForm" value="/jsp/forms/statisticheForm.jsp"/>
+</definition>
+
+<definition name=".statisticheForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Statistiche"/>
+	<put-attribute name="content" value=".statisticheForm-content"/>
+</definition>
+
+<definition name=".passwordForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Autenticazione:"/>
+	<put-attribute name="azioneLista" value=""/>
+	<put-attribute name="templateForm" value="/jsp/forms/passwordForm.jsp"/>
+</definition>
+
+<definition name=".passwordForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Autenticazione"/>
+	<put-attribute name="content" value=".passwordForm-content"/>
+</definition>
+
+<definition name=".propertiesForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Configurazione:"/>
+	<put-attribute name="azioneLista" value=""/>
+	<put-attribute name="templateForm" value="/jsp/forms/propertiesForm.jsp"/>
+</definition>
+
+<definition name=".propertiesForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Configurazione"/>
+	<put-attribute name="content" value=".propertiesForm-content"/>
+</definition>
+
+<definition name=".ddtForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli DDT:"/>
+	<put-attribute name="azioneLista" value="ddtList"/>	
+	<put-attribute name="templateForm" value="/jsp/forms/ddtForm.jsp"/>
+</definition>
+
+<definition name=".ddtForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - DDT"/>
+	<put-attribute name="content" value=".ddtForm-content"/>
+</definition>
+
+<definition name=".applet" template="/jsp/applet/AppletDDT.jsp">
+</definition>
+<definition name=".appletNotaAccredito" template="/jsp/applet/AppletNotaAccredito.jsp">
+</definition>
+
+<definition name=".appletBollaAcquisto" template="/jsp/applet/AppletBollaAcquisto.jsp">
+</definition>
+
+<definition name=".fatturaForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli fattura:"/>
+	<put-attribute name="azioneLista" value="fattureList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/fatturaForm.jsp"/>
+</definition>
+
+<definition name=".fatturaForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Edita Fattura"/>
+	<put-attribute name="content" value=".fatturaForm-content"/>
+</definition>
+
+<definition name=".fatturaEditForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Dettagli fattura:"/>
+	<put-attribute name="azioneLista" value="fattureList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/fatturaEditForm.jsp"/>
+</definition>
+
+<definition name=".fatturaEditForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Dettagli Fattura"/>
+	<put-attribute name="content" value=".fatturaEditForm-content"/>
+</definition>
+
+<definition name=".processaFattureForm-content" extends=".form">
+	<put-attribute name="titoloForm" value="Elaborazione automatica delle fatture"/>
+	<put-attribute name="azioneLista" value="fattureList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/processaFattureForm.jsp"/>
+</definition>
+
+<definition name=".processaFattureForm" extends=".page">
+	<put-attribute name="title" value="Conta Web - Processa Fattura"/>
+	<put-attribute name="content" value=".processaFattureForm-content"/>
+</definition>
+
+<definition name=".EditPagamentoEseguito_DDT_content" extends=".form">
+	<put-attribute name="titoloForm" value="Pagamento DDT" />
+	<put-attribute name="azioneLista" value="ddtList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/pagamentoEseguitoDDTForm.jsp"/>
+</definition>
+
+<definition name=".EditPagamentoEseguito_DDT" extends=".page">
+	<put-attribute name="title" value="Conta Web - Pagamento DDT"/>
+	<put-attribute name="content" value=".EditPagamentoEseguito_DDT_content"/>
+</definition>
+
+<definition name=".pagamentoEseguitoEdit_content" extends=".form">
+	<put-attribute name="titoloForm" value="Pagamento" />
+	<put-attribute name="azioneLista" value="pagamentiEseguitiList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/pagamentoEseguitoForm.jsp"/>
+</definition>
+
+<definition name=".pagamentoEseguitoEdit" extends=".page">
+	<put-attribute name="title" value="Conta Web - Pagamento"/>
+	<put-attribute name="content" value=".pagamentoEseguitoEdit_content"/>
+</definition>
+
+
+
+<definition name=".EditPagamentoEseguito_Fattura_content" extends=".form">
+	<put-attribute name="titoloForm" value="Pagamento Fattura" />
+	<put-attribute name="azioneLista" value="fattureList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/pagamentoEseguitoFatturaForm.jsp"/>
+</definition>
+
+<definition name=".EditPagamentoEseguito_Fattura" extends=".page">
+	<put-attribute name="title" value="Conta Web - Pagamento Fattura"/>
+	<put-attribute name="content" value=".EditPagamentoEseguito_Fattura_content"/>
+</definition>
+
+
+<definition name=".bollaAcquistoImportMondin_content" extends=".form">
+	<put-attribute name="titoloForm" value="Importazione bolle Mondin" />
+	<put-attribute name="azioneLista" value="bolleAcquistoList"/>
+	<put-attribute name="templateForm" value="/jsp/forms/bollaAcquistoImportMondin.jsp"/>
+</definition>
+
+<definition name=".bollaAcquistoImportMondin" extends=".page">
+	<put-attribute name="title" value="Conta Web - Importazione bolle Mondin"/>
+	<put-attribute name="content" value=".bollaAcquistoImportMondin_content"/>
+</definition>
+
+
+
+<definition name=".listaDDTs" template="/jsp/ajax/listaDDTs.jsp"/>
+<definition name=".totaleFattura" template="/jsp/ajax/totaleFattura.jsp"/>
+<definition name=".statoProcessoFatture" template="/jsp/ajax/statoProcessoFattura.jsp"/>
+<definition name=".processaFatturaBox" template="/jsp/ajax/boxProcessoFattura.jsp"/>
+
+
+<!-- ERROR TEMPLATE -->
+
+<definition name=".error" extends=".page">
+	<put-attribute name="title" value="Conta Web - Errore"/>
+	<put-attribute name="content" value="/jsp/error.jsp"/>
+</definition>
+
+<definition name=".errorList" extends=".page">
+	<put-attribute name="title" value="Conta Web - Errore"/>
+	<put-attribute name="content" value="/jsp/errorList.jsp"/>
+</definition>
+
+<definition name=".errorajax" template="/jsp/ajax/error.jsp">
+</definition>
+
+<definition name=".successajax" template="/jsp/ajax/success.jsp">
+</definition>
+
+</tiles-definitions>

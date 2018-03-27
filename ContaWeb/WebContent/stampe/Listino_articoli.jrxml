@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Listino_articoli" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2ab87dbe-5efa-4583-9228-791e10245512">
+	<property name="ireport.zoom" value="2.5937424601000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="articolo.codiceArticolo" class="java.lang.String"/>
+	<field name="articolo.descrizione" class="java.lang.String"/>
+	<field name="prezzo" class="java.math.BigDecimal"/>
+	<field name="articolo.iva.valore" class="java.math.BigDecimal"/>
+	<field name="articolo.um" class="java.lang.String"/>
+	<field name="articolo.ggScadenza" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="5" y="1" width="50" height="12" uuid="9ae07038-2c02-445c-abf7-9936a693057b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{articolo.codiceArticolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="1" width="244" height="12" uuid="9330c609-198c-4bb7-b025-e9b4b222aa58"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{articolo.descrizione}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="37" height="12" uuid="94cf6fc5-5f2d-478d-b977-ddd2b560377c"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{articolo.um}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="310" y="0" width="34" height="12" uuid="62239b18-56c5-4335-a772-8343a3a849ac"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prezzo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="356" y="0" width="14" height="12" uuid="4441087a-060d-4924-8c69-e29788c47dac"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="0" width="34" height="12" uuid="4e351535-fef2-4e17-a17d-bce3497a91b1"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{articolo.iva.valore}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="458" y="-1" width="24" height="12" uuid="7c747f7d-ad11-4fb5-bc7e-2ef85b6ca231"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{articolo.ggScadenza}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="484" y="-1" width="14" height="12" uuid="733fa655-b5cd-45c8-9da0-0761edd3aafa"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[gg]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
