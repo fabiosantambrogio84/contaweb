@@ -32,10 +32,11 @@
 <script type="text/javascript" language="javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.min.js" ></script>
 <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.js" ></script>
+<script type="text/javascript" src="js/scripts.js"></script>
 <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css" type="text/css" media="all" />
 <title><tiles:getAsString name="title" /></title>
 </head>
-<body>
+<body onload="onBodyLoad()">
 	<tiles:insertAttribute name="header" ignore="true" />
 	<div class="container-fluid">
 		<center>
@@ -48,7 +49,6 @@
 	<script type="text/javascript" language="javascript" src="js/jquery.tablesorter.widgets.js"></script>
 	<script type="text/javascript" src="js/select2.min.js"></script>
 	<script type="text/javascript" src="js/form2js.js"></script>
-	<script type="text/javascript" src="js/scripts.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$('ul.nav li.dropdown').hover(

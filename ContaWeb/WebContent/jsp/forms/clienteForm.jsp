@@ -6,6 +6,9 @@
     
     <s:textfield labelposition="left" label="Ragione sociale" name="cliente.rs" required="true" size="40" cssClass="testo"/>
     <s:textfield labelposition="left" label="Ragione sociale 2" name="cliente.rs2" size="40" cssClass="testo"/>
+    <s:checkbox id="clienteDittaIndividuale" labelposition="left" label="Ditta individuale" name="cliente.dittaIndividuale" onchange="enableClientiDittaIndividuale()"/> 
+    <s:textfield id="clienteNome" labelposition="left" label="Nome" name="cliente.nome" size="40" cssClass="testo"/>
+    <s:textfield id="clienteCognome" labelposition="left" label="Cognome" name="cliente.cognome" size="40" cssClass="testo"/>
     <s:textfield labelposition="left" label="Indirizzo" name="cliente.indirizzo" required="true" size="40" cssClass="testo"/>
     <s:textfield labelposition="left" label="Località" name="cliente.localita" required="true" size="40" cssClass="testo"/>
 	<s:textfield labelposition="left" label="Cap" name="cliente.cap" required="true" size="10" cssClass="testo"/>

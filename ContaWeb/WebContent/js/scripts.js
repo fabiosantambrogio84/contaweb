@@ -1640,8 +1640,31 @@ function confirmDelete(entity) {
     return confirm(message);
 }
 
-//Popup di conferma stampe (20/02/2018)
+// Popup di conferma stampe (20/02/2018)
 function confirmStampe() {
 	var message = "Al termine dell'operazione verra' inviata un'email di riepilogo a info@urbanialimentari.com.\nConfermi?";
 	return confirm(message);
+}
+
+// Funzione per abilitare/disabilitare campi nella creazione/modifica di un cliente
+function enableClientiDittaIndividuale(){
+	var cb = document.getElementById('clienteDittaIndividuale');
+    if(cb != undefined){
+      if(!cb.checked){
+        document.getElementById('clienteNome').disabled = true;
+        document.getElementById('clienteNome').readOnly = true;
+        document.getElementById('clienteCognome').disabled = true;
+        document.getElementById('clienteCognome').readOnly = true;
+      }else{
+        document.getElementById('clienteNome').disabled = false;
+        document.getElementById('clienteNome').readOnly = false;
+        document.getElementById('clienteCognome').disabled = false;
+        document.getElementById('clienteCognome').readOnly = false;
+      }
+    }
+}
+
+// Funzione caricata al load del body
+function onBodyLoad(){
+	enableClientiDittaIndividuale();
 }

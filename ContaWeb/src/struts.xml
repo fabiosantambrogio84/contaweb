@@ -854,7 +854,7 @@
 			<result name="error" type="tiles">.error</result>
 		</action>
 		
-		<action name="printListaFattureNoPEC" class="stampe.PrintFatture" method="printNoPec">
+		<action name="printListaFattureNoMailNoPEC" class="stampe.PrintFatture" method="printNoMailNoPec">
 			<result type="tiles" name="input">.stampeList</result>
 			<result name="success" type="pdf"/>
 			<result name="error" type="tiles">.error</result>
