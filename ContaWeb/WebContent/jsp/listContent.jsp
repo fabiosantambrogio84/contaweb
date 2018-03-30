@@ -161,6 +161,7 @@
 					<% } %> 
 					<% if (editAction.equals("pagamentoEseguitoEdit")) { %>
 						Pagamento: <s:textfield name="filterPagamento" size="10" cssClass="testo"/>
+						Cliente: <s:textfield name="filterKey" size="30" cssClass="testo"/>
 					<% }  %>
 					<% if (editAction.equals("editDDT") 
 						|| editAction.equals("fattureEdit")) { %>

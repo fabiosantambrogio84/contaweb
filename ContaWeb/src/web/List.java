@@ -43,7 +43,7 @@ import vo.Pagamento;
 public class List extends GenericAction {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Collection datiTabella = null;
     private int pageCount = 0;
     private Integer itemCount = 0;
@@ -52,7 +52,7 @@ public class List extends GenericAction {
     private String filterKey = null;
     private String filterStato = null;
     private String currentAction = null;
-    protected Date filterDataDa = null;  
+    protected Date filterDataDa = null;
     protected Date filterDataA = null;
     protected String filterPagamento = null;
     protected String filterArticolo = null;
@@ -70,8 +70,8 @@ public class List extends GenericAction {
     private Object id;
     private Integer idAutista;
     private Boolean warning = false;
-        
-      //  private Collection pagamenti;
+
+    // private Collection pagamenti;
     private Collection<Autista> listAutori;
     private Collection<CategoriaArticolo> listCategorie;
     private Collection<Fornitore> listFornitori;
@@ -79,53 +79,53 @@ public class List extends GenericAction {
     private Collection<Pagamento> pagamenti;
     private String filterStatoOrdini = null;
     private Collection<?> statoOrdini = null;
-    
+
     private Collection<?> deleteOrdini = null;
-    
+
     public List() {
-        this.LIST_ELEMS = Integer.valueOf(Settings.getInstance().getValue("list.elementi")); //.intValue();
+        this.LIST_ELEMS = Integer.valueOf(Settings.getInstance().getValue("list.elementi")); // .intValue();
         this.statoOrdini = StatoOrdini.list();
         this.setDeleteOrdini(DeleteOrdini.list());
     }
-    
+
     public String getFilterArticolo() {
         return filterArticolo;
     }
-	
+
     public void setFilterArticolo(String filterArticolo) {
         this.filterArticolo = filterArticolo;
     }
-    
+
     public String getFilterAutista() {
         return filterAutista;
     }
-    	
+
     public void setFilterAutista(String filterAutista) {
         this.filterAutista = filterAutista;
     }
-    
+
     public String getFilterImporto() {
         return filterImporto;
     }
-    	
+
     public void setFilterImporto(String filterImporto) {
         this.filterImporto = filterImporto;
     }
-    
+
     @SuppressWarnings("unchecked")
     public Collection<Autista> getListAutisti() {
-        if(listAutori == null){
-			try {
-				listAutori = new Autisti().getElements();
-			} catch (DataAccessException e) {
-				e.printStackTrace();
-			}
+        if (listAutori == null) {
+            try {
+                listAutori = new Autisti().getElements();
+            } catch (DataAccessException e) {
+                e.printStackTrace();
+            }
         }
         return listAutori;
     }
-  
+
     public Collection<Pagamento> getPagamenti() {
-        if(pagamenti == null){
+        if (pagamenti == null) {
             PagamentiEseguiti pe = new PagamentiEseguiti();
             pe.setFilterDataDa(this.getFilterDataDa());
             pe.setFilterDataA(this.getFilterDataA());
@@ -133,50 +133,50 @@ public class List extends GenericAction {
             pe.setFilterPagamento(this.getFilterPagamento());
             pe.setPagamenti();
             pagamenti = pe.getPagamenti();
-	  	}
-		return pagamenti;
+        }
+        return pagamenti;
     }
-  
+
     @SuppressWarnings("unchecked")
     public Collection<CategoriaArticolo> getListCategorie() {
-        if(listCategorie == null){
+        if (listCategorie == null) {
             try {
-				listCategorie = new CategorieArticolo().getElements();
-			} catch (DataAccessException e) {
-				e.printStackTrace();
-			}
-	  	}
-		return listCategorie;
+                listCategorie = new CategorieArticolo().getElements();
+            } catch (DataAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return listCategorie;
     }
-  
+
     @SuppressWarnings("unchecked")
     public Collection<Fornitore> getListFornitori() {
-	  	if(listFornitori == null){
-			try {
-				Fornitori dao = new Fornitori();
-				dao.setOrderByDescrizione(Fornitori.ORDER_ASC);
-				listFornitori = dao.getElements();
-			} catch (DataAccessException e) {
-				e.printStackTrace();
-			}
-	  	}
-		return listFornitori;
+        if (listFornitori == null) {
+            try {
+                Fornitori dao = new Fornitori();
+                dao.setOrderByDescrizione(Fornitori.ORDER_ASC);
+                listFornitori = dao.getElements();
+            } catch (DataAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return listFornitori;
     }
-  
+
     @SuppressWarnings("unchecked")
     public Collection<Listino> getListListini() {
-	  	if(listListini == null){
-			try {
-				Listini dao = new Listini();
-				dao.setOrderByDescrizione(Listini.ORDER_ASC);
-				listListini = dao.getElements();
-			} catch (DataAccessException e) {
-				e.printStackTrace();
-			}
-	  	}
-		return listListini;
+        if (listListini == null) {
+            try {
+                Listini dao = new Listini();
+                dao.setOrderByDescrizione(Listini.ORDER_ASC);
+                listListini = dao.getElements();
+            } catch (DataAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return listListini;
     }
-  
+
     public int getItemCount() {
         return itemCount;
     }
@@ -192,296 +192,302 @@ public class List extends GenericAction {
     public void setPagina(Integer pagina) {
         this.pagina = pagina;
     }
-  
+
     public Integer getIdAutista() {
         return idAutista;
     }
-  
+
     public void setIdAutista(Integer idAutista) {
         this.idAutista = idAutista;
     }
-  
+
     public void setListAutisti(Collection<Autista> listAutisti) {
         this.listAutori = listAutisti;
     }
-  
+
     public void setListPagamenti(Collection<Pagamento> pagamenti) {
         this.pagamenti = pagamenti;
     }
-  
+
     public Object getId() {
         return this.id;
     }
-  
+
     public void setId(Object id) {
         this.id = id;
     }
-  
+
     public Collection getDatiTabella() {
         return this.datiTabella;
     }
-  
+
     public void setDatiTabella(Collection datiTabella) {
         this.datiTabella = datiTabella;
     }
-  
+
     public Collection getListClienti() {
         if (listClienti == null) {
-			try {
-				Clienti dao = new Clienti();
-				dao.setOrderByDescrizione(Clienti.ORDER_ASC);				
-				listClienti = dao.getElements();
-			} catch (Exception e) {
- 				stampaMessaggio("EditOrdine.getListClienti()", e);
-				return null;
-			}
-		}
-		return listClienti;
-	}
+            try {
+                Clienti dao = new Clienti();
+                dao.setOrderByDescrizione(Clienti.ORDER_ASC);
+                listClienti = dao.getElements();
+            } catch (Exception e) {
+                stampaMessaggio("EditOrdine.getListClienti()", e);
+                return null;
+            }
+        }
+        return listClienti;
+    }
 
-	public void setListClienti(Collection listClienti) {
-		this.listClienti = listClienti;
-	}
-  
-	@SuppressWarnings({ "unchecked" })
-	private Collection getElements(DataAccessObject obj) throws Exception  {
-	    itemCount = obj.getCount();
-	    pageCount = (int)Math.ceil(itemCount / this.LIST_ELEMS) + 1;
-  
-	    if (this.pagina == null) this.pagina = 1;
-	    if (this.pagina <= 0) this.pagina = 1;
-	    if (this.pagina > pageCount) this.pagina = pageCount;
-	    int startRow = (this.pagina - 1) *  this.LIST_ELEMS + 1;
-	    int endRow = startRow + this.LIST_ELEMS;
-	    obj.setPaginazione(startRow, endRow);	    
-	    
+    public void setListClienti(Collection listClienti) {
+        this.listClienti = listClienti;
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    private Collection getElements(DataAccessObject obj) throws Exception {
+        itemCount = obj.getCount();
+        pageCount = (int) Math.ceil(itemCount / this.LIST_ELEMS) + 1;
+
+        if (this.pagina == null)
+            this.pagina = 1;
+        if (this.pagina <= 0)
+            this.pagina = 1;
+        if (this.pagina > pageCount)
+            this.pagina = pageCount;
+        int startRow = (this.pagina - 1) * this.LIST_ELEMS + 1;
+        int endRow = startRow + this.LIST_ELEMS;
+        obj.setPaginazione(startRow, endRow);
+
         Collection collection = obj.getElements();
 
-	    if (currentAction.equalsIgnoreCase("ddtList") || currentAction.equalsIgnoreCase("fattureList")) {
-	        if(this.filterImporto != null && this.filterImporto.length() > 0) {
-	            collection.removeAll(collection);
-	            Collection tmpCollection = obj.getElements();
-	            Iterator tmpItr;
-	            DDT tmpDDT;
-	            Fattura tmpFattura;
-	            BigDecimal tmpImporto;
-	            BigDecimal tmpTotale = BigDecimal.ZERO;
-	            Integer tmpElementInResult = 0;
+        if (currentAction.equalsIgnoreCase("ddtList") || currentAction.equalsIgnoreCase("fattureList")) {
+            if (this.filterImporto != null && this.filterImporto.length() > 0) {
+                collection.removeAll(collection);
+                Collection tmpCollection = obj.getElements();
+                Iterator tmpItr;
+                DDT tmpDDT;
+                Fattura tmpFattura;
+                BigDecimal tmpImporto;
+                BigDecimal tmpTotale = BigDecimal.ZERO;
+                Integer tmpElementInResult = 0;
 
-	            while (tmpElementInResult < this.LIST_ELEMS && startRow < (itemCount - 1)) {
-	                tmpItr = tmpCollection.iterator();
-	                while (tmpItr.hasNext()) {
-	                    tmpImporto = new BigDecimal(filterImporto.replaceAll(",", "."));
-	                    if (currentAction.equalsIgnoreCase("ddtList")) {
-	                        tmpDDT = (DDT)tmpItr.next();
-	                        tmpTotale = tmpDDT.calcolaTotale(); 
-	                    } else if (currentAction.equalsIgnoreCase("fattureList")) {
-	                        tmpFattura = (Fattura)tmpItr.next();
-	                        // tmpFattura.calcolaTotali(); 
-	                        tmpTotale = tmpFattura.getTotaleFattura();
-	                    }
-	                    // if (!tmpTotale.equals(tmpImporto)) // Double.parseDouble(filterImporto))
-	                    if (tmpTotale.doubleValue() != tmpImporto.doubleValue()) // Double.parseDouble(filterImporto))
-	                        tmpItr.remove();
-	                }
-	                tmpElementInResult = tmpElementInResult + tmpCollection.size();
-	                if (tmpElementInResult <= this.LIST_ELEMS) {
-	                    collection.addAll(tmpCollection);
-	                    startRow = endRow;
-	                    endRow = startRow + this.LIST_ELEMS - tmpCollection.size();
-	                    if (endRow >= itemCount)
-	                        endRow = itemCount - 1;
-	                    if (startRow < endRow) {
-	                        obj.setPaginazione(startRow, endRow);
-	                        tmpCollection = obj.getElements();
-	                    }
-	                }
-	            }
-	        }
-	        calcolaTotali(collection);
-	    }
-	    return collection;
-	}
-  
-	private int calcolaTotali(Collection collection) {
-	    int tmpReturn = 1;
-	    totaleAcconto = new BigDecimal(0);
-	    totaleImporto = new BigDecimal(0);
-	    totaleImponibile = new BigDecimal(0);
-	    totaleCosto = new BigDecimal(0);
-	    totaleGuadagno = new BigDecimal(0);
-	    if (currentAction.equalsIgnoreCase("ddtList") && !collection.isEmpty()) {
-	        Iterator tmpItr;
-	        DDT tmpDDT;
-	        // BigDecimal tmpImporto;
-	        // BigDecimal tmpTotale = BigDecimal.ZERO;
-	        // Integer tmpElementInResult = 0;
-	        tmpItr = collection.iterator();
-	        while (tmpItr.hasNext()) {
-	            tmpDDT = (DDT)tmpItr.next();
-	            tmpDDT.calcolaTotale();
-	            totaleAcconto = totaleAcconto.add(tmpDDT.getAcconto()); 
-	            totaleImponibile = totaleImponibile.add(tmpDDT.getTotaleImponibile());
-	            totaleImporto = totaleImporto.add(tmpDDT.getTotaleImponibile()).add(tmpDDT.getTotaleImposta());
-	            totaleCosto = totaleCosto.add(tmpDDT.getTotaleCosto());
-	            totaleGuadagno = totaleGuadagno.add(tmpDDT.getGuadagno());
-	        }
-	        tmpReturn = 0;
-	    } else
-	        tmpReturn = 0;
-	    return tmpReturn;
-	}
-  
-	
-  
-	public String getFilterKey() {
-	    return this.filterKey;
-	}
-  
-	public void setFilterKey(String filterKey) {
-	    this.filterKey = filterKey;
-	}
+                while (tmpElementInResult < this.LIST_ELEMS && startRow < (itemCount - 1)) {
+                    tmpItr = tmpCollection.iterator();
+                    while (tmpItr.hasNext()) {
+                        tmpImporto = new BigDecimal(filterImporto.replaceAll(",", "."));
+                        if (currentAction.equalsIgnoreCase("ddtList")) {
+                            tmpDDT = (DDT) tmpItr.next();
+                            tmpTotale = tmpDDT.calcolaTotale();
+                        } else if (currentAction.equalsIgnoreCase("fattureList")) {
+                            tmpFattura = (Fattura) tmpItr.next();
+                            // tmpFattura.calcolaTotali();
+                            tmpTotale = tmpFattura.getTotaleFattura();
+                        }
+                        // if (!tmpTotale.equals(tmpImporto)) // Double.parseDouble(filterImporto))
+                        if (tmpTotale.doubleValue() != tmpImporto.doubleValue()) // Double.parseDouble(filterImporto))
+                            tmpItr.remove();
+                    }
+                    tmpElementInResult = tmpElementInResult + tmpCollection.size();
+                    if (tmpElementInResult <= this.LIST_ELEMS) {
+                        collection.addAll(tmpCollection);
+                        startRow = endRow;
+                        endRow = startRow + this.LIST_ELEMS - tmpCollection.size();
+                        if (endRow >= itemCount)
+                            endRow = itemCount - 1;
+                        if (startRow < endRow) {
+                            obj.setPaginazione(startRow, endRow);
+                            tmpCollection = obj.getElements();
+                        }
+                    }
+                }
+            }
+            calcolaTotali(collection);
+        }
+        return collection;
+    }
 
-	public Date getFilterDataDa() {
-	    return filterDataDa;
-	}
+    private int calcolaTotali(Collection collection) {
+        int tmpReturn = 1;
+        totaleAcconto = new BigDecimal(0);
+        totaleImporto = new BigDecimal(0);
+        totaleImponibile = new BigDecimal(0);
+        totaleCosto = new BigDecimal(0);
+        totaleGuadagno = new BigDecimal(0);
+        if (currentAction.equalsIgnoreCase("ddtList") && !collection.isEmpty()) {
+            Iterator tmpItr;
+            DDT tmpDDT;
+            // BigDecimal tmpImporto;
+            // BigDecimal tmpTotale = BigDecimal.ZERO;
+            // Integer tmpElementInResult = 0;
+            tmpItr = collection.iterator();
+            while (tmpItr.hasNext()) {
+                tmpDDT = (DDT) tmpItr.next();
+                tmpDDT.calcolaTotale();
+                totaleAcconto = totaleAcconto.add(tmpDDT.getAcconto());
+                totaleImponibile = totaleImponibile.add(tmpDDT.getTotaleImponibile());
+                totaleImporto = totaleImporto.add(tmpDDT.getTotaleImponibile()).add(tmpDDT.getTotaleImposta());
+                totaleCosto = totaleCosto.add(tmpDDT.getTotaleCosto());
+                totaleGuadagno = totaleGuadagno.add(tmpDDT.getGuadagno());
+            }
+            tmpReturn = 0;
+        } else
+            tmpReturn = 0;
+        return tmpReturn;
+    }
 
-	public Boolean getWarning() {
-	    return warning;
-	}
-  
-	public void setWarning(Boolean warning) {
-	    this.warning = warning;
-	}
-  
-	public void setFilterDataDa(Date filterDataDa) {
-	    this.filterDataDa = filterDataDa;
-	}
+    public String getFilterKey() {
+        return this.filterKey;
+    }
 
-	public Date getFilterDataA() {
-	    return filterDataA;
-	}
+    public void setFilterKey(String filterKey) {
+        this.filterKey = filterKey;
+    }
 
-	public void setFilterDataA(Date filterDataA) {
-	    this.filterDataA = filterDataA;
-	}
+    public Date getFilterDataDa() {
+        return filterDataDa;
+    }
 
-	public String getFilterPagamento() {
-	    return filterPagamento;
-	}
+    public Boolean getWarning() {
+        return warning;
+    }
 
-	public void setFilterPagamento(String filterPagamento) {
-	    this.filterPagamento = filterPagamento;
-	}
+    public void setWarning(Boolean warning) {
+        this.warning = warning;
+    }
 
-	public String getFilterStato() {
-	    return filterStato;
-	}
+    public void setFilterDataDa(Date filterDataDa) {
+        this.filterDataDa = filterDataDa;
+    }
 
-	public void setFilterStato(String filterStato) {
-	    this.filterStato = filterStato;
-	}
+    public Date getFilterDataA() {
+        return filterDataA;
+    }
 
-	public int getPageCount() {
-	    return pageCount;
-	}
+    public void setFilterDataA(Date filterDataA) {
+        this.filterDataA = filterDataA;
+    }
 
-	public void setPageCount(int pageCount) {
-	    this.pageCount = pageCount;
-	}
+    public String getFilterPagamento() {
+        return filterPagamento;
+    }
+
+    public void setFilterPagamento(String filterPagamento) {
+        this.filterPagamento = filterPagamento;
+    }
+
+    public String getFilterStato() {
+        return filterStato;
+    }
+
+    public void setFilterStato(String filterStato) {
+        this.filterStato = filterStato;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
 
     /**
      * @return the totaleAcconto
      */
     public BigDecimal getTotaleAcconto() {
-    	return totaleAcconto;
+        return totaleAcconto;
     }
 
     /**
-     * @param totaleAcconto the totaleAcconto to set
+     * @param totaleAcconto
+     *            the totaleAcconto to set
      */
     public void setTotaleAcconto(BigDecimal totaleAcconto) {
-    	this.totaleAcconto = totaleAcconto;
+        this.totaleAcconto = totaleAcconto;
     }
 
     /**
      * @return the totaleImporto
      */
     public BigDecimal getTotaleImporto() {
-    	return totaleImporto;
+        return totaleImporto;
     }
 
     /**
-     * @param totaleImporto the totaleImporto to set
+     * @param totaleImporto
+     *            the totaleImporto to set
      */
     public void setTotaleImporto(BigDecimal totaleImporto) {
-    	this.totaleImporto = totaleImporto;
+        this.totaleImporto = totaleImporto;
     }
 
     /**
      * @return the totaleImponibile
      */
     public BigDecimal getTotaleImponibile() {
-    	return totaleImponibile;
+        return totaleImponibile;
     }
 
     /**
-     * @param totaleImponibile the totaleImponibile to set
+     * @param totaleImponibile
+     *            the totaleImponibile to set
      */
     public void setTotaleImponibile(BigDecimal totaleImponibile) {
-    	this.totaleImponibile = totaleImponibile;
+        this.totaleImponibile = totaleImponibile;
     }
 
     /**
      * @return the totaleCosto
      */
     public BigDecimal getTotaleCosto() {
-    	return totaleCosto;
+        return totaleCosto;
     }
 
     /**
-     * @param totaleCosto the totaleCosto to set
+     * @param totaleCosto
+     *            the totaleCosto to set
      */
     public void setTotaleCosto(BigDecimal totaleCosto) {
-    	this.totaleCosto = totaleCosto;
+        this.totaleCosto = totaleCosto;
     }
 
     /**
      * @return the totaleGuadagno
      */
     public BigDecimal getTotaleGuadagno() {
-    	return totaleGuadagno;
+        return totaleGuadagno;
     }
 
     /**
-     * @param totaleGuadagno the totaleGuadagno to set
+     * @param totaleGuadagno
+     *            the totaleGuadagno to set
      */
     public void setTotaleGuadagno(BigDecimal totaleGuadagno) {
-    	this.totaleGuadagno = totaleGuadagno;
+        this.totaleGuadagno = totaleGuadagno;
     }
-    
+
     public Integer getFilterCliente() {
-    	return filterCliente;
+        return filterCliente;
     }
 
     public void setFilterCliente(Integer filterCliente) {
-    	this.filterCliente = filterCliente;
+        this.filterCliente = filterCliente;
     }
 
     public Integer getFilterListino() {
-    	return filterListino;
+        return filterListino;
     }
 
     public void setFilterListino(Integer filterListino) {
-    	this.filterListino = filterListino;
+        this.filterListino = filterListino;
     }
 
     public Integer getFilterFornitore() {
-    	return filterFornitore;
+        return filterFornitore;
     }
 
     public void setFilterFornitore(Integer filterFornitore) {
-    	this.filterFornitore = filterFornitore;
+        this.filterFornitore = filterFornitore;
     }
 
     public String getFilterStatoOrdini() {
@@ -506,44 +512,45 @@ public class List extends GenericAction {
 
     public void setDeleteOrdini(Collection<?> deleteOrdini) {
         this.deleteOrdini = deleteOrdini;
-    }    
-    
+    }
+
+    @Override
     public String execute() throws Exception {
         currentAction = ActionContext.getContext().getName();
         Collection collection_obj = null;
         DataAccessObject obj = null;
-    
+
         try {
-            if (currentAction.equalsIgnoreCase("fornitoriList")){
+            if (currentAction.equalsIgnoreCase("fornitoriList")) {
                 obj = new Fornitori();
             }
             if (currentAction.equalsIgnoreCase("articoliList")) {
                 obj = new Articoli();
-                ((Articoli)obj).setOrderByDescrizione(DataAccessObject.ORDER_ASC);
+                ((Articoli) obj).setOrderByDescrizione(DataAccessObject.ORDER_ASC);
             }
             if (currentAction.equalsIgnoreCase("clientiList")) {
                 obj = new Clienti();
-                //((Clienti)obj).setOrderByDescrizione(Clienti.ORDER_ASC);
-                if(filterFornitore != null || filterListino != null)            
-                    ((Clienti)obj).setFilterByListino(filterFornitore, filterListino);
+                // ((Clienti)obj).setOrderByDescrizione(Clienti.ORDER_ASC);
+                if (filterFornitore != null || filterListino != null)
+                    ((Clienti) obj).setFilterByListino(filterFornitore, filterListino);
             }
             if (currentAction.equalsIgnoreCase("noteAccreditoList")) {
                 obj = new NoteAccredito();
-                ((NoteAccredito)obj).setFilterDataDa(this.getFilterDataDa());
-                ((NoteAccredito)obj).setFilterDataA(this.getFilterDataA());
-                ((NoteAccredito)obj).setFilterStato(this.getFilterStato());
-                ((NoteAccredito)obj).setFilterPagamento(this.getFilterPagamento());
-                ((NoteAccredito)obj).setFilterArticolo(this.getFilterArticolo());
+                ((NoteAccredito) obj).setFilterDataDa(this.getFilterDataDa());
+                ((NoteAccredito) obj).setFilterDataA(this.getFilterDataA());
+                ((NoteAccredito) obj).setFilterStato(this.getFilterStato());
+                ((NoteAccredito) obj).setFilterPagamento(this.getFilterPagamento());
+                ((NoteAccredito) obj).setFilterArticolo(this.getFilterArticolo());
             }
             if (currentAction.equalsIgnoreCase("ddtList")) {
                 obj = new DDTs();
-                ((DDTs)obj).setFilterDataDa(this.getFilterDataDa());
-                ((DDTs)obj).setFilterDataA(this.getFilterDataA());
-                ((DDTs)obj).setFilterStato(this.getFilterStato());
-                ((DDTs)obj).setFilterPagamento(this.getFilterPagamento());
-                ((DDTs)obj).setFilterArticolo(this.getFilterArticolo());
-                ((DDTs)obj).setFilterAutista(this.getFilterAutista());
-                ((DDTs)obj).setFilterImporto(this.getFilterImporto());
+                ((DDTs) obj).setFilterDataDa(this.getFilterDataDa());
+                ((DDTs) obj).setFilterDataA(this.getFilterDataA());
+                ((DDTs) obj).setFilterStato(this.getFilterStato());
+                ((DDTs) obj).setFilterPagamento(this.getFilterPagamento());
+                ((DDTs) obj).setFilterArticolo(this.getFilterArticolo());
+                ((DDTs) obj).setFilterAutista(this.getFilterAutista());
+                ((DDTs) obj).setFilterImporto(this.getFilterImporto());
             }
             if (currentAction.equalsIgnoreCase("pagamentiList")) {
                 obj = new Pagamenti();
@@ -553,20 +560,20 @@ public class List extends GenericAction {
             }
             if (currentAction.equalsIgnoreCase("fattureList")) {
                 obj = new Fatture();
-                ((Fatture)obj).setFilterDataDa(this.getFilterDataDa());
-                ((Fatture)obj).setFilterDataA(this.getFilterDataA());
-                ((Fatture)obj).setFilterStato(this.getFilterStato());
-                ((Fatture)obj).setFilterPagamento(this.getFilterPagamento());
-                ((Fatture)obj).setFilterArticolo(this.getFilterArticolo());
-                ((Fatture)obj).setFilterImporto(this.getFilterImporto());
+                ((Fatture) obj).setFilterDataDa(this.getFilterDataDa());
+                ((Fatture) obj).setFilterDataA(this.getFilterDataA());
+                ((Fatture) obj).setFilterStato(this.getFilterStato());
+                ((Fatture) obj).setFilterPagamento(this.getFilterPagamento());
+                ((Fatture) obj).setFilterArticolo(this.getFilterArticolo());
+                ((Fatture) obj).setFilterImporto(this.getFilterImporto());
             }
             if (currentAction.equalsIgnoreCase("pagamentiEseguitiList")) {
                 obj = new PagamentiEseguiti();
-                ((PagamentiEseguiti)obj).setFilterDataDa(this.getFilterDataDa());
-                ((PagamentiEseguiti)obj).setFilterDataA(this.getFilterDataA());
-                ((PagamentiEseguiti)obj).setFilterPagamento(this.getFilterPagamento());
-                ((PagamentiEseguiti)obj).setPagamenti();
-            } 
+                ((PagamentiEseguiti) obj).setFilterDataDa(this.getFilterDataDa());
+                ((PagamentiEseguiti) obj).setFilterDataA(this.getFilterDataA());
+                ((PagamentiEseguiti) obj).setFilterPagamento(this.getFilterPagamento());
+                ((PagamentiEseguiti) obj).setPagamenti();
+            }
             if (currentAction.equalsIgnoreCase("giacenzeList")) {
                 obj = new Giacenze();
             }
@@ -575,10 +582,10 @@ public class List extends GenericAction {
             }
             if (currentAction.equalsIgnoreCase("ordiniList")) {
                 obj = new Ordini();
-                ((Ordini)obj).setStato(filterStatoOrdini);
-                ((Ordini)obj).setWarning(warning);
-                if(getFilterCliente() != null)
-                    ((Ordini)obj).setIdCliente(getFilterCliente());                    
+                ((Ordini) obj).setStato(filterStatoOrdini);
+                ((Ordini) obj).setWarning(warning);
+                if (getFilterCliente() != null)
+                    ((Ordini) obj).setIdCliente(getFilterCliente());
             }
             if (currentAction.equalsIgnoreCase("ordiniAutistaList")) {
                 obj = new Ordini();
@@ -607,39 +614,25 @@ public class List extends GenericAction {
             if (this.filterKey != null) {
                 obj.setFilterKey(this.filterKey);
             }
-            if(collection_obj == null){
+            if (collection_obj == null) {
                 collection_obj = getElements(obj);
             }
-      
-      /*
-      if(this.warning)
-      {
-        if (obj instanceof Ordini) 
-        {   
-              Collection status_1 = new ArrayList();
-              
-              Iterator its = collection_obj.iterator();
-              while(its.hasNext())
-              {
-                  Ordine ord = (Ordine)its.next();
-                  if(ord.getStato() == 1)
-                  {
-                      status_1.add(ord);
-                  }
-                
-              }
-            collection_obj = status_1;
-        }
-      } 
-      *** */ 
-      
+
+            /*
+             * if(this.warning) { if (obj instanceof Ordini) { Collection status_1 = new ArrayList();
+             * 
+             * Iterator its = collection_obj.iterator(); while(its.hasNext()) { Ordine ord = (Ordine)its.next(); if(ord.getStato() ==
+             * 1) { status_1.add(ord); }
+             * 
+             * } collection_obj = status_1; } }
+             */
+
             setDatiTabella(collection_obj);
-        }catch (Exception e){
+        } catch (Exception e) {
             stampaErrore("List.execute()", e);
             return "error";
         }
         return "success";
     }
 
-    
 }
