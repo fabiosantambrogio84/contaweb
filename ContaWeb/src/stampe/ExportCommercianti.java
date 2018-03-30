@@ -3,6 +3,8 @@ package stampe;
 import java.util.Collection;
 import java.util.Date;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
+
 import dao.Fatture;
 import formatters.CommerciantiParser;
 import web.GenericAction;
@@ -57,7 +59,7 @@ public class ExportCommercianti extends GenericAction {
                 textResponse = parser.creaCsv(fatture);
             } catch (Exception e) {
                 // TODO: handle exception
-                textResponse = "Messaggio di errore - " + e.getMessage();
+                textResponse = "Messaggio di errore - " + e.getMessage() + "\n" + ExceptionUtils.getStackTrace(e);
                 return "success";
             }
         } else {

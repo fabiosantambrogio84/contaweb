@@ -13,11 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.log4j.Logger;
+
 import utils.CSVUtils;
 import vo.Cliente;
 import vo.Fattura;
 
 public class CommerciantiParser implements ConadParser {
+
+    private static final Logger logger = Logger.getLogger(CommerciantiParser.class);
 
     private static final String[] CSV_FATTURE_HEADERS = new String[] { "CFIS-DITTA", "REGISTRO", "MESE", "IDPAESE", "PARTITA-IVA",
             "CFIS-CLIFOR", "DENOMINAZIONE", "COGNOME", "NOME", "TIPO-DOCUMENTO", "DATA-FATTURA(GGMMAAAA)", "NUM-FATTURA", "DATA-REG",
@@ -118,10 +122,14 @@ public class CommerciantiParser implements ConadParser {
     }
 
     public String creaCsv(Collection<?> listaFatture) throws Exception {
+        logger.info("Creazione file csv fatture...");
+
         List<String> rows = new ArrayList<>();
 
         /* aggiungo la riga degli headers */
         rows.add(CSVUtils.writeLine(Arrays.asList(CSV_FATTURE_HEADERS)));
+
+        logger.info("Aggiunta riga headers");
 
         /* pattern date */
         sdf.applyPattern(DEFAULT_DATE_PATTERN);
@@ -129,6 +137,10 @@ public class CommerciantiParser implements ConadParser {
         /* pattern decimali */
         df = new DecimalFormat(DEFAULT_DECIMAL_PATTERN);
         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ITALY));
+
+        logger.info("Creati i formatter per le date e i decimali");
+
+        logger.info("Fatture da inserire: " + listaFatture.size());
 
         /* itera su ogni fattura */
         for (Object fatt : listaFatture) {
@@ -288,6 +300,7 @@ public class CommerciantiParser implements ConadParser {
                 rows.add(CSVUtils.writeLine(values));
             }
         }
+        logger.info("File csv fatture creato con successo");
         return CSVUtils.writeToString(rows);
     }
 
