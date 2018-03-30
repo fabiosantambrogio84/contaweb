@@ -240,6 +240,9 @@
 	<field-descriptor name="formatoConad" column="formatoConad" jdbc-type="INTEGER"/>
 	<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER" />
 	<field-descriptor name="idAgente" column="idAgente" jdbc-type="INTEGER" />
+	<field-descriptor name="dittaIndividuale" column="ditta_individuale" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="nome" column="nome" jdbc-type="VARCHAR"/>
+	<field-descriptor name="cognome" column="cognome" jdbc-type="VARCHAR"/>
 	<reference-descriptor name="pagamento" class-ref="vo.Pagamento" auto-retrieve="true">
 		<foreignkey field-ref="idPagamento"/>
 		</reference-descriptor>
