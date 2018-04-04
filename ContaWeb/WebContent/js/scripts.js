@@ -1641,9 +1641,13 @@ function confirmDelete(entity) {
 }
 
 // Popup di conferma stampe (20/02/2018)
-function confirmStampe() {
-	var message = "Al termine dell'operazione verra' inviata un'email di riepilogo a info@urbanialimentari.com.\nConfermi?";
-	return confirm(message);
+function confirmStampe(buttonPressed) {
+	if(buttonPressed != undefined){
+		if(buttonPressed == "Spedizione Fatture PEC" || buttonPressed == "Spedizione Fatture MAIL"){
+			var message = "Al termine dell'operazione verra' inviata un'email di riepilogo a info@urbanialimentari.com.\nConfermi?";
+			return confirm(message);
+		}
+	}
 }
 
 // Funzione per abilitare/disabilitare campi nella creazione/modifica di un cliente
