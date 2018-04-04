@@ -5,13 +5,13 @@
 
 <h4>Fatture:</h4>
 <div class="formContainerNoFloat">
-	<s:form validate="true" action="printListaFatture" method="post" onsubmit="return confirmStampe();">
+	<s:form validate="true" action="printListaFatture" method="post" onsubmit="return confirmStampe(buttonPressed);">
 		<s:textfield required="true" label="Data Dal" labelposition="left" name="dataDal" size="12" cssClass="testo"/>
 		<s:textfield required="true" label="Data Al" labelposition="left" name="dataAl" size="12" cssClass="testo"/>
 		<s:submit value="Stampa Fatture" cssClass="button"/>
 		<s:submit name="action:printListaFattureNoMailNoPEC" value="Stampa Fatture no MAIL e no PEC" cssClass="button"/>
-		<s:submit name="action:printListaFatturePEC" value="Spedizione Fatture PEC" cssClass="button"/>
-		<s:submit name="action:printListaFattureMail" value="Spedizione Fatture MAIL" cssClass="button"/>
+		<s:submit name="action:printListaFatturePEC" value="Spedizione Fatture PEC" cssClass="button" onclick="buttonPressed=this.value"/>
+		<s:submit name="action:printListaFattureMail" value="Spedizione Fatture MAIL" cssClass="button" onclick="buttonPressed=this.value"/>
 		<s:submit name="action:printRiepilogoFatture" value="Stampa Riepilogo Fatture" cssClass="button"/>
 		<s:submit name="action:printRiepilogoFattureNP" value="Stampa Riepilogo Fatture Non Pagate" cssClass="button"/>
 		<s:submit name="action:printRiepilogoFattureCC" value="Stampa Riepilogo Fatture per Commercianti" cssClass="button"/>		
