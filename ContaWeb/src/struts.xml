@@ -901,6 +901,8 @@
 		</action>
 		
 		<action name="printRiepilogoFattureCC" method="printRiepilogoFattureCC" class="stampe.PrintFatture">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.errorList</result>
 <!-- 			<result type="tiles" name="input">.stampeList</result> -->
 <!-- 			<result name="success" type="jasper"> -->
 <!-- 				<param name="location">/stampe/RiepilogoFattureCC.jasper</param> -->
@@ -908,8 +910,6 @@
 <!-- 				<param name="format">PDF</param> -->
 <!-- 				<param name="parse">true</param> -->
 <!-- 			</result> -->
-			<result name="success" type="pdf"/>
-			<result name="error" type="tiles">.errorList</result>
 		</action>
 
 		<action name="stampeList_*" method="{1}" class="web.Stampe">
