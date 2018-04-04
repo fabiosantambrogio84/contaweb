@@ -47,7 +47,7 @@ public class CommerciantiParser implements ConadParser {
 
     private SimpleDateFormat sdf = new SimpleDateFormat();
 
-    private DecimalFormat df = new DecimalFormat();
+    private DecimalFormat df = new DecimalFormat(DEFAULT_DECIMAL_PATTERN);
 
     @SuppressWarnings("deprecation")
     @Override
@@ -135,7 +135,6 @@ public class CommerciantiParser implements ConadParser {
         sdf.applyPattern(DEFAULT_DATE_PATTERN);
 
         /* pattern decimali */
-        df = new DecimalFormat(DEFAULT_DECIMAL_PATTERN);
         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ITALY));
 
         logger.info("Creati i formatter per le date e i decimali");
@@ -176,7 +175,7 @@ public class CommerciantiParser implements ConadParser {
                 values.add(clientePartitaIva);
 
                 /* aggiungo CFIS-CLIFOR */
-                if (clientePartitaIva != null && clientePartitaIva != "") {
+                if (!cliente.isDittaIndividuale()) {
                     values.add(clientePartitaIva);
                 } else {
                     values.add(clienteCodiceFiscale);
