@@ -47,7 +47,7 @@ public class CommerciantiParser implements ConadParser {
 
     private SimpleDateFormat sdf = new SimpleDateFormat();
 
-    private DecimalFormat df = new DecimalFormat(DEFAULT_DECIMAL_PATTERN);
+    private DecimalFormat df = new DecimalFormat();
 
     @SuppressWarnings("deprecation")
     @Override
@@ -136,6 +136,7 @@ public class CommerciantiParser implements ConadParser {
 
         /* pattern decimali */
         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ITALY));
+        df.applyPattern(DEFAULT_DECIMAL_PATTERN);
 
         logger.info("Creati i formatter per le date e i decimali");
 
