@@ -41,7 +41,7 @@ public class CommerciantiParser implements ConadParser {
 
     private static final String ID_PAESE = "IT";
 
-    private static final String TIPO_DOCUMENTO = "TD01 Fattura";
+    private static final String TIPO_DOCUMENTO = "TD01";
 
     private static final String ESIGIBILITA_IMMEDIATA = "I";
 
