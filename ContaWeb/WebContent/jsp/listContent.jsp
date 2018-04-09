@@ -131,7 +131,7 @@
 		</s:url>	
 
 		<% if (!editAction.equals("ordiniEdit")) { %>
-			<% if (onModal != null) { %>
+			<% if (onModal != null && !onModal.equals("False")) { %>
 				<s:a onclick="openModal('0');" accesskey="N" href="javascript:void(0)" cssClass="link">
 					<tiles:getAsString name="newActionCaption"/>
 				</s:a>
