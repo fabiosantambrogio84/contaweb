@@ -81,11 +81,14 @@
 		<% } %>
 		 
 		<% if (editAction.equals("ordiniEdit")) { %>
-		 	<s:form method="post" id="frmDeleteOrdini" theme="simple" action="ordiniEdit_deleteAll.do" onsubmit="return confirmDelete('ordiniClienti')">
+		 	<s:form method="post" id="frmDeleteOrdini" theme="simple" action="${editAction}_deleteAll.do" onsubmit="return confirmDelete('ordiniClienti')">
 				<s:select id="idDeleteOrdiniSelect" labelposition="left" label="Stato ordine"
 					list="deleteOrdini" emptyOption="false" name="filterDeleteOrdini"/>
 				<button class="link" value="Cancella">Cancella</button>
 				<% if (newActionCaption != null) { %>
+					<s:url id="newAction" action="${editAction}_input">	
+						<s:param name="action">insert</s:param>
+					</s:url>
 					<s:a onclick="<%=newWindowScript %>" accesskey="N" href="%{newAction}" cssClass="link">
 						<tiles:getAsString name="newActionCaption"/>
 					</s:a>
@@ -317,11 +320,11 @@
 					<s:if test="statoOrdine == 0">
 						<% trOrdiniClientClass="ordiniClientiDaEvadere"; %>
 					</s:if>
-					<s:elseif test="statoOrdine == 1">
+					<s:elseif test="statoOrdine == 2">
 					    <% trOrdiniClientClass="ordiniClientiParzEvaso"; %>
 					</s:elseif>
 					<s:else>
-					    <% trOrdiniClientClass="ordiniClientiDaEvadere"; %>
+					    <% trOrdiniClientClass="ordiniClientiEvaso"; %>
 					</s:else>
 					<%-- 
 					<s:property value="statoOrdine"/>
@@ -443,14 +446,20 @@
 						<% } %>					
 						<!-- FINE AZIONE PEC -->
 					
-						<% if (editButtons == null  || editButtons.equals("true")) { %>
+						<% if (editButtons == null || editButtons.equals("true")) { %>
+							<% if (editAction.equals("clientiEdit")) { %>
+								<s:url id="deleteURL" action="${editAction}_input" includeParams="none">
+									<s:param name="action">delete</s:param>
+								</s:url>
+							<% } else {%>
 							<s:url id="deleteURL" action="${editAction}" includeParams="none">
 								<s:param name="action">delete</s:param>
-							</s:url>
-						
+							</s:url>	
+							<% } %>
+								
 							<% if (editAction.equals("editDDT")) { %>
 								<s:a theme="ajax" onclick="return confermaCancellazioneDDT('%{id}','%{deleteURL}')" href="#" cssClass="link">Canc.</s:a>
-							<% } else { %> 
+							<% }  else { %> 
 								<s:a theme="ajax" onclick="return confermaCancellazione('%{id}','%{deleteURL}')" href="#" cssClass="link">Canc.</s:a>
 							<% }  %> 
 						<% } %>

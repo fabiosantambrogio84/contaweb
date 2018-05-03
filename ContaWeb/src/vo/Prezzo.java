@@ -1,60 +1,69 @@
 package vo;
 
-import java.math.*;
+import java.math.BigDecimal;
 
 public class Prezzo extends VOElement {
 
-	private static final long serialVersionUID = 5646650467816979084L;
+    private static final long serialVersionUID = 5646650467816979084L;
 
-	private Articolo articolo;
-	private Listino listino;
-	
-	private Integer idArticolo;
-	private int idListino;
-	
-	private BigDecimal prezzo;
-	
-	public Articolo getArticolo() {
-		return articolo;
-	}
-	
-	public int getIdListino() {
-		return idListino;
-	}
-	
-	public Integer getIdArticolo() {
-		return idArticolo;
-	}
-	
-	public void setIdListino(int idListino) {
-		this.idListino = idListino;
-	}
-	
-	public void setIdArticolo(Integer idArticolo) {
-		this.idArticolo = idArticolo;
-	}
+    private Articolo articolo;
 
-	public void setArticolo(Articolo articolo) {
-		this.articolo = articolo;
-		if (articolo != null)
-			this.idArticolo = articolo.getId();
-	}
+    private Listino listino;
 
-	public Listino getListino() {
-		return listino;
-	}
+    private Integer idArticolo;
 
-	public void setListino(Listino listino) {
-		this.listino = listino;
-		if (listino != null)
-			this.idListino = (Integer)listino.getId();
-	}
+    private int idListino;
 
-	public BigDecimal getPrezzo() {
-		return prezzo;
-	}
+    private BigDecimal prezzo;
 
-	public void setPrezzo(BigDecimal prezzo) {
-		this.prezzo = prezzo;
-	}
+    public Articolo getArticolo() {
+        return articolo;
+    }
+
+    public int getIdListino() {
+        return idListino;
+    }
+
+    public Integer getIdArticolo() {
+        return idArticolo;
+    }
+
+    public void setIdListino(int idListino) {
+        this.idListino = idListino;
+    }
+
+    public void setIdArticolo(Integer idArticolo) {
+        this.idArticolo = idArticolo;
+    }
+
+    public void setArticolo(Articolo articolo) {
+        this.articolo = articolo;
+        if (articolo != null)
+            this.idArticolo = articolo.getId();
+    }
+
+    public Listino getListino() {
+        return listino;
+    }
+
+    public void setListino(Listino listino) {
+        this.listino = listino;
+        if (listino != null)
+            this.idListino = listino.getId();
+    }
+
+    public BigDecimal getPrezzo() {
+        return prezzo;
+    }
+
+    public void setPrezzo(BigDecimal prezzo) {
+        this.prezzo = prezzo;
+    }
+
+    @Override
+    public String toString() {
+        String result = "[idArticolo:%s,idListino:%s,prezzo:%s]";
+        result = String.format(result, idArticolo, idListino, prezzo);
+        return result;
+    }
 }

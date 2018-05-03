@@ -354,20 +354,23 @@
 	<put-attribute name="newActionCaption" value="Nuovo Listino"/>
 	<put-attribute name="editAction" value="listinoEdit"/>
 	<put-attribute name="printAction" value="printListino"/>
-	<put-attribute name="pagDownAction" value="lisitiniList"/>
-	<put-attribute name="pagUpAction" value="lisitiniList"/>
+	<put-attribute name="pagDownAction" value="listiniList"/>
+	<put-attribute name="pagUpAction" value="listiniList"/>
 	<put-attribute name="trova" value="false"/>
 	<put-list-attribute name="headersList">
 		<add-attribute>Id</add-attribute>
-		<add-attribute>Nome</add-attribute>		
+		<add-attribute>Nome</add-attribute>
+		<add-attribute>Riferimento prezzi</add-attribute>		
 	</put-list-attribute>
 	<put-list-attribute name="columnsWidth">
-		<add-attribute>50</add-attribute>
-		<add-attribute>150</add-attribute>		
+		<add-attribute>10</add-attribute>
+		<add-attribute>80</add-attribute>
+		<add-attribute>80</add-attribute>		
 	</put-list-attribute>
 	<put-list-attribute name="columnsElements">
 		<add-attribute>id</add-attribute>
 		<add-attribute>descrizione</add-attribute>
+		<add-attribute>listinoRef.descrizione</add-attribute>
 	</put-list-attribute>	
 </definition>
 

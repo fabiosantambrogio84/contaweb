@@ -79,6 +79,10 @@
 <class-descriptor class="vo.Listino" table="listini">
 	<field-descriptor name="id" column="idListino" jdbc-type="INTEGER" primarykey="true"/>
 	<field-descriptor name="descrizione" column="descrizione" jdbc-type="VARCHAR"/>
+	<field-descriptor name="idListinoRef" column="idListinoRef" jdbc-type="INTEGER"/>
+	<reference-descriptor name="listinoRef" class-ref="vo.Listino" auto-retrieve="true">
+		<foreignkey field-ref="idListinoRef" />
+	</reference-descriptor>
 </class-descriptor>
 
 <!-- OGGETTO IVA -->
@@ -279,9 +283,8 @@
 	<class-descriptor class="vo.Telefonata" table="telefonate">
 	<field-descriptor name="id" column="idTelefonata" jdbc-type="INTEGER" primarykey="true" access="readonly" autoincrement="true"/>
 	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
-		<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER"/>
+	<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER"/>
 	<field-descriptor name="idPuntoConsegna" column="idPuntoConsegna" jdbc-type="INTEGER"/>
-
 	<field-descriptor name="prefissoTelefono1" column="prefissoTelefono1" jdbc-type="INTEGER"/>
 	<field-descriptor name="numeroTelefono1" column="numeroTelefono1" jdbc-type="VARCHAR"/>
 	<field-descriptor name="prefissoTelefono2" column="prefissoTelefono2" jdbc-type="INTEGER"/>
@@ -292,7 +295,6 @@
 	<field-descriptor name="orario" column="orario" jdbc-type="INTEGER"/>
 	<field-descriptor name="eseguita" column="eseguita" jdbc-type="BOOLEAN"/>
 	<field-descriptor name="note" column="note" jdbc-type="LONGVARCHAR"/>
-
 	<reference-descriptor name="puntoConsegna" class-ref="vo.PuntoConsegna" auto-retrieve="true">
 		<foreignkey field-ref="idPuntoConsegna"/>
 	</reference-descriptor>
