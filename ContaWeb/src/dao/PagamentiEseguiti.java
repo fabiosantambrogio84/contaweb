@@ -21,6 +21,8 @@ import vo.PagamentoEseguito;
 
 public class PagamentiEseguiti extends DataAccessObject {
 
+    private static final long serialVersionUID = 2006834321938329478L;
+
     protected Date filterDataDa = null;
     protected Date filterDataA = null;
     protected String filterPagamento = null;

@@ -1651,10 +1651,10 @@ function confirmStampe(buttonPressed) {
 }
 
 // Funzione per abilitare/disabilitare campi nella creazione/modifica di un cliente
-function enableClientiDittaIndividuale(){
-	var cb = document.getElementById('clienteDittaIndividuale');
-    if(cb != undefined){
-      if(!cb.checked){
+function enableClienti(){
+	var cbDittaIndividuale = document.getElementById('clienteDittaIndividuale');
+    if(cbDittaIndividuale != undefined){
+      if(!cbDittaIndividuale.checked){
         document.getElementById('clienteNome').disabled = true;
         document.getElementById('clienteNome').readOnly = true;
         document.getElementById('clienteCognome').disabled = true;
@@ -1666,9 +1666,19 @@ function enableClientiDittaIndividuale(){
         document.getElementById('clienteCognome').readOnly = false;
       }
     }
+    var cbRaggruppaRiBa = document.getElementById('clienteRaggruppaRiba');
+    if(cbRaggruppaRiBa != undefined){
+    	if(!cbRaggruppaRiBa.checked){
+            document.getElementById('clienteNomeRaggruppamentoRiBa').disabled = true;
+            document.getElementById('clienteNomeRaggruppamentoRiBa').readOnly = true;
+          }else{
+            document.getElementById('clienteNomeRaggruppamentoRiBa').disabled = false;
+            document.getElementById('clienteNomeRaggruppamentoRiBa').readOnly = false;
+          }
+    }
 }
 
 // Funzione caricata al load del body
 function onBodyLoad(){
-	enableClientiDittaIndividuale();
+	enableClienti();
 }

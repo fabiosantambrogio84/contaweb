@@ -13,8 +13,12 @@ import vo.ListinoAssociato;
 
 public class Clienti extends DataAccessObject {
 
+    private static final long serialVersionUID = -6807714934563818898L;
+
     private boolean filterByListino = false;
+
     private Integer idFornitore;
+
     private Integer idListino;
 
     @Override
@@ -92,7 +96,7 @@ public class Clienti extends DataAccessObject {
         criteria.addAndCriteria(eqZero);
     }
 
-    public Collection getFiltratoConad() throws DataAccessException {
+    public Collection<?> getFiltratoConad() throws DataAccessException {
         Clienti cliente = new Clienti();
         cliente.setFilterByConadFormat();
         cliente.setOrderByDescrizione(ORDER_ASC);
@@ -106,7 +110,6 @@ public class Clienti extends DataAccessObject {
         criteria.addAndCriteria(autistaId);
     }
 
-    @SuppressWarnings("unchecked")
     public void setFilterByListino(Integer idFornitore, Integer idListino) {
         this.filterByListino = true;
         this.idFornitore = idFornitore;
@@ -114,8 +117,7 @@ public class Clienti extends DataAccessObject {
     }
 
     @Override
-    public Collection getElements() throws DataAccessException {
-
+    public Collection<?> getElements() throws DataAccessException {
         if (filterByListino) {
             Listini listini = new Listini();
             return listini.getClientiByListino(idFornitore, idListino, filterKey, startAtIndex, stopAtIndex);
@@ -133,7 +135,7 @@ public class Clienti extends DataAccessObject {
             return super.getCount();
     }
 
-    public Collection getFiltratoAutista(Integer idAutista) throws DataAccessException {
+    public Collection<?> getFiltratoAutista(Integer idAutista) throws DataAccessException {
         Clienti cliente = new Clienti();
         cliente.setFilterByAutista(idAutista);
         cliente.setOrderByDescrizione(ORDER_ASC);
@@ -147,14 +149,14 @@ public class Clienti extends DataAccessObject {
         criteria.addAndCriteria(agenteId);
     }
 
-    public Collection getFiltratoAgente(Integer idAgente) throws DataAccessException {
+    public Collection<?> getFiltratoAgente(Integer idAgente) throws DataAccessException {
         Clienti cliente = new Clienti();
         cliente.setFilterByAgente(idAgente);
         cliente.setOrderByDescrizione(ORDER_ASC);
         return cliente.getElements();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void salvaListiniAssociati(int idCliente, Vector listiniAssociati) throws DataAccessException {
         PersistenceBroker broker = null;
         try {
@@ -183,12 +185,12 @@ public class Clienti extends DataAccessObject {
         }
     }
 
-    public Collection getListaPerDDT() throws DataAccessException {
+    public Collection<?> getListaPerDDT() throws DataAccessException {
         getCriteria().addEqualTo("bloccaDDT", false);
         return getElements();
     }
 
-    public Collection getListaPerDDTFilter(String q) throws DataAccessException {
+    public Collection<?> getListaPerDDTFilter(String q) throws DataAccessException {
         Criteria criteria = getCriteria();
         criteria.addEqualTo("bloccaDDT", false);
         criteria.addLike("rs", "%" + q + "%");

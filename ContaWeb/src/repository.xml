@@ -98,17 +98,18 @@
 	<field-descriptor name="scadenza" column="scadenza" jdbc-type="INTEGER"/>
 </class-descriptor>
 
-<!-- OGGETTO PAGAMENTO -->
+<!-- OGGETTO PAGAMENTO ESEGUITO -->
 <class-descriptor class="vo.PagamentoEseguito" table="pagamenti_eseguiti">
 	<field-descriptor name="id" column="idPagamentoEseguito" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly" />
 	<field-descriptor name="data" column="data" jdbc-type="DATE" />
 	<field-descriptor name="descrizione" column="descrizione" jdbc-type="VARCHAR" />
-		<field-descriptor name="notes" column="notes" jdbc-type="VARCHAR" />
+    <field-descriptor name="notes" column="notes" jdbc-type="VARCHAR" />
 	<field-descriptor name="importo" column="importo" jdbc-type="DECIMAL" />
 	<field-descriptor name="idPagamento" column="idpagamento" jdbc-type="INTEGER"/>
 	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER" />
 	<field-descriptor name="idDDT" column="idDDT" jdbc-type="INTEGER" />
 	<field-descriptor name="idFattura" column="idFattura" jdbc-type="INTEGER" />
+	<field-descriptor name="idPagamentoEseguitoAgg" column="idPagamentoEseguitoAgg" jdbc-type="INTEGER" />
 	<reference-descriptor name="fattura" class-ref="vo.Fattura" auto-retrieve="true">
 		<foreignkey field-ref="idFattura" />
 	</reference-descriptor>
@@ -121,14 +122,24 @@
 	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
 		<foreignkey field-ref="idCliente" />
 	</reference-descriptor>
+	<reference-descriptor name="pagamentoEseguitoAgg" class-ref="vo.PagamentoEseguitoAgg" auto-retrieve="true">
+		<foreignkey field-ref="idPagamentoEseguitoAgg" />
+	</reference-descriptor>
 </class-descriptor>		
 
-	<class-descriptor class="vo.Autista" table="autisti">
-	    <field-descriptor name="id" column="idAutisti" jdbc-type="INTEGER" primarykey="true"/>
-	    <field-descriptor name="nome" column="Nome" jdbc-type="VARCHAR"/>
-	    <field-descriptor name="cognome" column="Cognome" jdbc-type="VARCHAR"/>
-	    <field-descriptor name="telefono" column="Telefono" jdbc-type="VARCHAR"/>
-	</class-descriptor>
+<!-- OGGETTO PAGAMENTO ESEGUITO_AGGREGATO (per RiBa) -->
+<class-descriptor class="vo.PagamentoEseguitoAgg" table="pagamenti_eseguiti_agg">
+	<field-descriptor name="id" column="idPagamentoEseguitoAgg" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly" />
+	<field-descriptor name="dataCreazione" column="dataCreazione" jdbc-type="TIMESTAMP"  />
+	<field-descriptor name="note" column="note" jdbc-type="VARCHAR"  />
+</class-descriptor>		
+
+<class-descriptor class="vo.Autista" table="autisti">
+    <field-descriptor name="id" column="idAutisti" jdbc-type="INTEGER" primarykey="true"/>
+    <field-descriptor name="nome" column="Nome" jdbc-type="VARCHAR"/>
+    <field-descriptor name="cognome" column="Cognome" jdbc-type="VARCHAR"/>
+    <field-descriptor name="telefono" column="Telefono" jdbc-type="VARCHAR"/>
+</class-descriptor>
 	
 <class-descriptor class="vo.Agente" table="agenti">
     <field-descriptor name="id" column="idAgenti" jdbc-type="INTEGER" primarykey="true"/>
@@ -247,6 +258,8 @@
 	<field-descriptor name="dittaIndividuale" column="ditta_individuale" jdbc-type="BOOLEAN"/>
 	<field-descriptor name="nome" column="nome" jdbc-type="VARCHAR"/>
 	<field-descriptor name="cognome" column="cognome" jdbc-type="VARCHAR"/>
+	<field-descriptor name="raggruppaRiba" column="raggruppaRiba" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="nomeRaggruppamentoRiba" column="nomeRaggruppamentoRiba" jdbc-type="VARCHAR"/>
 	<reference-descriptor name="pagamento" class-ref="vo.Pagamento" auto-retrieve="true">
 		<foreignkey field-ref="idPagamento"/>
 		</reference-descriptor>

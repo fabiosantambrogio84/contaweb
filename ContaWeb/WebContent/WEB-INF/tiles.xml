@@ -511,7 +511,7 @@
 <definition name=".ddtList-content" extends=".list">
 	<put-attribute name="titleList" value="Lista DDT"/>
 	<put-attribute name="newActionCaption" value="Nuovo DDT"/>
-	<put-attribute name="onModal" value="False"/>
+	<put-attribute name="onModal" value="True"/>
 	<put-attribute name="editAction" value="editDDT"/>
 	<put-attribute name="editAutista" value="true"/>
 	<put-attribute name="printAction" value="printDDT"/>

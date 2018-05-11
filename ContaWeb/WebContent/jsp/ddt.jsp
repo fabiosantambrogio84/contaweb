@@ -53,7 +53,10 @@
 <!-- 			            <div class="col-sm-2"> -->
 <!-- 			                <button class="btn btn-block btn-default" onclick="getClienti()" type="button">Trova</button>		                 -->
 <!-- 			            </div> -->
-						<select class="form-control" name="codiceCliente" id="codiceCliente"></select>
+
+						<s:select  label="Cliente" 
+							list="ddtObject.ddt.listClienti" emptyOption="true" listKey="id" listValue="rs" name="codiceCliente" id="codiceCliente" cssClass="form-control"/>
+						<!-- <select class="form-control" name="codiceCliente" id="codiceCliente"></select>-->
 		            </div>
 		            <div class="col-md-6">
 		            	<input type="hidden" name="ddtObject.ddt.idPuntoConsegna" id="ddtObject_ddt_idPuntoConsegna" value="<s:property value="ddtObject.ddt.idPuntoConsegna" />" data-mandatory="1" />

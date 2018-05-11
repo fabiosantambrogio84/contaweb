@@ -47,6 +47,10 @@ public class Cliente extends VOElement {
 
     private String cognome;
 
+    private Boolean raggruppaRiba;
+
+    private String nomeRaggruppamentoRiba;
+
     public String getNote() {
         return note;
     }
@@ -355,6 +359,30 @@ public class Cliente extends VOElement {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+
+    public Boolean getRaggruppaRiba() {
+        return raggruppaRiba;
+    }
+
+    public boolean isRaggruppaRiba() {
+        return raggruppaRiba;
+    }
+
+    public void setRaggruppaRiba(boolean raggruppaRiba) {
+        this.raggruppaRiba = raggruppaRiba;
+    }
+
+    public void setRaggruppaRiba(Boolean raggruppaRiba) {
+        this.raggruppaRiba = raggruppaRiba;
+    }
+
+    public String getNomeRaggruppamentoRiba() {
+        return nomeRaggruppamentoRiba;
+    }
+
+    public void setNomeRaggruppamentoRiba(String nomeRaggruppamentoRiba) {
+        this.nomeRaggruppamentoRiba = nomeRaggruppamentoRiba;
     }
 
 }

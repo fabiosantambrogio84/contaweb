@@ -6,7 +6,7 @@
     
     <s:textfield labelposition="left" label="Ragione sociale" name="cliente.rs" required="true" size="40" cssClass="testo"/>
     <s:textfield labelposition="left" label="Ragione sociale 2" name="cliente.rs2" size="40" cssClass="testo"/>
-    <s:checkbox id="clienteDittaIndividuale" labelposition="left" label="Ditta individuale" name="cliente.dittaIndividuale" onchange="enableClientiDittaIndividuale()"/> 
+    <s:checkbox id="clienteDittaIndividuale" labelposition="left" label="Ditta individuale" name="cliente.dittaIndividuale" onchange="enableClienti()"/> 
     <s:textfield id="clienteNome" labelposition="left" label="Nome" name="cliente.nome" size="40" cssClass="testo"/>
     <s:textfield id="clienteCognome" labelposition="left" label="Cognome" name="cliente.cognome" size="40" cssClass="testo"/>
     <s:textfield labelposition="left" label="Indirizzo" name="cliente.indirizzo" required="true" size="40" cssClass="testo"/>
@@ -42,6 +42,10 @@
     <s:textarea labelposition="left" label="Note" name="cliente.note" cols="30" rows="4" cssClass="testo"/>
 	<s:select labelposition="left" label="Autista" value="cliente.idAutista" list="listAutisti" listKey="id" listValue="nome" name="cliente.idAutista" cssClass="testo"/>
 	<s:select labelposition="left" label="Agente" value="cliente.idAgente" list="listAgenti" listKey="id" listValue="nome" name="cliente.idAgente" cssClass="testo"/>
+	
+	<s:checkbox id="clienteRaggruppaRiba" labelposition="left" label="Raggruppa RiBa" name="cliente.raggruppaRiba" onchange="enableClienti()"/> 
+    <s:textfield id="clienteNomeRaggruppamentoRiBa" labelposition="left" label="Nome raggruppamento RiBa" name="cliente.nomeRaggruppamentoRiba" size="40" cssClass="testo"/>
+	
     <s:submit value="Aggiorna" cssClass="button"/>
     <s:if test="%{id}">
 	    <s:submit name="action:puntiConsegnaList_input" value="Gestione punti di consegna" cssClass="button"/>
