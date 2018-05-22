@@ -520,10 +520,10 @@ public class RibaParser implements ConadParser {
             pagamento.setFattura(fattura);
             pagamento.setDescrizione("Pagamento " + fattura.getDescrizioneBreveDDT());
             pagamento.setImporto(fattura.getDaPagare());
-            pagamento.setIdPagamento(cliente.getIdPagamento());
+            pagamento.setIdPagamento(idPagamento);
             try {
                 pagamentiEseguiti.store(pagamento);
-                // fattureDao.pagato(fattura, pagamento);
+                fattureDao.pagato(fattura, pagamento);
             } catch (DataAccessException e) {
                 e.printStackTrace();
             }
