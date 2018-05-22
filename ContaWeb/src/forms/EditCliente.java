@@ -117,6 +117,9 @@ public class EditCliente extends Edit {
                 cliente.setCognome(null);
                 cliente.setNome(null);
             }
+            if (!cliente.isRaggruppaRiba()) {
+                cliente.setNomeRaggruppamentoRiba(null);
+            }
             Clienti clienti = new Clienti();
             clienti.store(cliente);
         } catch (Exception e) {

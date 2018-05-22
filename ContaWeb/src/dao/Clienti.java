@@ -58,6 +58,24 @@ public class Clienti extends DataAccessObject {
          */
 
         super.store(value);
+
+        /* seleziono i clienti con la stessa partita iva */
+        Collection<Cliente> clienti = getByPartitaIva(value.getPiva());
+
+        /* setto il flag 'raggruppaRiba' e setto il nome da utilizzare nel caso di raggruppamento Riba */
+        for (Cliente cliente : clienti) {
+            if (value.isRaggruppaRiba() && !cliente.isRaggruppaRiba()) {
+                cliente.setRaggruppaRiba(Boolean.TRUE);
+                cliente.setRaggruppaRiba(true);
+                cliente.setNomeRaggruppamentoRiba(value.getNomeRaggruppamentoRiba());
+                super.store(cliente);
+            } else if (!value.isRaggruppaRiba() && cliente.isRaggruppaRiba()) {
+                cliente.setRaggruppaRiba(Boolean.FALSE);
+                cliente.setRaggruppaRiba(false);
+                cliente.setNomeRaggruppamentoRiba(null);
+                super.store(cliente);
+            }
+        }
     }
 
     public Clienti() {
@@ -194,7 +212,13 @@ public class Clienti extends DataAccessObject {
         Criteria criteria = getCriteria();
         criteria.addEqualTo("bloccaDDT", false);
         criteria.addLike("rs", "%" + q + "%");
-
         return getElements();
+    }
+
+    @SuppressWarnings("unchecked")
+    public Collection<Cliente> getByPartitaIva(String partitaIva) throws DataAccessException {
+        Criteria criteria = getCriteria();
+        criteria.addEqualTo("piva", partitaIva);
+        return (Collection<Cliente>) getElements();
     }
 }
