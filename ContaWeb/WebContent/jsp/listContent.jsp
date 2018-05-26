@@ -417,12 +417,13 @@
 							<% if (editNewWindow!=null) { %>
 									<% newWindowScript = "return apriFinestra('"+ editAction + "_input.do','edit','%{id}');"; %>
 								<% } %>
-														
-							<%if (onModal == null) { %>								
+										
+							<s:a onclick="<%=newWindowScript %>" href="%{editURL}" cssClass="link">Mod.</s:a>							
+							<%-- <%if (onModal == null) { %>								
 								<s:a onclick="<%=newWindowScript %>" href="%{editURL}" cssClass="link">Mod.</s:a>
 							<% } else {%>
 								<a onclick="openModal('<s:property value="id"/>')" href="javascript:void(0)" class="link">Mod.</a>
-							<%}%>
+							<%}%> --%>
 						<% } %>
 
 						<!-- AZIONE STAMPA -->
