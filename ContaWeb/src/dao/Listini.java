@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
-import java.util.stream.Collectors;
 
 import org.apache.ojb.broker.PersistenceBroker;
 import org.apache.ojb.broker.PersistenceBrokerFactory;
@@ -54,7 +53,11 @@ public class Listini extends DataAccessObject {
             Collection<Listino> listini = getElements();
             results = new ArrayList<>(listini);
             if (id != null) {
-                results = listini.stream().filter(l -> !l.getId().equals(id)).collect(Collectors.toList());
+                for (Listino listino : listini) {
+                    if (listino.getId().equals(id)) {
+                        results.remove(listino);
+                    }
+                }
             }
             broker.close();
         } catch (Exception e) {
