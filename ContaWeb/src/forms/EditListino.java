@@ -37,22 +37,28 @@ public class EditListino extends Edit {
             if (idListinoRef != null) {
                 Listino listinoRef = listini.find(idListinoRef);
                 listino.setListinoRef(listinoRef);
+            }
+            /* salvo il nuovo listino */
+            listini.store(listino);
 
+            /* recupero il listino appena creato (qui ho l'id) */
+            Listino newListino = (Listino) listini.find(listino);
+
+            if (idListinoRef != null) {
                 /* seleziono i prezzi del listino di riferimento */
                 Collection<Prezzo> prezziRif = listini.getPrezziByListino(idListinoRef);
-                prezziRif.stream().forEach(p -> {
-                    p.setIdListino(listino.getId());
-                    p.setListino(listino);
-                });
+                for (Prezzo prezzoRif : prezziRif) {
+                    prezzoRif.setIdListino(newListino.getId());
+                    prezzoRif.setListino(newListino);
+                }
 
                 /* elimino gli eventuali prezzi già settati */
                 Prezzi prezzi = new Prezzi();
-                prezzi.deletePrezziByListino(listino.getId());
+                prezzi.deletePrezziByListino(newListino.getId());
 
                 /* inserisco i prezzi per il listino */
                 prezzi.insertPrezzi(prezziRif);
             }
-            listini.store(listino);
         } catch (Exception e) {
             return ERROR;
         }
