@@ -5,7 +5,8 @@
 
   <property name="file.name" value="ContaWeb.war" />
   <property name="path.lib" value="WebContent/WEB-INF/lib" />
-  <property name="tomcat.lib" value="/Applications/Netbeans/apache-tomcat-5.5.36/common/lib" />
+  <!--<property name="tomcat.lib" value="/Applications/Netbeans/apache-tomcat-5.5.36/common/lib" />-->
+  <property name="tomcat.lib" value="/Tomcat/common/lib" />
 
   <target name="compile">
   	<mkdir dir="build/classes"/>
@@ -14,11 +15,9 @@
   			<fileset dir="${path.lib}">
 				<include name="**/*.jar" />
 			</fileset>
-  			<!--
   			<fileset dir="${tomcat.lib}">
 				<include name="**/*.jar" />
 			</fileset>
-			-->
 		</classpath>
   	</javac>
   </target>
@@ -28,9 +27,13 @@
   		<fileset dir="build/classes/">
 			<include name="vo/*.class"/>
   			<include name="applet/**/*.class"/>
+  			<include name="dao/*.class"/>
+  			<include name="stampe/*.class"/>
+  			<include name="web/*.class"/>
+  			<include name="org/apache/struts2/*"/>
   		</fileset>
   	</jar>
-  	<!--signjar jar="WebContent/jsp/applet/ContaApplets.jar" alias="applet" keystore="applet.key" storepass="ContaWeb" /-->
+  	<!--<signjar jar="WebContent/jsp/applet/ContaApplets.jar" alias="applet" keystore="applet.key" storepass="ContaWeb" />-->
   </target>
 	
   <target name="war" depends="compile,applet">    
