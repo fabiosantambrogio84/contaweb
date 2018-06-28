@@ -1416,7 +1416,7 @@ function inserisciArticolo() {
 		var desc = document.getElementById('lblDescrizioneArticolo').textContent;
 		var prezzo = document.getElementById('lblPrezzoArticoloDaListino').textContent;
 
-		if(rows_mod != -1) { // Articolo già presente
+		if(rows_mod != -1) { // Articolo giÃ  presente
 			var p_pezzi = parseInt(document.getElementById('lblPezzo'+rows_mod).innerHTML);
 			p_pezzi = p_pezzi + pezzi;
 			if (dgbActive > 2) { // Old Debug message

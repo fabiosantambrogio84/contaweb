@@ -160,7 +160,7 @@ public class DettaglioDDTViewModel implements Serializable {
         ddt.setCodiceArticolo(getCodiceArticolo());
         ddt.setDescrizioneArticolo(getDescrizioneArticolo());
         ddt.setIdArticolo(Integer.parseInt(getIdArticolo()));
-        ddt.setIva(iva);
+        ddt.setIva(iva.intValue());
         ddt.setLotto(getLotto());
         ddt.setPezzi(Integer.parseInt(getPezzi()));
         ddt.setPrezzo(prezzo);

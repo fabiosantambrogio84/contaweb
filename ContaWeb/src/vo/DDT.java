@@ -9,8 +9,8 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Vector;
 
-import dao.Articoli;
 import dao.DDTs;
+import dao.DataAccessException;
 import dao.Ordini;
 
 public class DDT extends VOElement {
@@ -228,10 +228,10 @@ public class DDT extends VOElement {
                 Articolo tmpArticolo = new Articolo();
                 tmpArticolo.setId(dettaglio.getIdArticolo());
                 if (tmpArticolo.getId() != null) {
-                    Articoli tmpArticoli = new Articoli();
+                    dao.Articoli tmpArticoli = new dao.Articoli();
                     try {
                         tmpArticolo = tmpArticoli.find(tmpArticolo.getId());
-                    } catch (Exception e) {
+                    } catch (DataAccessException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }

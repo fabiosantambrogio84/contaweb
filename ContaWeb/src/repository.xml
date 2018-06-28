@@ -88,7 +88,7 @@
 <!-- OGGETTO IVA -->
 <class-descriptor class="vo.Iva" table="iva">
 	<field-descriptor name="id" column="idIva" jdbc-type="INTEGER" primarykey="true"/>
-	<field-descriptor name="valore" column="valore" jdbc-type="DECIMAL"/>
+	<field-descriptor name="valore" column="valore" jdbc-type="INTEGER"/>
 </class-descriptor>
 
 <!-- OGGETTO PAGAMENTO -->
@@ -132,13 +132,13 @@
 	<field-descriptor name="id" column="idPagamentoEseguitoAgg" jdbc-type="INTEGER" primarykey="true" autoincrement="true" access="readonly" />
 	<field-descriptor name="dataCreazione" column="dataCreazione" jdbc-type="TIMESTAMP"  />
 	<field-descriptor name="note" column="note" jdbc-type="VARCHAR"  />
-</class-descriptor>		
+</class-descriptor>	
 
 <class-descriptor class="vo.Autista" table="autisti">
-    <field-descriptor name="id" column="idAutisti" jdbc-type="INTEGER" primarykey="true"/>
-    <field-descriptor name="nome" column="Nome" jdbc-type="VARCHAR"/>
-    <field-descriptor name="cognome" column="Cognome" jdbc-type="VARCHAR"/>
-    <field-descriptor name="telefono" column="Telefono" jdbc-type="VARCHAR"/>
+	<field-descriptor name="id" column="idAutisti" jdbc-type="INTEGER" primarykey="true"/>
+	<field-descriptor name="nome" column="Nome" jdbc-type="VARCHAR"/>
+	<field-descriptor name="cognome" column="Cognome" jdbc-type="VARCHAR"/>
+	<field-descriptor name="telefono" column="Telefono" jdbc-type="VARCHAR"/>
 </class-descriptor>
 	
 <class-descriptor class="vo.Agente" table="agenti">
@@ -296,8 +296,9 @@
 	<class-descriptor class="vo.Telefonata" table="telefonate">
 	<field-descriptor name="id" column="idTelefonata" jdbc-type="INTEGER" primarykey="true" access="readonly" autoincrement="true"/>
 	<field-descriptor name="idCliente" column="idCliente" jdbc-type="INTEGER"/>
-	<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER"/>
+		<field-descriptor name="idAutista" column="idAutista" jdbc-type="INTEGER"/>
 	<field-descriptor name="idPuntoConsegna" column="idPuntoConsegna" jdbc-type="INTEGER"/>
+
 	<field-descriptor name="prefissoTelefono1" column="prefissoTelefono1" jdbc-type="INTEGER"/>
 	<field-descriptor name="numeroTelefono1" column="numeroTelefono1" jdbc-type="VARCHAR"/>
 	<field-descriptor name="prefissoTelefono2" column="prefissoTelefono2" jdbc-type="INTEGER"/>
@@ -308,6 +309,7 @@
 	<field-descriptor name="orario" column="orario" jdbc-type="INTEGER"/>
 	<field-descriptor name="eseguita" column="eseguita" jdbc-type="BOOLEAN"/>
 	<field-descriptor name="note" column="note" jdbc-type="LONGVARCHAR"/>
+
 	<reference-descriptor name="puntoConsegna" class-ref="vo.PuntoConsegna" auto-retrieve="true">
 		<foreignkey field-ref="idPuntoConsegna"/>
 	</reference-descriptor>
@@ -331,7 +333,7 @@
 	<field-descriptor name="um" column="um" jdbc-type="VARCHAR"/>						
 	<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
 	<field-descriptor name="prezzo" column="prezzo" jdbc-type="DECIMAL"/>
-	<field-descriptor name="iva" column="iva" jdbc-type="DECIMAL"/>
+	<field-descriptor name="iva" column="iva" jdbc-type="INTEGER"/>
 	<field-descriptor name="sconto" column="sconto" jdbc-type="DECIMAL"/>
 	<field-descriptor name="totale" column="totale" jdbc-type="DECIMAL"/>
 	<field-descriptor name="lotto" column="lotto" jdbc-type="VARCHAR"/>
@@ -432,7 +434,7 @@
 		<field-descriptor name="um" column="um" jdbc-type="VARCHAR"/>						
 		<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
 		<field-descriptor name="prezzo" column="prezzo" jdbc-type="DECIMAL"/>
-		<field-descriptor name="iva" column="iva" jdbc-type="DECIMAL"/>
+		<field-descriptor name="iva" column="iva" jdbc-type="INTEGER"/>
 		<field-descriptor name="sconto" column="sconto" jdbc-type="DECIMAL"/>
 		<field-descriptor name="totale" column="totale" jdbc-type="DECIMAL"/>
 		<field-descriptor name="lotto" column="lotto" jdbc-type="VARCHAR"/>
