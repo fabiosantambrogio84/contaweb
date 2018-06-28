@@ -10,7 +10,6 @@ import java.util.Locale;
 import java.util.Vector;
 
 import dao.DDTs;
-import dao.DataAccessException;
 import dao.Ordini;
 
 public class DDT extends VOElement {
@@ -170,6 +169,10 @@ public class DDT extends VOElement {
         return calcolaTotale(this.dettagliDDT);
     }
 
+    public BigDecimal calcolaTotalePerApplet() {
+        return calcolaTotalePerApplet(this.dettagliDDT);
+    }
+
     public String getDataForModal() {
         try {
             String NEW_FORMAT = "yyyy-MM-dd";
@@ -231,7 +234,7 @@ public class DDT extends VOElement {
                     dao.Articoli tmpArticoli = new dao.Articoli();
                     try {
                         tmpArticolo = tmpArticoli.find(tmpArticolo.getId());
-                    } catch (DataAccessException e) {
+                    } catch (Exception e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
@@ -265,6 +268,37 @@ public class DDT extends VOElement {
                 tmpGuadagno = tmpGuadagno / totaleCosto.doubleValue() * 100;
                 guadagnoPercentuale = BigDecimal.valueOf(tmpGuadagno);
                 guadagnoPercentuale = guadagnoPercentuale.setScale(0, BigDecimal.ROUND_HALF_UP);
+            }
+        }
+        return totale;
+    }
+
+    public BigDecimal calcolaTotalePerApplet(Vector articoli) {
+        BigDecimal totale = new BigDecimal(0);
+        this.totaleImponibile = new BigDecimal(0);
+        this.totaleImposta = new BigDecimal(0);
+        if (articoli != null) {
+            ListIterator itr = articoli.listIterator();
+
+            BigDecimal[] imponibili = new BigDecimal[100];
+            while (itr.hasNext()) {
+                DettaglioDDT dettaglio = (DettaglioDDT) itr.next();
+                BigDecimal imponibile = dettaglio.calcolaImponibile();
+                if (imponibili[dettaglio.getIva().intValue()] == null) {
+                    imponibili[dettaglio.getIva().intValue()] = imponibile;
+                } else {
+                    imponibili[dettaglio.getIva().intValue()] = imponibili[dettaglio.getIva().intValue()].add(imponibile);
+                }
+            }
+            for (int i = 0; i < 100; i++) {
+                if (imponibili[i] != null) {
+                    BigDecimal imp = imponibili[i];
+                    BigDecimal totaleIva = imp.multiply(new BigDecimal(i).divide(new BigDecimal(100)).setScale(2, 4)).setScale(2, 0);
+                    totale = totale.add(imp.add(totaleIva));
+
+                    this.totaleImponibile = this.totaleImponibile.add(imp);
+                    this.totaleImposta = this.totaleImposta.add(totaleIva);
+                }
             }
         }
         return totale;

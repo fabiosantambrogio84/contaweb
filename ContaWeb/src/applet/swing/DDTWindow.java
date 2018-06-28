@@ -1696,7 +1696,7 @@ public class DDTWindow {
             DDT ddt = new DDT();
             ddt.setDettagliDDT(getDettagliDDT());
             // BigDecimal totale = DDT.calcolaTotale(getDettagliDDT());
-            BigDecimal totale = ddt.calcolaTotale();
+            BigDecimal totale = ddt.calcolaTotalePerApplet();
             DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance();
             txtTotaleDDT.setText(df.format(totale.doubleValue()));
         } catch (ParseException e1) {

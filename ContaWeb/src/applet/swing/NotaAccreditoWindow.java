@@ -235,7 +235,7 @@ public class NotaAccreditoWindow {
                 dettaglioDDT.setSconto(
                         new BigDecimal(nf.parse((String) table.getValueAt(i, 6)).doubleValue()).setScale(2, BigDecimal.ROUND_HALF_UP));
             if (table.getValueAt(i, 7) != null && !table.getValueAt(i, 7).equals(""))
-                dettaglioDDT.setIva((BigDecimal) table.getValueAt(i, 7));
+                dettaglioDDT.setIva((Integer) table.getValueAt(i, 7));
             dettaglioDDT.setUm((String) table.getValueAt(i, 8));
             dettaglioDDT.setLotto((String) table.getValueAt(i, COL_LOTTO));
             if (table.getModel().getValueAt(i, 10) != null)

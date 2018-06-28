@@ -3,7 +3,7 @@
 	
 <project name="ContaWeb" default="war">
 
-  <property name="file.name" value="ContaWeb.war" />
+  <property name="file.name" value="ContaWeb_v1.0.1.war" />
   <property name="path.lib" value="WebContent/WEB-INF/lib" />
   <!--<property name="tomcat.lib" value="/Applications/Netbeans/apache-tomcat-5.5.36/common/lib" />-->
   <property name="tomcat.lib" value="/Tomcat/common/lib" />
@@ -27,20 +27,22 @@
   		<fileset dir="build/classes/">
   			<include name="vo/*.class"/>
   			<include name="applet/**/*.class"/>	
-  			<!--
-  			<include name="dao/*.class"/>
-  			<include name="stampe/*.class"/>
-  			<include name="web/*.class"/>
-  			-->
   		</fileset>
   	</jar>
   	<!--<signjar jar="WebContent/jsp/applet/ContaApplets.jar" alias="applet" keystore="applet.key" storepass="ContaWeb" />-->
   </target>
 	
+	
   <target name="war" depends="compile,applet">    
-	<war destfile="${file.name}" webxml="WebContent/WEB-INF/web.xml">
-		<fileset dir="WebContent"/>
-		<fileset dir=".">
+  	<copy file="Deploy-Produzione/repository.xml" todir="build/classes" overwrite="true"/>
+  	<war destfile="${file.name}" webxml="WebContent/WEB-INF/web.xml">
+		<fileset dir="WebContent">
+			<exclude name="js/scripts.js"/>
+		</fileset>
+  		<fileset dir="Deploy-Produzione">
+			<include name="js/scripts.js"/>
+		</fileset>
+  		<fileset dir=".">
 			<include name="src/**/*"/>
 		</fileset>
 	
