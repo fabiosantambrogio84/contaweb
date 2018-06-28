@@ -25,12 +25,13 @@
   <target name="applet" depends="compile">
   	<jar destfile="WebContent/jsp/applet/ContaApplets.jar">  		
   		<fileset dir="build/classes/">
-			<include name="vo/*.class"/>
-  			<include name="applet/**/*.class"/>
+  			<include name="vo/*.class"/>
+  			<include name="applet/**/*.class"/>	
+  			<!--
   			<include name="dao/*.class"/>
   			<include name="stampe/*.class"/>
   			<include name="web/*.class"/>
-  			<include name="org/apache/struts2/*"/>
+  			-->
   		</fileset>
   	</jar>
   	<!--<signjar jar="WebContent/jsp/applet/ContaApplets.jar" alias="applet" keystore="applet.key" storepass="ContaWeb" />-->
