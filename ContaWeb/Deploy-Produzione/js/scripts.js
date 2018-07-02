@@ -9,7 +9,7 @@ var breakline = "<br />";
 function openModal(id) {
 	
 	$('#modal').modal('show');		
-	$('#modal .modal-content').load("/ContaWeb/ddt.do?idDDT=" + id, function(){
+	$('#modal .modal-content').load("/ContaWeb_v1.0.1/ddt.do?idDDT=" + id, function(){
 
 		if(id === "0"){
 			openNewDdt();
@@ -18,7 +18,7 @@ function openModal(id) {
 }
 
 function newDdtWithLoad(){
-	$('#modal .modal-content').load("/ContaWeb/ddt.do?idDDT=0", function(){
+	$('#modal .modal-content').load("/ContaWeb_v1.0.1/ddt.do?idDDT=0", function(){
 		newDdt();
 	});
 }
@@ -27,7 +27,7 @@ function newDdtWithLoad(){
 function getClienti(){
 	
 	$("#clientilist").addClass("show").removeClass("hide");
-	$('#clientilist').load("/ContaWeb/clientiFindList.do");
+	$('#clientilist').load("/ContaWeb_v1.0.1/clientiFindList.do");
 }
 
 function setCliente(){
@@ -37,7 +37,7 @@ function setCliente(){
 		  method: "GET",
 		  contentType: "application/json",
 		  dataType: "json",
-		  url: "/ContaWeb/cliente.do?id=" + id
+		  url: "/ContaWeb_v1.0.1/cliente.do?id=" + id
 		})
 		.done(function( data ) {
 
@@ -75,7 +75,7 @@ function getPuntoConsegna(type, id)
 		  method: "GET",
 		  contentType: "application/json",
 		  dataType: "json",
-		  url: "/ContaWeb/clienteDestinazione.do?id=" + id + "&index=" + index
+		  url: "/ContaWeb_v1.0.1/clienteDestinazione.do?id=" + id + "&index=" + index
 		})
 		.done(function( data ) {
 			$("#ddtObject_ddt_idPuntoConsegna").val(data.id);
@@ -306,7 +306,7 @@ function applicaScontoProdotto(){
 function getArticoli(){
 	
 	$("#articolilist").addClass("show").removeClass("hide");
-	$('#articolilist').load("/ContaWeb/articoliFindList.do");
+	$('#articolilist').load("/ContaWeb_v1.0.1/articoliFindList.do");
 }
 
 function setArticolo(){
@@ -318,7 +318,7 @@ function setArticolo(){
 		  method: "GET",
 		  contentType: "application/json",
 		  dataType: "json",
-		  url: "/ContaWeb/articolo.do?id=" + id + "&otherId=" + idCliente
+		  url: "/ContaWeb_v1.0.1/articolo.do?id=" + id + "&otherId=" + idCliente
 		})
 		.done(function( data ) {
 			$("#descrizioneProdotto").val(data.descrizione);	
@@ -354,7 +354,7 @@ function setArticoloSelect2(){
 		  method: "GET",
 		  contentType: "application/json",
 		  dataType: "json",
-		  url: "/ContaWeb/articolo.do?id=" + id + "&otherId=" + idCliente
+		  url: "/ContaWeb_v1.0.1/articolo.do?id=" + id + "&otherId=" + idCliente
 		})
 		.done(function( data ) {
 			$("#descrizioneProdotto").val(data.descrizione);	
@@ -530,7 +530,7 @@ function printDdtMod()
 		  method: "GET",
 		  contentType: "application/json",
 		  dataType: "json",
-		  url: "/ContaWeb/printDdt.do?id=" + id
+		  url: "/ContaWeb_v1.0.1/printDdt.do?id=" + id
 		})
 		.done(function( data ) {			
 			console.log( "Stampa ddt in corso: " + id );
@@ -546,7 +546,7 @@ function saveDdtNew()
 		$.ajax({
 			  method: "POST",
 			  dataType: "json",
-			  url: "/ContaWeb/salvaDDT.do",
+			  url: "/ContaWeb_v1.0.1/salvaDDT.do",
 			  data: serObj
 			})
 			.done(function( data ) {			
@@ -578,7 +578,7 @@ if(checkSaveDdt()) {
 		$.ajax({
 			  method: "POST",
 			  dataType: "json",
-			  url: "/ContaWeb/salvaDDT.do",
+			  url: "/ContaWeb_v1.0.1/salvaDDT.do",
 			  data: serObj
 			})
 			.done(function( data ) {			
@@ -592,7 +592,7 @@ if(checkSaveDdt()) {
 						  method: "GET",
 						  contentType: "application/json",
 						  dataType: "json",
-						  url: "/ContaWeb/printDdt.do?id=" + data.id
+						  url: "/ContaWeb_v1.0.1/printDdt.do?id=" + data.id
 						})
 						.done(function( data ) {			
 							console.log( "Stampa ddt in corso: " + data.id );
@@ -620,7 +620,7 @@ function saveDdtMod()
 		$.ajax({
 			  method: "POST",
 			  dataType: "json",
-			  url: "/ContaWeb/salvaDDT.do",
+			  url: "/ContaWeb_v1.0.1/salvaDDT.do",
 			  data: serObj
 			})
 			.done(function( data ) {			
@@ -852,7 +852,7 @@ function aggiornaListaDDTs() {
 	var idCliente = document.getElementById('fattureEdit_fattura_idCliente').value;
 	
 	var reportDiv = dojo.widget.manager.getWidgetById("reportDivId");
-	reportDiv.href = '/ContaWeb/aggiornaDDTs.do?fattura.idCliente=' + idCliente + '&fattura.data=' + dataFattura;
+	reportDiv.href = '/ContaWeb_v1.0.1/aggiornaDDTs.do?fattura.idCliente=' + idCliente + '&fattura.data=' + dataFattura;
 	//LANCIO EVENTO	DI CARICAMENTO
 	dojo.event.topic.publish('/aggiornaDDTs');
 }
@@ -880,7 +880,7 @@ dojo.event.topic.subscribe(
 		var prefix = "listaDDTs-";
 		var i = 1;
 		
-		reportDiv.href="/ContaWeb/calcolaTotaleFattura.do?fattura.sconto=" + scontoFattura;
+		reportDiv.href="/ContaWeb_v1.0.1/calcolaTotaleFattura.do?fattura.sconto=" + scontoFattura;
 		
 		//AGGIUNGO I DDTs selezionati
 		var listaDDTs='';
@@ -1416,7 +1416,7 @@ function inserisciArticolo() {
 		var desc = document.getElementById('lblDescrizioneArticolo').textContent;
 		var prezzo = document.getElementById('lblPrezzoArticoloDaListino').textContent;
 
-		if(rows_mod != -1) { // Articolo giÃ  presente
+		if(rows_mod != -1) { // Articolo già presente
 			var p_pezzi = parseInt(document.getElementById('lblPezzo'+rows_mod).innerHTML);
 			p_pezzi = p_pezzi + pezzi;
 			if (dgbActive > 2) { // Old Debug message

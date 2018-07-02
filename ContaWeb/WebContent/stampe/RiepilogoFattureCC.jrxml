@@ -21,9 +21,9 @@
 	<field name="imponibile1" class="java.math.BigDecimal"/>
 	<field name="imponibile2" class="java.math.BigDecimal"/>
 	<field name="imponibile3" class="java.math.BigDecimal"/>
-	<field name="iva1" class="java.math.BigDecimal"/>
-	<field name="iva2" class="java.math.BigDecimal"/>
-	<field name="iva3" class="java.math.BigDecimal"/>
+	<field name="iva1" class="java.lang.Integer"/>
+	<field name="iva2" class="java.lang.Integer"/>
+	<field name="iva3" class="java.lang.Integer"/>
 	<field name="imposta1" class="java.math.BigDecimal"/>
 	<field name="imposta2" class="java.math.BigDecimal"/>
 	<field name="imposta3" class="java.math.BigDecimal"/>
@@ -33,40 +33,40 @@
 		<variableExpression><![CDATA[$F{totaleFattura}]]></variableExpression>
 	</variable>
 	<variable name="SUM_imposta1_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
-		<variableExpression><![CDATA[$F{iva1}.compareTo(new BigDecimal(4.00)) == 0 ? $F{imposta1} : new BigDecimal(0)]]></variableExpression>
+		<variableExpression><![CDATA[new BigDecimal($F{iva1}).compareTo(new BigDecimal(4.00)) == 0 ? $F{imposta1} : new BigDecimal(0)]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imponibile1_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
-		<variableExpression><![CDATA[($F{iva1}.compareTo(new BigDecimal(4.00)) == 0 ? $F{imponibile1} : new BigDecimal(0))]]></variableExpression>
+		<variableExpression><![CDATA[(new BigDecimal($F{iva1}).compareTo(new BigDecimal(4.00)) == 0 ? $F{imponibile1} : new BigDecimal(0))]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imponibile2_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
-    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) 
+    (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) 
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imponibile3_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
-    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) +
-	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile3}.doubleValue() : 0 )
+    (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) +
+	(($F{iva3} != null && new BigDecimal($F{iva3}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile3}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imposta2_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
-    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) 
+    (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) 
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imposta3_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
-    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) +
-	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta3}.doubleValue() : 0 )
+    (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) +
+	(($F{iva3} != null && new BigDecimal($F{iva3}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta3}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
@@ -75,40 +75,70 @@
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imposta1_2" class="java.math.BigDecimal" calculation="Sum">
+<<<<<<< HEAD
 		<variableExpression><![CDATA[$F{iva1}.compareTo(new BigDecimal(4.00)) == 0 ? $F{imposta1} : new BigDecimal(0)]]></variableExpression>
+=======
+		<variableExpression><![CDATA[new BigDecimal($F{iva1}).compareTo(new BigDecimal(4.00)) == 0 ? $F{imposta1} : new BigDecimal(0)]]></variableExpression>
+>>>>>>> refs/heads/old_mask_with_applet
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imposta2_2" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
+<<<<<<< HEAD
     (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
     (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) 
+=======
+    (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) 
+>>>>>>> refs/heads/old_mask_with_applet
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imposta3_2" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
+<<<<<<< HEAD
     (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
     (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) +
 	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta3}.doubleValue() : 0 )
+=======
+    (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) +
+	(($F{iva3} != null && new BigDecimal($F{iva3}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta3}.doubleValue() : 0 )
+>>>>>>> refs/heads/old_mask_with_applet
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imponibile1_2" class="java.math.BigDecimal" calculation="Sum">
+<<<<<<< HEAD
 		<variableExpression><![CDATA[($F{iva1}.compareTo(new BigDecimal(4.00)) == 0 ? $F{imponibile1} : new BigDecimal(0))]]></variableExpression>
+=======
+		<variableExpression><![CDATA[(new BigDecimal($F{iva1}).compareTo(new BigDecimal(4.00)) == 0 ? $F{imponibile1} : new BigDecimal(0))]]></variableExpression>
+>>>>>>> refs/heads/old_mask_with_applet
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imponibile2_2" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
+<<<<<<< HEAD
     (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
     (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) 
+=======
+    (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) 
+>>>>>>> refs/heads/old_mask_with_applet
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="SUM_imponibile3_2" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
+<<<<<<< HEAD
     (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
     (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) +
 	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile3}.doubleValue() : 0 )
+=======
+    (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) +
+	(($F{iva3} != null && new BigDecimal($F{iva3}).compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile3}.doubleValue() : 0 )
+>>>>>>> refs/heads/old_mask_with_applet
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>

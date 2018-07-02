@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE descriptor-repository PUBLIC
        "-//Apache Software Foundation//DTD OJB Repository//EN"
@@ -18,9 +18,9 @@
 			driver="com.mysql.jdbc.Driver"
 			protocol="jdbc"
 			subprotocol="mysql"
-			dbalias="//mysqlserver:3306/contaweb"
-			username="fabio"
-			password="fabio19121984" 
+			dbalias="//localhost:3306/contaweb"
+			username="contaweb"
+			password="contaweb" 
 			batch-mode="false"
 		    useAutoCommit="1"
 		    ignoreAutoCommitExceptions="false"

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE descriptor-repository PUBLIC
        "-//Apache Software Foundation//DTD OJB Repository//EN"
@@ -18,9 +18,9 @@
 			driver="com.mysql.jdbc.Driver"
 			protocol="jdbc"
 			subprotocol="mysql"
-			dbalias="//mysqlserver:3306/contaweb"
-			username="fabio"
-			password="fabio19121984" 
+			dbalias="//localhost:3306/contaweb-prova"
+			username="root"
+			password="mabepi1903" 
 			batch-mode="false"
 		    useAutoCommit="1"
 		    ignoreAutoCommitExceptions="false"
@@ -88,7 +88,7 @@
 <!-- OGGETTO IVA -->
 <class-descriptor class="vo.Iva" table="iva">
 	<field-descriptor name="id" column="idIva" jdbc-type="INTEGER" primarykey="true"/>
-	<field-descriptor name="valore" column="valore" jdbc-type="DECIMAL"/>
+	<field-descriptor name="valore" column="valore" jdbc-type="INTEGER"/>
 </class-descriptor>
 
 <!-- OGGETTO PAGAMENTO -->
@@ -333,7 +333,7 @@
 	<field-descriptor name="um" column="um" jdbc-type="VARCHAR"/>						
 	<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
 	<field-descriptor name="prezzo" column="prezzo" jdbc-type="DECIMAL"/>
-	<field-descriptor name="iva" column="iva" jdbc-type="DECIMAL"/>
+	<field-descriptor name="iva" column="iva" jdbc-type="INTEGER"/>
 	<field-descriptor name="sconto" column="sconto" jdbc-type="DECIMAL"/>
 	<field-descriptor name="totale" column="totale" jdbc-type="DECIMAL"/>
 	<field-descriptor name="lotto" column="lotto" jdbc-type="VARCHAR"/>
@@ -434,7 +434,7 @@
 		<field-descriptor name="um" column="um" jdbc-type="VARCHAR"/>						
 		<field-descriptor name="qta" column="qta" jdbc-type="DECIMAL"/>
 		<field-descriptor name="prezzo" column="prezzo" jdbc-type="DECIMAL"/>
-		<field-descriptor name="iva" column="iva" jdbc-type="DECIMAL"/>
+		<field-descriptor name="iva" column="iva" jdbc-type="INTEGER"/>
 		<field-descriptor name="sconto" column="sconto" jdbc-type="DECIMAL"/>
 		<field-descriptor name="totale" column="totale" jdbc-type="DECIMAL"/>
 		<field-descriptor name="lotto" column="lotto" jdbc-type="VARCHAR"/>
