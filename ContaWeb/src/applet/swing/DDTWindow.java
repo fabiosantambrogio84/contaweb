@@ -349,7 +349,7 @@ public class DDTWindow {
             txtLottoArticolo.setText((String) table.getModel().getValueAt(selectedRow, COL_LOTTO));
 
             for (int i = 0; i < cmbIva.getItemCount(); ++i)
-                if (iva.floatValue() == ((Iva) cmbIva.getItemAt(i)).getValore().floatValue())
+                if (iva == ((Iva) cmbIva.getItemAt(i)).getValore())
                     cmbIva.setSelectedIndex(i);
             articolo = (Articolo) table.getModel().getValueAt(selectedRow, 12);
             setModalitaAggiornamentoArticolo(true);
