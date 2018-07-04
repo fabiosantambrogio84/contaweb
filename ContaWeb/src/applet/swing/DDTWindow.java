@@ -344,12 +344,12 @@ public class DDTWindow {
                 txtPezzi.setText("");
             txtPrezzoArticolo.setText((String) table.getModel().getValueAt(selectedRow, 5));
             txtScontoArticolo.setText((String) table.getModel().getValueAt(selectedRow, 6));
-            BigDecimal iva = (BigDecimal) table.getModel().getValueAt(selectedRow, 7);
+            Integer iva = (Integer) table.getModel().getValueAt(selectedRow, 7);
             txtUMArticolo.setText((String) table.getModel().getValueAt(selectedRow, 8));
             txtLottoArticolo.setText((String) table.getModel().getValueAt(selectedRow, COL_LOTTO));
 
             for (int i = 0; i < cmbIva.getItemCount(); ++i)
-                if (iva.floatValue() == ((Iva) cmbIva.getItemAt(i)).getValore().floatValue())
+                if (iva == ((Iva) cmbIva.getItemAt(i)).getValore())
                     cmbIva.setSelectedIndex(i);
             articolo = (Articolo) table.getModel().getValueAt(selectedRow, 12);
             setModalitaAggiornamentoArticolo(true);
@@ -369,9 +369,9 @@ public class DDTWindow {
         number = number.setScale(2, BigDecimal.ROUND_HALF_UP);
         formatter.applyPattern("####.##");
         txtScontoArticolo.setText(formatter.format(number.doubleValue()));
-        BigDecimal iva = new BigDecimal(prezzo.getArticolo().getIva().getValore());
+        Integer iva = prezzo.getArticolo().getIva().getValore();
         for (int i = 0; i < cmbIva.getItemCount(); ++i)
-            if (iva.floatValue() == ((Iva) cmbIva.getItemAt(i)).getValore().floatValue())
+            if (iva == ((Iva) cmbIva.getItemAt(i)).getValore())
                 cmbIva.setSelectedIndex(i);
         lblListinoArticolo.setText("Listino: " + prezzo.getListino().getDescrizione());
         articolo = prezzo.getArticolo();
