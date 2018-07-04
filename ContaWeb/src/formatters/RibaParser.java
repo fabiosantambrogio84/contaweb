@@ -111,7 +111,7 @@ public class RibaParser implements ConadParser {
         });
 
         /*
-         * raggruppo la lista delle fatture in base alla partita iva del cliente e alla data scadenza delle fatture (la lista conterrà
+         * raggruppo la lista delle fatture in base alla partita iva del cliente e alla data scadenza delle fatture (la lista conterra
          * N elementi)
          */
         Map<String, Map<Date, List<PagamentoFattura>>> pagFattToBeGroupedByPartitaIva = pagamentiFatture.stream()

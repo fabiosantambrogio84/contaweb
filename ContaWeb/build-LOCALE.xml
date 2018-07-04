@@ -6,11 +6,25 @@
   <property name="file.name" value="ContaWeb.war" />
   <property name="path.lib" value="WebContent/WEB-INF/lib" />
   <!--<property name="tomcat.lib" value="/Applications/Netbeans/apache-tomcat-5.5.36/common/lib" />-->
-  <property name="tomcat.lib" value="/Tomcat/common/lib" />
+  <property name="tomcat.lib" value="${basedir}/Tomcat/common/lib" />
 
-  <target name="compile">
+	<target name="print">
+	  <echo>Current directory: ${basedir}</echo>
+	  <echo>Using Java version ${ant.java.version}</echo>
+	</target>	
+	
+	<!--
+  <target name="clean" depends="print">
+  	<echo>Clean directory ${basedir}/build</echo>
+  	<delete includeemptydirs="true">
+  	  <fileset dir="${basedir}/build" includes="**/*"/>
+  	</delete>  
+  </target>	
+	-->
+
+  <target name="compile" depends="print">
   	<mkdir dir="build/classes"/>
-  	<javac srcdir="src/" destdir="build/classes">
+  	<javac srcdir="src/" destdir="build/classes" >
   		<classpath>
   			<fileset dir="${path.lib}">
 				<include name="**/*.jar" />
@@ -30,10 +44,11 @@
   		</fileset>
   	</jar>
   	<!--<signjar jar="WebContent/jsp/applet/ContaApplets.jar" alias="applet" keystore="applet.key" storepass="ContaWeb" />-->
-  </target>
+</target>
 	
 	
   <target name="war" depends="compile,applet">    
+  	<copy file="src/repository.xml" todir="build/classes" overwrite="true"/>
   	<war destfile="${file.name}" webxml="WebContent/WEB-INF/web.xml">
 		<fileset dir="WebContent"/>
   		<fileset dir=".">

@@ -1,7 +1,21 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<form id="ddtform" action="saveDdt()">
+<script>
+	$(document).ready(function(){
+		if($("#ddtObject_ddt_id").length || $.isEmptyObject($("#ddtObject_ddt_id"))){
+			var now = new Date();
+			var day = ("0" + now.getDate()).slice(-2);
+			var month = ("0" + (now.getMonth() + 1)).slice(-2);
+			var today = now.getFullYear()+"-"+(month)+"-"+(day) ;		
+			$("#ddtObject_ddt_data").val(today);
+		}
+
+		enableNumAut();
+	});
+</script>		
+
+<form id="ddtform" action="saveDdt()" onload="return onDdtMaskFormLoad()">
 	<s:hidden name="ddtObject.ddt.id" />
 	<div class="modal-header">
 	  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -20,15 +34,14 @@
 		                <div class="col-md-7 col-sm-7">
 		                    <div class="checkbox col-md-4 col-sm-6 col-xs-5">
 		                        <label>
-		                            <input disabled="disabled" name="autonum" id="autonum" type="checkbox"> Numerazione Automatica
+		                            <input id="autonum" checked onchange="enableNumAut()" name="autonum" type="checkbox"> Numerazione Automatica
 		                        </label>
 		                    </div>
 		                    <div class="input-group col-md-8">
-		                    	<input type="number" data-mandatory="autonum" name="ddtObject.ddt.numeroProgressivo" class="form-control col-md-3 col-sm-4 col-xs-4" id="ddtObject_ddt_numeroProgressivo" value='<s:property value="ddtObject.ddt.numeroProgressivo"/>' />
+		                    	<input id="ddtObject_ddt_numeroProgressivo" type="number" data-mandatory="autonum" name="ddtObject.ddt.numeroProgressivo" class="form-control col-md-3 col-sm-4 col-xs-4" value='<s:property value="ddtObject.ddt.numeroProgressivo"/>' />
 		                        <span class="input-group-addon">/</span>
-		                        <input type="number" name="ddtObject.ddt.annoContabile" class="form-control col-md-3 col-sm-4 col-xs-4" id="ddtObject_ddt_annoContabile" value='<s:property value="ddtObject.ddt.annoContabile"/>' />
+		                        <input id="ddtObject_ddt_annoContabile" type="number" name="ddtObject.ddt.annoContabile" class="form-control col-md-3 col-sm-4 col-xs-4" value='<s:property value="ddtObject.ddt.annoContabile"/>' />
 		                    </div>
-		
 		                </div>                
 		
 		                <div class="col-md-3 col-sm-5 pull-right">
@@ -45,18 +58,19 @@
 		        	<div class="col-md-6">
 		        		<input type="hidden" name="ddtObject.ddt.idCliente" id="ddtObject_ddt_idCliente" value="<s:property value="ddtObject.ddt.idCliente" />" data-mandatory="1" />
 			            <input type="hidden" name="ddtObject.ddt.cliente.rs" id="ddtObject_ddt_cliente_rs" value="<s:property value="ddtObject.ddt.cliente.rs"/>" />
-<!-- 			            <div class="panel panel-default col-sm-10" id="cliente">	            	 -->
-<!-- 			            	<div class="panel-body"> -->
-<%-- 			            		<s:property value="ddtObject.ddt.cliente.rs"/> --%>
-<!-- 			            	</div> -->
-<!-- 			            </div>	             -->
-<!-- 			            <div class="col-sm-2"> -->
-<!-- 			                <button class="btn btn-block btn-default" onclick="getClienti()" type="button">Trova</button>		                 -->
-<!-- 			            </div> -->
+			            <div class="panel panel-default col-sm-10" id="cliente">	           
+ 			            	<div class="panel-body"> 
+			            		<s:property value="ddtObject.ddt.cliente.rs"/> 
+ 			            	</div> 
+ 			            </div>	             
+ 			            <div class="col-sm-2">
+ 			            </div> 
 
+						<!-- 
 						<s:select  label="Cliente" 
 							list="ddtObject.ddt.listClienti" emptyOption="true" listKey="id" listValue="rs" name="codiceCliente" id="codiceCliente" cssClass="form-control"/>
-						<!-- <select class="form-control" name="codiceCliente" id="codiceCliente"></select>-->
+							-->
+						 <select class="form-control" name="codiceCliente" id="codiceCliente"></select>
 		            </div>
 		            <div class="col-md-6">
 		            	<input type="hidden" name="ddtObject.ddt.idPuntoConsegna" id="ddtObject_ddt_idPuntoConsegna" value="<s:property value="ddtObject.ddt.idPuntoConsegna" />" data-mandatory="1" />

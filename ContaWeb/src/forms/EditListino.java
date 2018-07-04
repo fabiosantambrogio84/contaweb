@@ -52,7 +52,7 @@ public class EditListino extends Edit {
                     prezzoRif.setListino(newListino);
                 }
 
-                /* elimino gli eventuali prezzi già settati */
+                /* elimino gli eventuali prezzi gia settati */
                 Prezzi prezzi = new Prezzi();
                 prezzi.deletePrezziByListino(newListino.getId());
 

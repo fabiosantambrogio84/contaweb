@@ -3,6 +3,17 @@
 
     <display-name>Conta Web</display-name>
 
+	<!--  
+	<filter>
+      	<filter-name>CorsFilter</filter-name>
+    	<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+      	<filter-name>CorsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+    </filter-mapping>
+	-->
+	
     <filter>
         <filter-name>struts2</filter-name>
         <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>

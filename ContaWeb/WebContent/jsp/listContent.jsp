@@ -134,17 +134,20 @@
 		</s:url>	
 
 		<% if (!editAction.equals("ordiniEdit")) { %>
+			<s:a onclick="openModal('0');" accesskey="N" href="javascript:void(0)" cssClass="link">
+				<tiles:getAsString name="newActionCaption"/>
+			</s:a>
             <%-- <% if (onModal != null && !onModal.equals("False")) { %>
 				<s:a onclick="openModal('0');" accesskey="N" href="javascript:void(0)" cssClass="link">
 					<tiles:getAsString name="newActionCaption"/>
 				</s:a>
-			<% } else { %>  --%>
+			<% } else { %> 
 				<% if (newActionCaption != null) { %>
 					<s:a onclick="<%=newWindowScript %>" accesskey="N" href="%{newAction}" cssClass="link">
 						<tiles:getAsString name="newActionCaption"/>
 					</s:a>
 				<% } %>
-			 <%-- <% } %>  --%>
+			  <% } %>  --%>
 		<% } %>
 	</div>
 		
@@ -418,7 +421,7 @@
 									<% newWindowScript = "return apriFinestra('"+ editAction + "_input.do','edit','%{id}');"; %>
 								<% } %>
 										
-							<s:a onclick="<%=newWindowScript %>" href="%{editURL}" cssClass="link">Mod.</s:a>							
+							<a onclick="openModal('<s:property value="id"/>')" href="javascript:void(0)" class="link">Mod.</a>
 							<%-- <%if (onModal == null) { %>								
 								<s:a onclick="<%=newWindowScript %>" href="%{editURL}" cssClass="link">Mod.</s:a>
 							<% } else {%>

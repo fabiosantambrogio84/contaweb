@@ -1682,3 +1682,38 @@ function enableClienti(){
 function onBodyLoad(){
 	enableClienti();
 }
+
+// ### NUOVA MASCHERA ###
+function enableNumerazioneAutomatica(){
+	var numAutCb = document.getElementById('autonum');
+	var numAut1 = document.getElementById('ddtObject_ddt_numeroProgressivo');
+	var numAut2 = document.getElementById('ddtObject_ddt_annoContabile');
+	if(numAutCb != undefined){
+		if(numAutCb.checked){
+			numAut1.disabled = true;
+			numAut1.readOnly = true;
+			numAut2.disabled = true;
+			numAut2.readOnly = true;
+		} else{
+			numAut1.disabled = false;
+			numAut1.readOnly = false;
+			numAut2.disabled = false;
+			numAut2.readOnly = false;
+		}
+	}
+}
+
+function enableNumAut() {
+	if($("#autonum") != undefined && $("#autonum").length){
+		if($("#autonum").is(':checked')){
+			$("#ddtObject_ddt_numeroProgressivo").prop('disabled', true);
+			$("#ddtObject_ddt_annoContabile").prop('disabled', true);
+		} else{
+			$("#ddtObject_ddt_numeroProgressivo").prop('disabled', false);
+			$("#ddtObject_ddt_annoContabile").prop('disabled', false);
+		}
+	}
+}
+
+
+// ### END NUOVA MASCHERA ###
