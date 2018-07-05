@@ -509,6 +509,7 @@ function openNewDdt(){
 	$("#saveDdt").prop("disabled", true);
 	$("#printDdt").prop("disabled", true);
 	
+	/*
 	var d = new Date();
 	var day = d.getDate();
 	if(day < 10)
@@ -519,6 +520,15 @@ function openNewDdt(){
 	$("#ddtObject_ddt_oraTrasporto").val(time);
 	$("#ddtObject_ddt_dataTrasporto").val(today);
 	$("#ddtObject_ddt_data").val(today);
+	*/
+	
+	var now = new Date();
+	var day = ("0" + now.getDate()).slice(-2);
+	var month = ("0" + (now.getMonth() + 1)).slice(-2);
+	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;		
+	$("#ddtObject_ddt_data").val(today);
+	
+	enableNumAut();
 }
 
 
@@ -1682,3 +1692,19 @@ function enableClienti(){
 function onBodyLoad(){
 	enableClienti();
 }
+
+//### NUOVA MASCHERA ###
+function enableNumAut() {
+	if($("#autonum") != undefined && $("#autonum").length){
+		if($("#autonum").is(':checked')){
+			$("#ddtObject_ddt_numeroProgressivo").prop('disabled', true);
+			$("#ddtObject_ddt_annoContabile").prop('disabled', true);
+		} else{
+			$("#ddtObject_ddt_numeroProgressivo").prop('disabled', false);
+			$("#ddtObject_ddt_annoContabile").prop('disabled', false);
+		}
+	}
+}
+
+
+// ### END NUOVA MASCHERA ###

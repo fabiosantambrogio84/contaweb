@@ -509,6 +509,7 @@ function openNewDdt(){
 	$("#saveDdt").prop("disabled", true);
 	$("#printDdt").prop("disabled", true);
 	
+	/*
 	var d = new Date();
 	var day = d.getDate();
 	if(day < 10)
@@ -519,6 +520,15 @@ function openNewDdt(){
 	$("#ddtObject_ddt_oraTrasporto").val(time);
 	$("#ddtObject_ddt_dataTrasporto").val(today);
 	$("#ddtObject_ddt_data").val(today);
+	*/
+	
+	var now = new Date();
+	var day = ("0" + now.getDate()).slice(-2);
+	var month = ("0" + (now.getMonth() + 1)).slice(-2);
+	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;		
+	$("#ddtObject_ddt_data").val(today);
+	
+	enableNumAut();
 }
 
 
@@ -1684,25 +1694,6 @@ function onBodyLoad(){
 }
 
 // ### NUOVA MASCHERA ###
-function enableNumerazioneAutomatica(){
-	var numAutCb = document.getElementById('autonum');
-	var numAut1 = document.getElementById('ddtObject_ddt_numeroProgressivo');
-	var numAut2 = document.getElementById('ddtObject_ddt_annoContabile');
-	if(numAutCb != undefined){
-		if(numAutCb.checked){
-			numAut1.disabled = true;
-			numAut1.readOnly = true;
-			numAut2.disabled = true;
-			numAut2.readOnly = true;
-		} else{
-			numAut1.disabled = false;
-			numAut1.readOnly = false;
-			numAut2.disabled = false;
-			numAut2.readOnly = false;
-		}
-	}
-}
-
 function enableNumAut() {
 	if($("#autonum") != undefined && $("#autonum").length){
 		if($("#autonum").is(':checked')){

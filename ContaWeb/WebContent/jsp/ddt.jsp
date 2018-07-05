@@ -1,20 +1,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<script>
-	$(document).ready(function(){
-		if($("#ddtObject_ddt_id").length || $.isEmptyObject($("#ddtObject_ddt_id"))){
-			var now = new Date();
-			var day = ("0" + now.getDate()).slice(-2);
-			var month = ("0" + (now.getMonth() + 1)).slice(-2);
-			var today = now.getFullYear()+"-"+(month)+"-"+(day) ;		
-			$("#ddtObject_ddt_data").val(today);
-		}
-
-		enableNumAut();
-	});
-</script>		
-
 <form id="ddtform" action="saveDdt()" onload="return onDdtMaskFormLoad()">
 	<s:hidden name="ddtObject.ddt.id" />
 	<div class="modal-header">
@@ -34,7 +20,7 @@
 		                <div class="col-md-7 col-sm-7">
 		                    <div class="checkbox col-md-4 col-sm-6 col-xs-5">
 		                        <label>
-		                            <input id="autonum" checked onchange="enableNumAut()" name="autonum" type="checkbox"> Numerazione Automatica
+		                            <input id="autonum" onchange="enableNumAut()" name="autonum" type="checkbox"> Numerazione Automatica
 		                        </label>
 		                    </div>
 		                    <div class="input-group col-md-8">
