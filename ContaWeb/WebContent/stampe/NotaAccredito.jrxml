@@ -55,7 +55,7 @@
 	<field name="prezzo" class="java.math.BigDecimal"/>
 	<field name="sconto" class="java.math.BigDecimal"/>
 	<field name="totale" class="java.math.BigDecimal"/>
-	<field name="iva" class="java.math.BigDecimal"/>
+	<field name="iva" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -330,7 +330,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="8"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pagamento}]]></textFieldExpression>
 			</textField>
@@ -374,7 +374,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="8"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{agente}]]></textFieldExpression>
 			</textField>
@@ -759,7 +759,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{iva3}]]></textFieldExpression>
 			</textField>
@@ -772,7 +772,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{iva1}]]></textFieldExpression>
 			</textField>
@@ -785,7 +785,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{iva2}]]></textFieldExpression>
 			</textField>
@@ -798,7 +798,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{imposta1}]]></textFieldExpression>
 			</textField>
@@ -811,7 +811,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{imposta2}]]></textFieldExpression>
 			</textField>
@@ -824,7 +824,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{imponibile3}]]></textFieldExpression>
 			</textField>
@@ -837,7 +837,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{imponibile1}]]></textFieldExpression>
 			</textField>
@@ -850,7 +850,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{imponibile2}]]></textFieldExpression>
 			</textField>
@@ -863,7 +863,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{imposta3}]]></textFieldExpression>
 			</textField>
@@ -876,7 +876,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[Totali €]]></text>
 			</staticText>
@@ -889,7 +889,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totaleImponibile}]]></textFieldExpression>
 			</textField>
@@ -902,7 +902,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="9"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totaleImposta}]]></textFieldExpression>
 			</textField>
@@ -915,7 +915,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="8" isItalic="true"/>
+					<font fontName="Arial" size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Imponibile €]]></text>
 			</staticText>
@@ -928,7 +928,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="8" isItalic="true"/>
+					<font fontName="Arial" size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Imposta €]]></text>
 			</staticText>
@@ -941,7 +941,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" isItalic="true" isUnderline="true"/>
+					<font fontName="Arial" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Totale Accredito €]]></text>
 			</staticText>
@@ -954,7 +954,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="8" isItalic="true"/>
+					<font fontName="Arial" size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Iva (%)]]></text>
 			</staticText>

@@ -42,7 +42,7 @@
 	<field name="prezzo" class="java.math.BigDecimal"/>
 	<field name="sconto" class="java.math.BigDecimal"/>
 	<field name="totale" class="java.math.BigDecimal"/>
-	<field name="iva" class="java.math.BigDecimal"/>
+	<field name="iva" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -72,14 +72,14 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 			<staticText>
 				<reportElement x="263" y="6" width="158" height="20" uuid="6b4788c0-0ef1-4965-ba5b-38a77d6ea115"/>
 				<textElement textAlignment="Center">
-					<font fontName="Ubuntu" size="12" isBold="true" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[gastronomia - pasta fresca]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="147" y="6" width="114" height="22" uuid="f4cee3e0-1f5d-4ba1-8165-a24b7f0cb938"/>
 				<textElement textAlignment="Center">
-					<font fontName="Ubuntu" size="12" isBold="true" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Urbani Giuseppe]]></text>
 			</staticText>
@@ -473,7 +473,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="8"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pagamento}]]></textFieldExpression>
 			</textField>
@@ -517,7 +517,7 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Ubuntu" size="8"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{agente}]]></textFieldExpression>
 			</textField>
