@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final utlizzo versione della libreria JasperReports6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RiepilogoFattureCC" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="9b272ccf-6fdc-406a-bb89-ab0191c1e466">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -43,7 +42,7 @@
 	<variable name="SUM_imponibile2_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
     (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) 
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
@@ -58,7 +57,7 @@
 	<variable name="SUM_imposta2_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
     (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) 
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta2}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
@@ -81,7 +80,7 @@
 	<variable name="SUM_imposta2_2" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
     (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) 
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imposta2}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
@@ -100,7 +99,7 @@
 	<variable name="SUM_imponibile2_2" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
     (($F{iva1} != null && new BigDecimal($F{iva1}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) 
+    (($F{iva2} != null && new BigDecimal($F{iva2}).compareTo(new BigDecimal(10.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
