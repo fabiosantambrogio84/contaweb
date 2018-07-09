@@ -41,7 +41,7 @@ function setCliente(){
 		})
 		.done(function( data ) {
 
-			console.log( "cliente: " + JSON.stringify(data) );
+			//console.log( "cliente: " + JSON.stringify(data) );
 			
 			$("#cliente .panel-body").html(data.rs);
 			$("#ddtObject_ddt_idCliente").val(data.id);
@@ -55,8 +55,7 @@ function setCliente(){
 function getPuntoConsegna(type, id)
 {
 	var index = 0;
-	if(typeof id === 'undefined' 
-		|| id === '')
+	if(typeof id === 'undefined' || id === '')
 	{
 		id = $("#ddtObject_ddt_idCliente").val();
 		index = parseInt($("#index_puntoConsegna").val());
@@ -82,7 +81,25 @@ function getPuntoConsegna(type, id)
 			var destinazione = data.nome + breakline + data.cap + " - " + data.indirizzo + breakline + data.localita + " - " + data.prov;
 			$("#destinazione .panel-body").html(destinazione);
 			
-			console.log( "destinazione: " + JSON.stringify(data) );
+			//console.log( "destinazione: " + JSON.stringify(data) );
+		});
+	
+	$.ajax({
+		  method: "GET",
+		  contentType: "application/json",
+		  dataType: "json",
+		  url: "/ContaWeb/clienteDestinazioni.do?id=" + id
+		})
+		.done(function( data ) {
+			//$("#ddtObject_ddt_idPuntoConsegna").val(data.id);
+			// settare la classe selected sul primo elemento
+			// salvare l'id del primo elemento
+			// onchange: modificare id e classe selected
+			data = $.parseJSON(data);
+			$.each(data, function(i, item) {
+				var listElement = '<a href="#" class="list-group-item">'+data.nome+' '+data.cap+" - "+data.indirizzo+' '+data.localita+" - "+data.prov+'</a>';
+				$("#destinazione2").append(listElement);
+			});
 		});
 }
 

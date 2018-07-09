@@ -42,6 +42,10 @@
        	   <result type="testo" />
       	</action>
       	
+      	<action name="clienteDestinazioni" class="web.DdtApiAction" method="getClienteDestinazioni">
+       	   <result type="testo" />
+      	</action>
+      	
       	<action name="salvaDDT" class="web.DdtApiAction" method="saveChanges">
        	   <result type="testo" />
       	</action>

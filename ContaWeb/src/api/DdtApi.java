@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dao.Articoli;
@@ -115,6 +116,16 @@ public class DdtApi {
 
         }
 
+        return null;
+    }
+
+    public JSONArray getClienteDestinazioni(int idCliente) throws Exception {
+        try {
+            PuntiConsegna pcs = new PuntiConsegna(idCliente);
+            PuntoConsegna[] puntiConsegna = pcs.findByCliente();
+            return new JSONArray(puntiConsegna);
+        } catch (Exception ex) {
+        }
         return null;
     }
 

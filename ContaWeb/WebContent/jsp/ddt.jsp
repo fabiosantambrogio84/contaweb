@@ -50,13 +50,16 @@
  			            	</div> 
  			            </div>	             
  			            <div class="col-sm-2">
+ 			            	<button class="btn btn-block btn-default" onclick="getClienti()" type="button">Trova</button>
  			            </div> 
 
 						<!-- 
 						<s:select  label="Cliente" 
 							list="ddtObject.ddt.listClienti" emptyOption="true" listKey="id" listValue="rs" name="codiceCliente" id="codiceCliente" cssClass="form-control"/>
 							-->
-						 <select class="form-control" name="codiceCliente" id="codiceCliente"></select>
+						<!-- 
+						<select class="form-control" name="codiceCliente" id="codiceCliente"></select>
+						-->
 		            </div>
 		            <div class="col-md-6">
 		            	<input type="hidden" name="ddtObject.ddt.idPuntoConsegna" id="ddtObject_ddt_idPuntoConsegna" value="<s:property value="ddtObject.ddt.idPuntoConsegna" />" data-mandatory="1" />
@@ -75,7 +78,26 @@
 		            </div>
 					<div id="clientilist" class="col-md-12 hide"></div>
 		        </div>
-		
+				<div class="row">
+					<div class="col-md-6 list-group" id="destinazione2">
+						<!--
+						<ul class="dest-list">
+							<li>First item</li>
+							<li>Second item</li>
+							<li>Third item</li>
+						</ul>
+						-->
+						<!--
+						<div class="list-group">
+							<a href="#" class="list-group-item">First item</a>
+							<a href="#" class="list-group-item">Second item</a>
+							<a href="#" class="list-group-item">Third item</a>
+						</div>
+						-->
+					</div>
+				</div>
+				
+				
 		    </fieldset>
 		    <fieldset class="dettaglio top-buffer">
 		        <legend class="row">Dettaglio</legend>
