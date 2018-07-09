@@ -707,7 +707,23 @@ function confermaCancellazione(id, link) {
 		document.getElementById("messageBox").textContent= 'Cancellazione in corso...';		
 		//AJAX call		
 		link = link + "&id=" + id;
-		dojo.io.bind({
+		
+		$.ajax({
+			method: "GET",
+			url: link,
+			error: function(data) {
+				document.getElementById("messageBox").style.backgroundColor = "yellow";
+	        	document.getElementById("messageBox").textContent= 'Errore nella cancellazione!';
+	         	row.style.backgroundColor = "#ffffff";
+			}
+		})
+		.done(function( data ) {
+			document.getElementById("messageBox").style.backgroundColor = "#66FF33";
+	        document.getElementById("messageBox").textContent= 'Riga cancellata con successo!';
+	        row.parentNode.removeChild(row);
+		});
+		
+		/*dojo.io.bind({
 			url: link,
 			method: "get",
 			handle: function(type,data,evt) {
@@ -722,8 +738,10 @@ function confermaCancellazione(id, link) {
 	         }
 	        },
 		});
+		*/
 	} else {
 		row.style.backgroundColor = "#ffffff";
+		document.getElementById("messageBox").remove();
 	}
 	return false;
 }
