@@ -455,6 +455,10 @@
 								<s:url id="deleteURL" action="${editAction}_input" includeParams="none">
 									<s:param name="action">delete</s:param>
 								</s:url>
+							<% } else if(editAction.equals("scontiEdit")){%>
+								<s:url id="deleteURL" action="${editAction}_input" includeParams="none">
+									<s:param name="action">delete</s:param>
+								</s:url>	
 							<% } else {%>
 							<s:url id="deleteURL" action="${editAction}" includeParams="none">
 								<s:param name="action">delete</s:param>
@@ -464,7 +468,7 @@
 							<% if (editAction.equals("editDDT")) { %>
 								<s:a theme="ajax" onclick="return confermaCancellazioneDDT('%{id}','%{deleteURL}')" href="#" cssClass="link">Canc.</s:a>
 							<% }  else { %> 
-								<s:a theme="ajax" onclick="return confermaCancellazione('%{id}','%{deleteURL}')" href="#" cssClass="link">Canc.</s:a>
+								<s:a onclick="return confermaCancellazione('%{id}','%{deleteURL}')" href="#" cssClass="link">Canc.</s:a>
 							<% }  %> 
 						<% } %>
 					
@@ -549,7 +553,6 @@
 				<td class="tableCell" align="right" id="idTotaleImporto"><%=totaleImporto%></td>
 				<td class="tableCell" align="right"><%=totaleImponibile%></td>
 				<td class="tableCell" align="right"><%=totaleCosto%></td>
-				<td class="tableCell" align="right"></td>
 				<td class="tableCell" align="right"><%=totaleGuadagno%></td>
 				<td class="tableCell" colspan="1" align="right"></td>
 			</tr>
