@@ -133,7 +133,7 @@ h3{text-align:left;}
 
 th {
 	font-family: testo, Sans-serif, Verdana, Arial, Helvetica;
-	font-size: 15px;
+	font-size: 15px !important;
 	background-color: gray;
 	padding: 3px;
 	border-right: 1px solid #000000;
@@ -201,6 +201,10 @@ TABLE .link{
 /* TABLE .link:nth-child(4):before{clear:both;} */
 
 TABLE TR TD{padding:4px}
+
+table td{
+	font-size: 14px !important;
+}
 
 .linkSkype {
 	font-weight: normal;
@@ -615,3 +619,11 @@ TABLE TR TD{padding:4px}
 }
 
 /* END ORDINI CLIENTI */
+
+
+/* CSS MASCHERA DDT */
+.puntoConsegnaSelected {
+	background-color: #bbeab2;
+}
+
+/* END CSS MASCHERA DDT */

@@ -367,7 +367,77 @@
 	                   <button onclick="saveDdtMod()" id="saveDdt" type="button" class="btn btn-lg btn-block btn-default">Modifica</button>
 	               </div>
 	           </div>
-	       </div>
+			</div>
+		   
+			<!-- Editable table -->
+			<div class="card">    
+			  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>    
+			  <div class="card-body">        
+				<div id="table" class="table-editable">            
+				  <span class="table-add float-right mb-3 mr-2">
+					<a href="#!" class="text-success">
+					  <i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+				  </span>            
+				  <table class="table table-bordered table-responsive-md table-striped text-center">                
+					<tr>                    
+						<th class="text-center">Codice</th>                    
+						<th class="text-center">Descrizione</th>                    
+						<th class="text-center">Qta</th>                    
+						<th class="text-center">Pezzi</th>                    
+						<th class="text-center">Prezzo</th>                    
+						<th class="text-center">Sconto</th>
+						<th class="text-center">Iva</th> 
+						<th class="text-center">UdM</th>
+						<th class="text-center">Lotto</th>
+						<th class="text-center">Sort</th>                      
+						<th class="text-center">Remove</th>                
+					</tr>           
+				  </table>        
+				</div>    
+			  </div>
+			</div>
+			<!-- Editable table -->
+
+			<!-- SCRIPTS -->
+			<!-- JQuery -->
+			<!--<script type="text/javascript" src="mdb/js/jquery-3.3.1.min.js"></script>-->
+			<!-- Bootstrap tooltips -->
+			<script type="text/javascript" src="materialDesignBootstrap/js/popper.min.js"></script>
+			<!-- Bootstrap core JavaScript -->
+			<!--<script type="text/javascript" src="materialDesignBootstrap/js/bootstrap.min.js"></script>-->
+			<!-- MDB core JavaScript -->
+			<script type="text/javascript" src="materialDesignBootstrap/js/mdb.min.js"></script>
+
+			<!-- Custom -->
+			<script id="emptyRow" type="text/plain">
+			  <tr class="hide">                    
+				<td class="pt-3-half" contenteditable="true"></td>                    
+				<td class="pt-3-half" contenteditable="true"></td>                    
+				<td class="pt-3-half" contenteditable="true"></td>                    
+				<td class="pt-3-half" contenteditable="true"></td>                    
+				<td class="pt-3-half" contenteditable="true"></td>
+				<td class="pt-3-half" contenteditable="true"></td> 
+				<td class="pt-3-half" contenteditable="true"></td>
+				<td class="pt-3-half" contenteditable="true"></td>
+				<td class="pt-3-half" contenteditable="true"></td>                     
+				<td class="pt-3-half">                        
+				  <span class="table-up">
+					<a href="#!" class="indigo-text">
+					  <i class="fa fa-long-arrow-up" aria-hidden="true"></i></a>
+				  </span>                        
+				  <span class="table-down">
+					<a href="#!" class="indigo-text">
+					  <i class="fa fa-long-arrow-down" aria-hidden="true"></i></a>
+				  </span>                    </td>                    <td>                        
+				  <span class="table-remove">
+					<button type="button" class="btn btn-danger btn-rounded btn-sm my-0" onclick='removeRow.call(this,event);'>Remove
+					</button>
+				  </span>                    </td>                
+			  </tr>
+			</script>
+			
+			<script type="text/javascript" src="materialDesignBootstrap/js/extras.js"></script>
+			  
 	   </div>
 	</div>
 </form>

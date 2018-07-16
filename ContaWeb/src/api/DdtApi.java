@@ -122,7 +122,7 @@ public class DdtApi {
     public JSONArray getClienteDestinazioni(int idCliente) throws Exception {
         try {
             PuntiConsegna pcs = new PuntiConsegna(idCliente);
-            PuntoConsegna[] puntiConsegna = pcs.findByCliente();
+            Collection<PuntoConsegna> puntiConsegna = pcs.findByCliente();
             return new JSONArray(puntiConsegna);
         } catch (Exception ex) {
         }

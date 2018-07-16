@@ -95,9 +95,20 @@ function getPuntoConsegna(type, id)
 			// settare la classe selected sul primo elemento
 			// salvare l'id del primo elemento
 			// onchange: modificare id e classe selected
-			data = $.parseJSON(data);
+			//data = $.parseJSON(data);
+			$("#destinazione2").empty();
 			$.each(data, function(i, item) {
-				var listElement = '<a href="#" class="list-group-item">'+data.nome+' '+data.cap+" - "+data.indirizzo+' '+data.localita+" - "+data.prov+'</a>';
+				var styleClass;
+				if(i == 0){
+					styleClass = 'puntoConsegnaSelected';
+					$("#ddtObject_ddt_idPuntoConsegna").val(item.id);
+				}
+				var onclick = " onclick='registerMovePuntoConsegna.call(this,event);'";
+				var listElement = '<a href="#" class="list-group-item ';
+				if(styleClass != undefined){
+					listElement = listElement + styleClass;
+				}
+				listElement = listElement + '" data-id="'+item.id+'" ' + onclick + '>'+item.id+' - '+item.nome+' '+item.cap+" - "+item.indirizzo+' '+item.localita+" - "+item.prov+'</a>';
 				$("#destinazione2").append(listElement);
 			});
 		});
@@ -546,6 +557,7 @@ function openNewDdt(){
 	$("#ddtObject_ddt_data").val(today);
 	
 	enableNumAut();
+	
 }
 
 
@@ -1742,5 +1754,20 @@ function enableNumAut() {
 	}
 }
 
+function registerMovePuntoConsegna(event){
+	event.preventDefault();
+	$(this).parent().prepend(this);
+	$(this).addClass( "puntoConsegnaSelected");
+	$(this).siblings().removeClass("puntoConsegnaSelected");
+	
+	$("#ddtObject_ddt_idPuntoConsegna").val($(this).attr("data-id"));
+	
+	/*
+	$('.list-group-item').on('click', function() {
+		event.preventDefault();
+		$(this).parent().prepend(this);
+	})
+	*/
+}
 
 // ### END NUOVA MASCHERA ###

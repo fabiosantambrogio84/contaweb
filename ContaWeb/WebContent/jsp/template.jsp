@@ -35,8 +35,30 @@
 <script type="text/javascript" src="js/scripts.js"></script>
 <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css" type="text/css" media="all" />
 <title><tiles:getAsString name="title" /></title>
+<title>Material Design Bootstrap</title>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap core CSS -->
+<!--<link href="materialDesignBootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+<!-- Material Design Bootstrap -->
+<link href="materialDesignBootstrap/css/mdb.min.css" rel="stylesheet">
+<!-- Your custom styles (optional) -->
+<link href="materialDesignBootstrap/css/style.css" rel="stylesheet">
+
 </head>
 <body onload="onBodyLoad()">
+	<!-- SCRIPTS -->
+	<!-- JQuery -->
+	<!--<script type="text/javascript" src="mdb/js/jquery-3.3.1.min.js"></script>-->
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="materialDesignBootstrap/js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<!--<script type="text/javascript" src="materialDesignBootstrap/js/bootstrap.min.js"></script>-->
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="materialDesignBootstrap/js/mdb.min.js"></script>
+	<script type="text/javascript" src="materialDesignBootstrap/js/extras.js"></script>
+	
+	
 	<tiles:insertAttribute name="header" ignore="true" />
 	<div class="container-fluid">
 		<center>

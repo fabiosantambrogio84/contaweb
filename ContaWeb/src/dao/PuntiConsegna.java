@@ -43,11 +43,11 @@ public class PuntiConsegna extends DataAccessObject {
     }
 
     @SuppressWarnings("unchecked")
-    public PuntoConsegna[] findByCliente() throws DataAccessException {
-        Collection<PuntoConsegna> puntoconsegna;
+    public Collection<PuntoConsegna> findByCliente() throws DataAccessException {
+        Collection<PuntoConsegna> punticonsegna;
         setDefaultCriteria();
-        puntoconsegna = getElements();
-        return (PuntoConsegna[]) puntoconsegna.toArray();
+        punticonsegna = getElements();
+        return punticonsegna;
     }
 
 }
