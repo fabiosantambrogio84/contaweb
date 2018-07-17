@@ -1173,7 +1173,7 @@ public class DDTWindow {
                         // SALVO L'OGGETTO DDT
                         // int idDDT = new DbConnector().saveDDT(ddt);
                         int idDDT = new DbConnector().saveDDT(ddt, true);
-                        JOptionPane.showMessageDialog(getPanelBottoni(), "Il DDT � stato salvato con successo", "Successo",
+                        JOptionPane.showMessageDialog(getPanelBottoni(), "Il DDT e' stato salvato con successo", "Successo",
                                 JOptionPane.INFORMATION_MESSAGE);
                         setModalitaInserimentoDDT();
                         stampaDDT(idDDT);
