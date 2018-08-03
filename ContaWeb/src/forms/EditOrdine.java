@@ -32,7 +32,7 @@ import vo.PrezzoConSconto;
 import vo.PuntoConsegna;
 import vo.Telefonata;
 
-@SuppressWarnings({"rawtypes", "unchecked", "unused"})
+@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 public class EditOrdine extends Edit {
 
     private static final long serialVersionUID = 1L;
@@ -126,9 +126,9 @@ public class EditOrdine extends Edit {
             pc.setId(-1);
             listPuntiConsegna.add(pc);
         } else {
-            pc.setNome("Nessuna in particolare");
-            pc.setId(-1);
-            listPuntiConsegna.add(pc);
+            // pc.setNome("Nessuna in particolare");
+            // pc.setId(-1);
+            // listPuntiConsegna.add(pc);
 
             PuntiConsegna punti = new PuntiConsegna(ordine.getIdCliente());
             listPuntiConsegna.addAll(punti.getElements());
@@ -353,10 +353,12 @@ public class EditOrdine extends Edit {
         this.orarioSpedizione = orarioSpedizione;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -381,6 +383,7 @@ public class EditOrdine extends Edit {
      * != null) elements.add(table[i][j]); else { elements.add(new DettaglioOrdine()); } } listaArticoli.add(elements); } }
      */
 
+    @Override
     public String input() throws DataAccessException {
         if (id != null) {
             try {
@@ -499,7 +502,7 @@ public class EditOrdine extends Edit {
             ArrayList<Integer> ctr = new ArrayList<Integer>();
 
             while (itr.hasNext()) {
-                Articolo a = (Articolo) itr.next();
+                Articolo a = itr.next();
                 if (!(ctr.contains(a.getId())) || ctr.isEmpty()) {
                     ctr.add(a.getId());
                     if (response.equalsIgnoreCase("["))
@@ -581,6 +584,7 @@ public class EditOrdine extends Edit {
         }
     }
 
+    @Override
     protected String store() {
         String result = ERROR;
         try {
@@ -651,6 +655,7 @@ public class EditOrdine extends Edit {
         return result;
     }
 
+    @Override
     protected String delete() {
         try {
             ordine = new Ordine();
@@ -667,17 +672,17 @@ public class EditOrdine extends Edit {
         try {
             /* recupero il filtro di cancellazione sullo stato */
             int statoOrdiniToDelete = DeleteOrdini.getOutputFromLabel(filterDeleteOrdini);
-            
+
             /* recupero la lista di ordini */
             Collection list = new Ordini().getElements();
-            
+
             /* cancello gli ordini a seconda dello stato */
             for (Object ordine : list) {
-                Ordine ord = (Ordine)ordine;
-                if(statoOrdiniToDelete == -1){
+                Ordine ord = (Ordine) ordine;
+                if (statoOrdiniToDelete == -1) {
                     new Ordini().delete(ord);
-                }else{
-                    if(ord.getStatoOrdine() == statoOrdiniToDelete){
+                } else {
+                    if (ord.getStatoOrdine() == statoOrdiniToDelete) {
                         new Ordini().delete(ord);
                     }
                 }
