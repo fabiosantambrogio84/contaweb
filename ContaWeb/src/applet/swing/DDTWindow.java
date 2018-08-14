@@ -318,7 +318,7 @@ public class DDTWindow {
         txtPrezzoArticolo.setEnabled(modalita);
         txtScontoArticolo.setEnabled(modalita);
         txtPezzi.setEnabled(modalita);
-        // cmbIva.setEnabled(!modalita);
+        cmbIva.setEnabled(modalita);
         txtLottoArticolo.setEnabled(modalita);
         buttonInserisciRiga.setEnabled(!modalita);
         buttonOk.setEnabled(modalita);
@@ -348,6 +348,7 @@ public class DDTWindow {
             txtUMArticolo.setText((String) table.getModel().getValueAt(selectedRow, 8));
             txtLottoArticolo.setText((String) table.getModel().getValueAt(selectedRow, COL_LOTTO));
 
+            cmbIva.setSelectedIndex(0);
             for (int i = 0; i < cmbIva.getItemCount(); ++i)
                 if (iva == ((Iva) cmbIva.getItemAt(i)).getValore())
                     cmbIva.setSelectedIndex(i);
@@ -475,7 +476,7 @@ public class DDTWindow {
         txtPezzi.setEnabled(modalita);
         txtPrezzoArticolo.setEnabled(modalita);
         txtScontoArticolo.setEnabled(modalita);
-        // cmbIva.setEnabled(modalita);
+        cmbIva.setEnabled(modalita);
         txtLottoArticolo.setEnabled(modalita);
         buttonInserisciRiga.setEnabled(!modalita);
         buttonOk.setEnabled(modalita);
