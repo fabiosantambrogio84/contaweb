@@ -16,6 +16,7 @@ import dao.Agenti;
 import dao.Articoli;
 import dao.Autisti;
 import dao.Clienti;
+import dao.DDTs;
 import dao.DataAccessException;
 import dao.Listini;
 import dao.Ordini;
@@ -24,7 +25,9 @@ import dao.StatisticheVendite;
 import dao.Telefonate;
 import utils.DeleteOrdini;
 import vo.Articolo;
+import vo.Autista;
 import vo.Cliente;
+import vo.DDT;
 import vo.DettaglioOrdine;
 import vo.ListinoAssociato;
 import vo.Ordine;
@@ -551,6 +554,15 @@ public class EditOrdine extends Edit {
             ordineVecchio.setAutista(new Autisti().find(idAutisti));
             ordineVecchio.setIdAutista(idAutisti);
             new Ordini().store(ordineVecchio);
+
+            Collection<DDT> ddts = new DDTs().getDDTsByIdOrdine(idOrdine);
+            if (ddts.size() == 1) {
+                DDT ddt = (DDT) ddts.toArray()[0];
+                ddt = (DDT) new DDTs().find(ddt);
+                ddt.setIdAutista(idAutisti);
+                ddt.setAutista(new Autisti().find(idAutisti));
+                new DDTs().store(ddt);
+            }
         } catch (Exception e) {
             stampaErrore("EditOrdine.storeAutista()", e);
         }
@@ -610,8 +622,19 @@ public class EditOrdine extends Edit {
              */
 
             if (ordine.getIdAutista() != null) {
-                ordine.setAutista(new Autisti().find(ordine.getIdAutista()));
+                Autista autista = new Autisti().find(ordine.getIdAutista());
+                ordine.setAutista(autista);
                 ordine.setIdAutista(ordine.getIdAutista());
+
+                /* Aggiorno il DDT associo (se esiste) */
+                Collection<DDT> ddts = new DDTs().getDDTsByIdOrdine(ordine.getId());
+                if (ddts.size() == 1) {
+                    DDT ddt = (DDT) ddts.toArray()[0];
+                    ddt = (DDT) new DDTs().find(ddt);
+                    ddt.setIdAutista(ordine.getIdAutista());
+                    ddt.setAutista(autista);
+                    new DDTs().store(ddt);
+                }
             }
 
             if (ordine.getIdAgente() != null) {
