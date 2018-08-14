@@ -1221,10 +1221,31 @@ function loadArticolo(inputId,urlRequest) { //usato in ordini cliente
 	var idCliente = document.getElementById('idClienteSelect').value;
 	var dataSpedizione = document.getElementById('dataSpedizioneSelect').value;
 
-	if (input.data("id") == '')
+	if ((input.data("id") == '' || input.data("id") == undefined) && ($('#txtIdArticolo').val() == undefined || $('#txtIdArticolo').val() == '')){
 		return;
+	}
+		
 	var idArticolo = input.attr("data-id");
+	/* se l'id articolo è nullo ma il codice è valorizzato */
+	if((idArticolo == undefined || idArticolo == '') && $('#txtIdArticolo').val() != undefined && $('#txtIdArticolo').val() != ''){
+		alert("Seleziona l'articolo dal menu' a tendina.");
+		$("#txtIdArticolo").focus();
+		return;
+	}
 	
+    /* recupero il valore della selezione */
+	var codiceArticolo = input.attr("data-value");
+	codiceArticolo = codiceArticolo + ", ";
+	/* recupero il valore inserito/modificato dall'utente */
+	var codiceArticoloIns = $('#txtIdArticolo').val();
+	if(codiceArticolo != undefined && codiceArticolo != ''){
+		if(codiceArticolo != codiceArticoloIns){
+			alert("Il codice inserito non corrisponde alla descrizione dell'articolo. Selezionare l'articolo dal menu' a tendina.");
+			$("#txtIdArticolo").focus();
+			return;
+		}
+	}
+		
 	urlRequest += '?idArticolo=' + idArticolo + "&idOrdine=" + idOrdine + "&idCliente=" + idCliente + "&dataSpedizione=" + dataSpedizione;
 
 	if (dgbActive > 2) { // Old Debug message
@@ -1244,6 +1265,10 @@ function loadArticolo(inputId,urlRequest) { //usato in ordini cliente
 	if (dgbActive > 2) { // Old Debug message
 		document.getElementById("lblDebug").style.backgroundColor = "grey";
 	}
+	/*
+	$('#txtIdArticolo').attr('data-id','');
+	input.data("id") == '';
+	*/
 }
 
 function split( val ) {
@@ -1302,6 +1327,7 @@ function autocompleteArticoli()
 				
 				this.value = ui.item.value;
 				this.setAttribute("data-id", ui.item.id);
+				this.setAttribute("data-value", ui.item.value);
 				
 				var terms = split( this.value );
 				// remove the current input
@@ -1336,6 +1362,8 @@ function disableFieldsArticolo() {
     var idArticolo = input.data("id");
 //	input.setValue('');
     input.val("");
+	input.attr('data-id','');
+	input.attr('data-value','');
 	
 	bttInserisci.className = 'hiddenElements';
 	bttInserisci.disabled = true;
@@ -1366,7 +1394,13 @@ function inserisciArticolo() {
 		document.getElementById("lblDebug").textContent= dbgString;
 	}
 
-	var txtArticolo = $("#txtIdArticolo")
+	var txtArticolo = $("#txtIdArticolo");
+	if(txtArticolo.val() == undefined || txtArticolo.val() == ''){
+		alert("Seleziona un articolo prima di inserire i pezzi.");
+		$("#txtIdArticolo").focus();
+		$("#txtPezziArticoli").val(null);
+		return;
+	}
 	var codiceArticolo = txtArticolo.val().split(" - ");
 	codiceArticolo = codiceArticolo[0];
 
