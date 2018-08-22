@@ -416,23 +416,24 @@ public class PrintFatture extends PrintPDF {
                 int index = 1;
                 for (Object obj : aliquote) {
                     Iva iva = (Iva) obj;
-                    if (!imponibili.containsKey(iva.getValore()))
+                    BigDecimal valoreIva = new BigDecimal(iva.getValore());
+                    if (!imponibili.containsKey(valoreIva))
                         continue;
 
-                    BigDecimal imponibile = imponibili.get(iva.getValore())[0];
-                    BigDecimal imposta = imponibili.get(iva.getValore())[1];
+                    BigDecimal imponibile = imponibili.get(valoreIva)[0];
+                    BigDecimal imposta = imponibili.get(valoreIva)[1];
 
                     if (index == 1) {
-                        rf.setIva1(new BigDecimal(iva.getValore()));
+                        rf.setIva1(valoreIva);
                         rf.setImponibile1(imponibile);
                         rf.setImposta1(imposta);
 
                     } else if (index == 2) {
-                        rf.setIva2(new BigDecimal(iva.getValore()));
+                        rf.setIva2(valoreIva);
                         rf.setImponibile2(imponibile);
                         rf.setImposta2(imposta);
                     } else if (index == 3) {
-                        rf.setIva3(new BigDecimal(iva.getValore()));
+                        rf.setIva3(valoreIva);
                         rf.setImponibile3(imponibile);
                         rf.setImposta3(imposta);
                     }

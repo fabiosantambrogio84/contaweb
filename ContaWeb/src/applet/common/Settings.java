@@ -43,6 +43,7 @@ public class Settings {
 
     public void setBasePath(String databasePath) {
         this.basePath = databasePath.replace("ContaWeb", "ContaWeb_v1.0.1");
+        // this.basePath = databasePath;
     }
 
     public static Settings getInstance() {
