@@ -450,6 +450,11 @@ public class PrintFatture extends PrintPDF {
             return ERROR;
         }
 
+        for (int i = 0; i < listaFatture.size(); i++) {
+            RigaFattureCommercianti rfc = (RigaFattureCommercianti) listaFatture.get(i);
+            System.out.println("RFC -> FATTURA NUM: " + rfc.getNumeroFattura());
+        }
+
         RiepilogoFatture pf = new RiepilogoFatture();
         pf.setDataAl(dataAl);
         pf.setDataDal(dataDal);
