@@ -129,9 +129,9 @@ public class EditOrdine extends Edit {
             pc.setId(-1);
             listPuntiConsegna.add(pc);
         } else {
-            // pc.setNome("Nessuna in particolare");
-            // pc.setId(-1);
-            // listPuntiConsegna.add(pc);
+            pc.setNome("Seleziona punto di consegna");
+            pc.setId(-1);
+            listPuntiConsegna.add(pc);
 
             PuntiConsegna punti = new PuntiConsegna(ordine.getIdCliente());
             listPuntiConsegna.addAll(punti.getElements());
@@ -405,6 +405,7 @@ public class EditOrdine extends Edit {
                     dettagliOrdine = ordine.getDettagliOrdine();
                     // *.* idAgenti = ordine.getIdAgenti();
                     idAutisti = ordine.getIdAutista();
+                    idPuntoConsegna = ordine.getIdPuntoConsegna();
                     // Collection list = new Ordini().getDettagliAttivi(ordine.getDettagliOrdine());
                     // layListArticoli(list);
 
