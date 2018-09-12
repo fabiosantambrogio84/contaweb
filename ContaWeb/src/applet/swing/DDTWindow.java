@@ -90,6 +90,7 @@ import vo.DettaglioDDT;
 import vo.DettaglioOrdine;
 import vo.EvasioneOrdine;
 import vo.Iva;
+import vo.Ordine;
 import vo.PrezzoConSconto;
 import vo.PuntoConsegna;
 
@@ -141,6 +142,8 @@ public class DDTWindow {
     private Collection dettagliOrdini = null;
     private ListIterator<PuntoConsegna> itrPuntiConsegna;
     private PuntoConsegna puntoConsegnaSelezionato = null;
+    private Integer idOrdine = null;
+    private Integer idAutista = null;
 
     private JLabel lblCodice = null;
     private JLabel lblQta = null;
@@ -233,6 +236,9 @@ public class DDTWindow {
         }
         // ddt.setCausale(txtCausale.getText());
         ddt.setCausale("vendita");
+
+        ddt.setIdOrdine(idOrdine);
+        ddt.setIdAutista(idAutista);
 
         return ddt;
     }
@@ -329,6 +335,7 @@ public class DDTWindow {
         buttonCancellaArticolo.setEnabled(modalita);
         updateRow = modalita;
         table.setEnabled(!modalita);
+
     }
 
     private void editTable() {
@@ -349,9 +356,11 @@ public class DDTWindow {
             txtLottoArticolo.setText((String) table.getModel().getValueAt(selectedRow, COL_LOTTO));
 
             cmbIva.setSelectedIndex(0);
-            for (int i = 0; i < cmbIva.getItemCount(); ++i)
-                if (iva == ((Iva) cmbIva.getItemAt(i)).getValore())
+            for (int i = 0; i < cmbIva.getItemCount(); ++i) {
+                if (iva.equals(((Iva) cmbIva.getItemAt(i)).getValore())) {
                     cmbIva.setSelectedIndex(i);
+                }
+            }
             articolo = (Articolo) table.getModel().getValueAt(selectedRow, 12);
             setModalitaAggiornamentoArticolo(true);
         }
@@ -371,9 +380,12 @@ public class DDTWindow {
         formatter.applyPattern("####.##");
         txtScontoArticolo.setText(formatter.format(number.doubleValue()));
         Integer iva = prezzo.getArticolo().getIva().getValore();
-        for (int i = 0; i < cmbIva.getItemCount(); ++i)
-            if (iva == ((Iva) cmbIva.getItemAt(i)).getValore())
+
+        for (int i = 0; i < cmbIva.getItemCount(); ++i) {
+            if (iva.equals(((Iva) cmbIva.getItemAt(i)).getValore())) {
                 cmbIva.setSelectedIndex(i);
+            }
+        }
         lblListinoArticolo.setText("Listino: " + prezzo.getListino().getDescrizione());
         articolo = prezzo.getArticolo();
     }
@@ -494,6 +506,7 @@ public class DDTWindow {
         txtQtaArticolo.setInputVerifier(new NumberFormattedVerifier(3));
         txtPrezzoArticolo.setInputVerifier(new NumberFormattedVerifier(2));
         txtScontoArticolo.setInputVerifier(new NumberFormattedVerifier(0));
+
     }
 
     private void pulisciCampiArticolo() {
@@ -599,6 +612,7 @@ public class DDTWindow {
         txtColli.setText("0");
         txtTotaleDDT.setText("");
         contentPane.requestFocusInWindow();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -2072,6 +2086,12 @@ public class DDTWindow {
         Set noteMostrate = new HashSet();
         while (itr.hasNext()) {
             DettaglioOrdine det = (DettaglioOrdine) itr.next();
+
+            idOrdine = det.getIdOrdine();
+            Ordine ord = det.getOrdine();
+            if (ord != null) {
+                idAutista = ord.getIdAutista();
+            }
 
             if (det.getOrdine() != null && !noteMostrate.contains(det.getIdOrdine().intValue()) && det.getOrdine().getNote() != null
                     && !det.getOrdine().getNote().equalsIgnoreCase("")) {
