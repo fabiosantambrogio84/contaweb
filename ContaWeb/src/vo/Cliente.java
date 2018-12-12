@@ -385,4 +385,47 @@ public class Cliente extends VOElement {
         this.nomeRaggruppamentoRiba = nomeRaggruppamentoRiba;
     }
 
+    @Override
+    public String toString(){
+    	StringBuilder sb = new StringBuilder();
+        sb.append("id: ").append(getId()).append(", ");
+        sb.append("nome: ").append(getNome()).append(", ");
+        sb.append("cognome: ").append(getCognome()).append(", ");
+        sb.append("rs: ").append(getRs()).append(", ");
+        sb.append("rs2: ").append(getRs2()).append(", ");
+        sb.append("indirizzo: ").append(getIndirizzo()).append(", ");
+        sb.append("localita: ").append(getLocalita()).append(", ");
+        sb.append("prov: ").append(getProv()).append(", ");
+        sb.append("cap: ").append(getCap()).append(", ");
+        sb.append("piva: ").append(getPiva()).append(", ");
+        sb.append("email: ").append(getEmail()).append(", ");
+        sb.append("emailPec: ").append(getEmailPec()).append(", ");
+        sb.append("prefissoTelefono: ").append(getPrefissoTelefono()).append(", ");
+        sb.append("numeroTelefono: ").append(getNumeroTelefono()).append(", ");
+        sb.append("codiceFiscale: ").append(getCodiceFiscale()).append(", ");
+        sb.append("bancaDescrizione: ").append(getBancaDescrizione()).append(", ");
+        sb.append("bancaABI: ").append(getBancaABI()).append(", ");
+        sb.append("bancaCAB: ").append(getBancaCAB()).append(", ");
+        sb.append("bancaCC: ").append(getBancaCC()).append(", ");
+        sb.append("fido: ").append(getFido()).append(", ");
+        sb.append("idPagamento: ").append(getIdPagamento()).append(", ");
+        sb.append("pagamento: ").append(getPagamento()).append(", ");
+        sb.append("dataInserimento: ").append(getDataInserimento()).append(", ");
+        sb.append("bloccaDDT: ").append(getBloccaDDT()).append(", ");
+        sb.append("nascondiPrezzi: ").append(getNascondiPrezzi()).append(", ");
+        sb.append("puntiConsegna: ").append(getPuntiConsegna()).append(", ");
+        sb.append("listiniAssociati: ").append(getListiniAssociati()).append(", ");
+        sb.append("telefonate: ").append(getTelefonate()).append(", ");
+        sb.append("note: ").append(getNote()).append(", ");
+        sb.append("formatoConad: ").append(getFormatoConad()).append(", ");
+        sb.append("idAgente: ").append(getIdAgente()).append(", ");
+        sb.append("idAutista: ").append(getIdAutista()).append(", ");
+        sb.append("autista: ").append(getAutista()).append(", ");
+        sb.append("agente: ").append(getAgente()).append(", ");
+        sb.append("dittaIndividuale: ").append(isDittaIndividuale()).append(", ");
+        sb.append("raggruppaRiba: ").append(isRaggruppaRiba()).append(", ");
+        sb.append("nomeRaggruppamentoRiba: ").append(getNomeRaggruppamentoRiba()).append(";");
+        return sb.toString();
+    }
+    
 }
