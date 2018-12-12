@@ -35,6 +35,7 @@
 	
   <target name="war" depends="compile,applet">    
   	<copy file="Deploy-Locale/repository.xml" todir="build/classes" overwrite="true"/>
+  	<copy file="Deploy-Locale/db.properties" todir="build/classes" overwrite="true"/>
   	<war destfile="${file.name}" webxml="WebContent/WEB-INF/web.xml">
 		<fileset dir="WebContent"/>
   		<fileset dir=".">
