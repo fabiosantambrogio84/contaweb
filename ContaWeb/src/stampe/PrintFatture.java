@@ -2,6 +2,8 @@ package stampe;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -24,6 +27,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfCopy;
@@ -37,6 +41,8 @@ import dao.RiepilogoFatture;
 import dao.Settings;
 import email.FattureEmailSender;
 import stampemgr.StampeMgr;
+import utils.EFattureHelper;
+import vo.Cliente;
 import vo.Fattura;
 import vo.Iva;
 import vo.VOElement;
@@ -53,6 +59,12 @@ public class PrintFatture extends PrintPDF {
 
     private List listaFatture = null;
 
+    private InputStream fileInputStream;
+	
+    private String fileName;
+    
+    private long contentLength;
+    
     public Date getDataAl() {
         return dataAl;
     }
@@ -67,6 +79,18 @@ public class PrintFatture extends PrintPDF {
 
     public void setDataDal(Date dataDal) {
         this.dataDal = dataDal;
+    }
+    
+    public InputStream getFileInputStream() {
+		return fileInputStream;
+	}
+    
+    public String getFileName() {
+        return fileName;
+    }
+    
+    public long getContentLength() {
+        return contentLength;
     }
 
     @Override
@@ -544,4 +568,85 @@ public class PrintFatture extends PrintPDF {
         }
         return SUCCESS;
     }
+    
+    public String creaFattureElettroniche() {
+        try {
+            logger.info("Creazione fatture elettroniche dal '"+dataDal+"' al '"+dataAl+"'...");
+            
+            /* Creo le mappe contenenti i dati da inserire nei file xml */
+            Map<Integer, Cliente> clienti = new HashMap<Integer, Cliente>();
+            Map<Integer, List<Fattura>> fattureByCliente = new HashMap<Integer, List<Fattura>>();
+            
+            /* Recupero le fatture */
+            Fatture fatture = new Fatture();
+            fatture.setOrderByCliente();
+            Collection listaFatture = fatture.getFatture(dataDal, dataAl);
+
+            logger.info("Lista fatture ottenuta. Numero elementi: " + listaFatture.size());
+
+            /* Itero sulle fatture recuperate */
+            Iterator itr = listaFatture.iterator();
+            while (itr.hasNext()) {
+                Fattura fattura = (Fattura) itr.next();
+                fattura.calcolaTotali();
+                Integer idCliente = fattura.getIdCliente();
+                
+                /* Inserisco il cliente nella mappa */
+                clienti.put(idCliente, fattura.getCliente());
+                
+                /* Recupero la lista di fatture associate al cliente */
+                List<Fattura> fattureByCli = fattureByCliente.get(idCliente);
+                if(fattureByCli != null && !fattureByCli.isEmpty()){
+                	fattureByCli.add(fattura);
+                } else{
+                	fattureByCli = new ArrayList<Fattura>();
+                	fattureByCli.add(fattura);
+                }
+                /* Inserisco le fatture nella mappa */
+                fattureByCliente.put(idCliente, fattureByCli);
+            }
+            
+            /* Stampo i clienti */
+//            if(clienti != null && !clienti.isEmpty()){
+//                for (Map.Entry<Integer, Cliente> entry : clienti.entrySet()) {
+//                    System.out.println("ID CLIENTE: "+entry.getKey()+" - "+entry.getValue());
+//                }
+//            }
+            /* Stampo le fatture per clienti */
+//            if(fattureByCliente != null && !fattureByCliente.isEmpty()){
+//                for (Map.Entry<Integer, List<Fattura>> entry : fattureByCliente.entrySet()) {
+//                    System.out.println("--> ID CLIENTE: "+entry.getKey());
+//                    for(int i=0; i<entry.getValue().size(); i++){
+//                    	System.out.println("--> "+entry.getValue().get(i));
+//                    }
+//                }
+//            }
+            
+            String basePath = ServletActionContext.getServletContext().getRealPath("/fatture_elettroniche");
+            
+            EFattureHelper eFattureHelper = new EFattureHelper();
+            eFattureHelper.setBasePath(basePath);
+            eFattureHelper.setClienti(clienti);
+            eFattureHelper.setFatture(fattureByCliente);
+            Integer idEsportazione = eFattureHelper.createXml();
+            String zipFileName = eFattureHelper.createZip(basePath + "/" + idEsportazione);
+            
+            logger.info("Fatture elettroniche create con successo.");
+            
+            File fileToDownload = new File(zipFileName);
+            fileInputStream = new FileInputStream(fileToDownload);
+     
+            contentLength = fileToDownload.length();
+            fileName = fileToDownload.getName();
+            
+            return SUCCESS;
+            
+        } catch (Exception e) {
+            logger.error("Errore creazione fatture elettroniche", e);
+            stampaErrore("PrintFatture.creaFattureElettroniche()", e);
+            return ERROR;
+        }
+        
+    }
+    
 }

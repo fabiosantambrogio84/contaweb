@@ -1,24 +1,16 @@
 package formatters;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Vector;
 
-import com.mysql.jdbc.StringUtils;
-
-import dao.Clienti;
 import dao.DataAccessException;
 import dao.PagamentiEseguiti;
 import vo.Cliente;
-import vo.DDT;
-import vo.DettaglioDDT;
 import vo.Fattura;
 import vo.PagamentoEseguito;
 

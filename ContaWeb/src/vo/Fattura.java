@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Vector;
 
 public class Fattura extends VOElement {
@@ -203,5 +204,40 @@ public class Fattura extends VOElement {
 
     public void setSpedito(Boolean spedito) {
         this.spedito = spedito;
+    }
+
+    @Override
+    public String toString(){
+    	StringBuilder sb = new StringBuilder();
+        sb.append("id: ").append(getId()).append(", ");
+        sb.append("numeroProgressivo: ").append(getNumeroProgressivo()).append(", ");
+        sb.append("annoContabile: ").append(getAnnoContabile()).append(", ");
+        sb.append("idCliente: ").append(getIdCliente()).append(", ");
+        sb.append("cliente: ").append(getCliente()).append(", ");
+        sb.append("causale: ").append(getCausale()).append(", ");
+        sb.append("sconto: ").append(getSconto()).append(", ");
+        sb.append("data: ").append(getData()).append(", ");
+        sb.append("noteFattura: ").append(getNoteFattura()).append(", ");
+        sb.append("pagato: ").append(getPagato()).append(", ");
+        sb.append("spedito: ").append(getSpedito()).append(", ");
+        sb.append("dettagliFattura: ").append(getDettagliFattura()).append(", ");
+        sb.append("acconto: ").append(getAcconto()).append(", ");
+        sb.append("totaleImponibile: ").append(getTotaleImponibile()).append(", ");
+        sb.append("totaleImposta: ").append(getTotaleImposta()).append(", ");
+        sb.append("totaleMerce: ").append(getTotaleMerce()).append(", ");
+        sb.append("totaleFattura: ").append(getTotaleFattura()).append(", ");
+        sb.append("imponibili: ").append("[");
+        if(imponibili != null && !imponibili.isEmpty()){
+            for (Map.Entry<BigDecimal, BigDecimal[]> entry : imponibili.entrySet()) {
+                sb.append(entry.getKey()).append(": {");
+                BigDecimal[] tempArray = entry.getValue();
+                for(int i=0; i<tempArray.length; i++){
+                	sb.append(tempArray[0]).append(", ");
+                }
+                sb.append("}; ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
