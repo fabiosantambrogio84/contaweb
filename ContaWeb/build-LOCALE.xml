@@ -20,6 +20,9 @@
 			</fileset>
 		</classpath>
   	</javac>
+  	<copy file="Deploy-Locale/src/repository.xml" todir="build/classes" overwrite="true"/>
+  	<copy file="Deploy-Locale/src/db.properties" todir="build/classes" overwrite="true"/>
+  	<copy file="Deploy-Locale/src/log4j.properties" todir="build/classes" overwrite="true"/>
   </target>
 	
   <target name="applet" depends="compile">
@@ -32,14 +35,19 @@
   	<!--<signjar jar="WebContent/jsp/applet/ContaApplets.jar" alias="applet" keystore="applet.key" storepass="ContaWeb" />-->
   </target>
 	
-	
   <target name="war" depends="compile,applet">    
-  	<copy file="Deploy-Locale/repository.xml" todir="build/classes" overwrite="true"/>
-  	<copy file="Deploy-Locale/db.properties" todir="build/classes" overwrite="true"/>
   	<war destfile="${file.name}" webxml="WebContent/WEB-INF/web.xml">
 		<fileset dir="WebContent"/>
   		<fileset dir=".">
 			<include name="src/**/*"/>
+			<exclude name="src/repository.xml"/>
+			<exclude name="src/db.properties"/>
+  			<exclude name="src/log4j.properties"/>
+		</fileset>
+		<fileset dir="Deploy-Locale">
+			<include name="src/repository.xml"/>
+			<include name="src/db.properties"/>
+			<include name="src/log4j.properties"/>
 		</fileset>
 	
 		<classes dir="build/classes" />		

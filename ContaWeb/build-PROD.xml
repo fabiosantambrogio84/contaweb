@@ -20,6 +20,12 @@
 			</fileset>
 		</classpath>
   	</javac>
+  	<delete>
+      <fileset dir="build/classes" includes="repository.xml, db.properties"/>
+    </delete>
+  	<copy file="Deploy-Produzione/src/repository.xml" todir="build/classes" overwrite="true" />
+  	<copy file="Deploy-Produzione/src/db.properties" todir="build/classes" overwrite="true"/>
+  	<copy file="Deploy-Produzione/src/log4j.properties" todir="build/classes" overwrite="true"/>
   </target>
 	
   <target name="applet" depends="compile">
@@ -32,10 +38,7 @@
   	<!--<signjar jar="WebContent/jsp/applet/ContaApplets.jar" alias="applet" keystore="applet.key" storepass="ContaWeb" />-->
   </target>
 	
-	
-  <target name="war" depends="compile,applet">    
-  	<copy file="Deploy-Produzione/repository.xml" todir="build/classes" overwrite="true"/>
-  	<copy file="Deploy-Produzione/db.properties" todir="build/classes" overwrite="true"/>
+  <target name="war" depends="compile,applet">
   	<war destfile="${file.name}" webxml="WebContent/WEB-INF/web.xml">
 		<fileset dir="WebContent">
 			<exclude name="js/scripts.js"/>
@@ -45,9 +48,17 @@
 		</fileset>
   		<fileset dir=".">
 			<include name="src/**/*"/>
+  			<exclude name="src/repository.xml"/>
+  			<exclude name="src/db.properties"/>
+  			<exclude name="src/log4j.properties"/>
 		</fileset>
-	
-		<classes dir="build/classes" />		
+		<fileset dir="Deploy-Produzione">
+			<include name="src/repository.xml"/>
+			<include name="src/db.properties"/>
+			<include name="src/log4j.properties"/>
+		</fileset>
+  		
+		<classes dir="build/classes" />
 	</war>
   </target>
 
