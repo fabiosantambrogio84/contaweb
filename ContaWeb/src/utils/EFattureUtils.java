@@ -12,6 +12,8 @@ public class EFattureUtils {
         File directory = new File(directoryPath);
         if(!directory.exists()){
             directory.mkdir();
+            directory.setReadable(true, false);
+            directory.setWritable(true, false);
         }
     }
 	

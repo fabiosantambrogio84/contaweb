@@ -258,8 +258,11 @@ public class EFattureHelper {
 						xmlString = transformToPrettyPrint(xmlString);
 						//System.out.println(transformToPrettyPrint(xmlString));
 						
-						try (PrintWriter out = new PrintWriter(directoryPath+FILE_SEPARATOR+fileName)) {
-						    out.println(xmlString);
+						File f = new File(directoryPath+FILE_SEPARATOR+fileName);
+						f.setReadable(true, false);
+						f.setWritable(true, false);
+						try (PrintWriter out = new PrintWriter(f)) {
+							out.println(xmlString);
 						}
 					}
 					
@@ -341,7 +344,10 @@ public class EFattureHelper {
 				List<File> filesToZip = entry.getValue();
 				
 				/* Creo il file zip */
-				fos = new FileOutputStream(folderPath + "/" + fileName);
+				File f = new File(folderPath + "/" + fileName);
+				f.setReadable(true, false);
+				f.setWritable(true, false);
+				fos = new FileOutputStream(f);
 		        zipOut = new ZipOutputStream(fos);
 		        for (File fileToZip : filesToZip) {
 		            fis = new FileInputStream(fileToZip);
@@ -369,7 +375,11 @@ public class EFattureHelper {
 			String fileName = "export_fatture_elettroniche_"+sdf.format(new Date(System.currentTimeMillis()))+".zip";
 			resultFileName = folderPath + "/" + fileName;
 			
-			fos = new FileOutputStream(resultFileName);
+			File f = new File(resultFileName);
+			f.setReadable(true, false);
+			f.setWritable(true, false);
+			
+			fos = new FileOutputStream(f);
 	        zipOut = new ZipOutputStream(fos);
 			
 			File[] filesZip = folder.listFiles();
