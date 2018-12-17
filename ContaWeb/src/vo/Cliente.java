@@ -422,9 +422,21 @@ public class Cliente extends VOElement {
         sb.append("idAutista: ").append(getIdAutista()).append(", ");
         sb.append("autista: ").append(getAutista()).append(", ");
         sb.append("agente: ").append(getAgente()).append(", ");
-        sb.append("dittaIndividuale: ").append(isDittaIndividuale()).append(", ");
-        sb.append("raggruppaRiba: ").append(isRaggruppaRiba()).append(", ");
-        sb.append("nomeRaggruppamentoRiba: ").append(getNomeRaggruppamentoRiba()).append(";");
+        if(dittaIndividuale != null){
+        	sb.append("dittaIndividuale: ").append(isDittaIndividuale()).append(", ");
+        } else{
+        	sb.append("dittaIndividuale: , ");
+        }
+        if(raggruppaRiba != null){
+        	sb.append("raggruppaRiba: ").append(isRaggruppaRiba()).append(", ");
+        } else{
+        	sb.append("raggruppaRiba: , ");
+        }
+        if(nomeRaggruppamentoRiba != null){
+        	sb.append("nomeRaggruppamentoRiba: ").append(getNomeRaggruppamentoRiba()).append(";");
+        } else{
+        	sb.append("nomeRaggruppamentoRiba: , ");
+        }
         return sb.toString();
     }
     
