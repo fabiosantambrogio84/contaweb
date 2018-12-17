@@ -634,6 +634,8 @@ public class PrintFatture extends PrintPDF {
             logger.info("Fatture elettroniche create con successo.");
             
             File fileToDownload = new File(zipFileName);
+            fileToDownload.setReadable(true, false);
+            fileToDownload.setWritable(true, false);
             fileInputStream = new FileInputStream(fileToDownload);
      
             contentLength = fileToDownload.length();
