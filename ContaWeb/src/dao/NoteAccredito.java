@@ -97,6 +97,11 @@ public class NoteAccredito
     }
   }
   
+  public void setOrderByCliente() {
+      this.useDefaultCriteria = false;
+      getQueryByCriteria().addOrderByAscending("cliente.rs");
+  }
+  
   protected void setDefaultCriteria()
   {
     setOrderByNprog(ORDER_DESC);
@@ -114,6 +119,11 @@ public class NoteAccredito
       super.completeReferences(dt);
     }
     return ddt2;
+  }
+  
+  public Collection<?> getNoteAccredito(java.util.Date dataInizio, java.util.Date dataFine) throws DataAccessException {
+      getCriteria().addBetween("data", dataInizio, dataFine);
+      return getElements();
   }
   
   public Collection getElements()

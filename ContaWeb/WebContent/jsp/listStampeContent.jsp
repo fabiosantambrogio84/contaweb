@@ -15,7 +15,8 @@
 		<s:submit name="action:printRiepilogoFatture" value="Stampa Riepilogo Fatture" cssClass="button"/>
 		<s:submit name="action:printRiepilogoFattureNP" value="Stampa Riepilogo Fatture Non Pagate" cssClass="button"/>
 		<s:submit name="action:printRiepilogoFattureCC" value="Stampa Riepilogo Fatture per Commercianti" cssClass="button"/>
-		<s:submit name="action:creaFattureElettroniche" value="Crea fatture elettroniche" cssClass="button"/>		
+		<s:submit name="action:creaFattureElettroniche" value="Crea fatture elettroniche" cssClass="button"/>
+		<s:submit name="action:creaNoteCreditoElettroniche" value="Crea note di credito elettroniche" cssClass="button"/>		
 	</s:form>
 </div>
 

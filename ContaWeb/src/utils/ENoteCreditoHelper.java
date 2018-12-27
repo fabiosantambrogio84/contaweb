@@ -14,8 +14,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,17 +35,15 @@ import org.apache.log4j.Logger;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 
-import dao.DDTs;
 import stampemgr.StampeMgr;
 import vo.Cliente;
-import vo.DDT;
-import vo.DettaglioDDT;
-import vo.Fattura;
+import vo.DettaglioNotaAccredito;
+import vo.NotaAccredito;
 import vo.Pagamento;
 
-public class EFattureHelper {
+public class ENoteCreditoHelper {
 
-	private static final Logger logger = Logger.getLogger(EFattureHelper.class);
+	private static final Logger logger = Logger.getLogger(ENoteCreditoHelper.class);
 	
 	private static final String PAESE = "IT";
 	
@@ -90,12 +86,12 @@ public class EFattureHelper {
 	private String basePath;
 	
 	private Map<Integer, Cliente> clienti;
-	
-	private Map<Integer, List<Fattura>> fatture;
+		
+	private Map<Integer, List<NotaAccredito>> noteAccredito;
 	
 	private Base64 base64;
 	
-	public EFattureHelper(){
+	public ENoteCreditoHelper(){
 		this.base64 = new Base64();
 	}
 	
@@ -115,12 +111,12 @@ public class EFattureHelper {
 		this.clienti = clienti;
 	}
 	
-	public Map<Integer, List<Fattura>> getFatture(){
-		return fatture;
+	public Map<Integer, List<NotaAccredito>> getNoteAccredito(){
+		return noteAccredito;
 	}
 	
-	public void setFatture(Map<Integer, List<Fattura>> fatture){
-		this.fatture = fatture;
+	public void setNoteAccredito(Map<Integer, List<NotaAccredito>> noteAccredito){
+		this.noteAccredito = noteAccredito;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -142,17 +138,17 @@ public class EFattureHelper {
 			String directoryPath = basePath + FILE_SEPARATOR + idEsportazione;
 			EFattureUtils.checkAndCreateDirectory(directoryPath);
 			
-			/* Creo un file xml per ogni cliente e fattura */
+			/* Creo un file xml per ogni cliente e note di credito */
 			for(Map.Entry<Integer, Cliente> clientiEntry : clienti.entrySet()){
 				
 				/* Recupero i dati del cliente */
 				Integer idCliente = clientiEntry.getKey();
 				Cliente cliente = clientiEntry.getValue();
 				
-				/* Recupero le fatture associate al cliente*/
-				List<Fattura> fatt = fatture.get(idCliente);
-				if(fatt != null && !fatt.isEmpty()){
-					for(int i=0; i<fatt.size(); i++){
+				/* Recupero le note di credito associate al cliente*/
+				List<NotaAccredito> notaCredito = noteAccredito.get(idCliente);
+				if(notaCredito != null && !notaCredito.isEmpty()){
+					for(int i=0; i<notaCredito.size(); i++){
 						
 						/* Creo il nome del file */
 						String fileName = PAESE + CODICE_FISCALE + "_DF_"; 
@@ -166,8 +162,6 @@ public class EFattureHelper {
 						StringWriter stringWriter = new StringWriter();
 						XMLOutputFactory xMLOutputFactory = XMLOutputFactory.newInstance();
 						XMLStreamWriter xMLStreamWriter = xMLOutputFactory.createXMLStreamWriter(stringWriter);
-						
-						//xMLStreamWriter.writeStartDocument();
 						
 						xMLStreamWriter.writeStartElement("p", "FatturaElettronica", "");
 						xMLStreamWriter.writeAttribute("xmlns", "", "ds", "http://www.w3.org/2000/09/xmldsig#");
@@ -191,62 +185,23 @@ public class EFattureHelper {
 						/* Chiudo il nodo 'FatturaElettronicaHeader'*/
 						xMLStreamWriter.writeEndElement();
 						
-						/* Recupero la fattura */
-						Fattura fattura = fatt.get(i);
+						/* Recupero la nota di credito */
+						NotaAccredito notaAccredito = notaCredito.get(i);
 						
-						/* Recupero i dettagli della fattura */
-						List<DettaglioDDT> dettagli = new ArrayList<DettaglioDDT>();
-						Iterator<?> itr = fattura.getDettagliFattura().iterator();
-						DDTs ddts = new DDTs();
-						while (itr.hasNext()) {
-							DDT ddt = (DDT) itr.next();
-							ddts.completeReferences(ddt);
-
-							DettaglioDDT dt = new DettaglioDDT();
-							dt.setId(-1);
-							dt.setDdt(ddt);
-							dettagli.add(dt);
-							Iterator<DettaglioDDT> itr2 = ddt.getDettagliDDT().iterator();
-
-							while (itr2.hasNext()) {
-								dettagli.add(itr2.next());
-							}
-						}
-						/* Creo le mappe dei DDT e dei dettagli DDT */
-						Map<Integer, DDT> ddtMap = new LinkedHashMap<Integer, DDT>();
-						Map<Integer, List<DettaglioDDT>> dettagliDdtMap = new LinkedHashMap<Integer, List<DettaglioDDT>>();
+						/* Recupero i dettagli della nota di credito */
+						List<DettaglioNotaAccredito> dettagli = notaAccredito.getDettagliAccredito();
 						
-						/* Popolo le mappe dei DDT e dei dettagli DDT */
-						for(int j=0; j<dettagli.size(); j++){
-							DettaglioDDT dettaglioDdt= dettagli.get(j);
-							DDT ddt = dettaglioDdt.getDdt();
-							if(ddt != null && ddt.getId() != null){
-								ddtMap.put(ddt.getId(), ddt);
-								
-								if(dettaglioDdt.getId() != null && dettaglioDdt.getId() != -1){
-									List<DettaglioDDT> dettagliDdt = dettagliDdtMap.get(ddt.getId());
-									if(dettagliDdt == null){
-										dettagliDdt = new ArrayList<DettaglioDDT>();
-									}
-									dettagliDdt.add(dettaglioDdt);
-									dettagliDdtMap.put(ddt.getId(), dettagliDdt);
-								}
-								
-							}
-						}
-												
 						xMLStreamWriter.writeStartElement("FatturaElettronicaBody");
 					
-						createNodeBodyDatiGenerali(xMLStreamWriter, fattura, ddtMap, dettagliDdtMap);
-						createNodeBodyDatiBeniServizi(xMLStreamWriter, fattura, ddtMap, dettagliDdtMap);
-						createNodeBodyDatiPagamento(xMLStreamWriter, fattura);
-						createNodeBodyAllegati(xMLStreamWriter, fattura);
+						createNodeBodyDatiGenerali(xMLStreamWriter, notaAccredito);
+						createNodeBodyDatiBeniServizi(xMLStreamWriter, notaAccredito, dettagli);
+						createNodeBodyDatiPagamento(xMLStreamWriter, notaAccredito, dettagli);
+						createNodeBodyAllegati(xMLStreamWriter, notaAccredito);
 						
 						/* Chiudo il nodo 'FatturaElettronicaBody'*/
 						xMLStreamWriter.writeEndElement();
 						
 						xMLStreamWriter.writeEndElement();
-						//xMLStreamWriter.writeEndDocument();
 						
 						xMLStreamWriter.flush();
 						xMLStreamWriter.close();
@@ -266,8 +221,6 @@ public class EFattureHelper {
 					}
 					
 				}
-				
-				
 			}
 		} catch (Exception e) {
 			logger.error("Errore nella creazione del file xml", e);
@@ -277,9 +230,9 @@ public class EFattureHelper {
 	    		conn.close();
 	    	}
 	    }
+		
 		return idEsportazione;
 	}
-	
 	
 	public String createZip(String folderPath) throws Exception{
 		long maxSize = 5000000;
@@ -372,7 +325,7 @@ public class EFattureHelper {
 			SimpleDateFormat sdf = new SimpleDateFormat();
 			sdf.applyPattern("yyyyMMdd_HHmmss");
 			
-			String fileName = "export_fatture_elettroniche_"+sdf.format(new Date(System.currentTimeMillis()))+".zip";
+			String fileName = "export_note_credito_elettroniche_"+sdf.format(new Date(System.currentTimeMillis()))+".zip";
 			resultFileName = folderPath + "/" + fileName;
 			
 			File f = new File(resultFileName);
@@ -388,7 +341,7 @@ public class EFattureHelper {
 					File file = filesZip[i];
 					String filePath = file.getAbsolutePath(); 
 					String fileToZipName = file.getName();
-					if(filePath.endsWith("zip") && !fileToZipName.startsWith("export_fatture_elettroniche")){
+					if(filePath.endsWith("zip") && !fileToZipName.startsWith("export_note_credito_elettroniche")){
 						fis = new FileInputStream(file);
 			            ZipEntry zipEntry = new ZipEntry(fileToZipName);
 			            zipOut.putNextEntry(zipEntry);
@@ -709,7 +662,7 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 	}
 
-	private void createNodeBodyDatiGenerali(XMLStreamWriter xMLStreamWriter, Fattura fattura, Map<Integer, DDT> ddtMap, Map<Integer, List<DettaglioDDT>> dettagliDdtMap) throws Exception{
+	private void createNodeBodyDatiGenerali(XMLStreamWriter xMLStreamWriter, NotaAccredito notaCredito) throws Exception{
 		xMLStreamWriter.writeStartElement("DatiGenerali");
 	
 		/* Creo il nodo 'DatiGeneraliDocumento' */
@@ -726,17 +679,17 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Data' */
-		Date dataFattura = (Date) fattura.getData();
-		String dataFattura_s = "";
-		if(dataFattura != null){
-			dataFattura_s = sdf.format(dataFattura);
+		Date dataNotaCredito = (Date) notaCredito.getData();
+		String dataNotaCredito_s = "";
+		if(dataNotaCredito != null){
+			dataNotaCredito_s = sdf.format(dataNotaCredito);
 		}
 		xMLStreamWriter.writeStartElement("Data");
-		xMLStreamWriter.writeCharacters(dataFattura_s);
+		xMLStreamWriter.writeCharacters(dataNotaCredito_s);
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Numero' */
-		Integer numeroProgr = fattura.getNumeroProgressivo();
+		Integer numeroProgr = notaCredito.getNumeroProgressivo();
 		String numero = "";
 		if(numeroProgr != null && !numeroProgr.equals("")){
 			numero = String.valueOf(numeroProgr);
@@ -866,7 +819,7 @@ public class EFattureHelper {
 		
 		/* Creo il nodo 'Causale' */
 		/* Se la lunghezza è maggiore di 200 devo creare un nuovo nodo contenente i successivi 200 caratteri */
-		String causale = fattura.getCausale();
+		String causale = notaCredito.getCausale();
 		if(causale != null && !causale.isEmpty()){
 			int casualeLength = causale.length();
 			if(casualeLength < 200){
@@ -896,262 +849,117 @@ public class EFattureHelper {
 		
 		/* Chiudo il nodo 'DatiGeneraliDocumento' */
 		xMLStreamWriter.writeEndElement();
-				
-//		/* Creo il nodo 'DatiOrdineAcquisto' */
-//		xMLStreamWriter.writeStartElement("DatiOrdineAcquisto");
-//		
-//		/* Creo il nodo 'RiferimentoNumeroLinea' */
-//		xMLStreamWriter.writeStartElement("RiferimentoNumeroLinea");
-//		xMLStreamWriter.writeCharacters("1");
-//		xMLStreamWriter.writeEndElement();
-//		
-//		/* Creo il nodo 'IdDocumento' */
-//		xMLStreamWriter.writeStartElement("IdDocumento");
-//		xMLStreamWriter.writeCharacters("66666");
-//		xMLStreamWriter.writeEndElement();
-//		
-//		/* Creo il nodo 'NumItem' */
-//		xMLStreamWriter.writeStartElement("NumItem");
-//		xMLStreamWriter.writeCharacters("1");
-//		xMLStreamWriter.writeEndElement();
-//		
-//		/* Chiudo il nodo 'DatiOrdineAcquisto' */
-//		xMLStreamWriter.writeEndElement();
-		
-		/* Creo il nodo 'DatiContratto' */
-		/* Creo il nodo 'DatiConvenzione' */
-		/* Creo il nodo 'DatiRicezione' */
-		/* Creo il nodo 'DatiFattureCollegate' */
-		/* Creo il nodo 'DatiSAL' */
-		
-		int numLineaIndex = 1;
-		
-		/* Creo i nodi 'DatiDDT' */
-		if(ddtMap != null && !ddtMap.isEmpty()){
-			for(Map.Entry<Integer, DDT> ddtEntry : ddtMap.entrySet()){
-				DDT ddt = ddtEntry.getValue();
-				Integer idDdt = ddtEntry.getKey();
-				
-				xMLStreamWriter.writeStartElement("DatiDDT");
-		
-				/* Creo il nodo 'NumeroDDT' */
-				xMLStreamWriter.writeStartElement("NumeroDDT");
-				Integer numProgr = ddt.getNumeroProgressivo();
-				String numProgr_s = "";
-				if(numProgr != null){
-					numProgr_s = String.valueOf(numProgr);
-				}
-				xMLStreamWriter.writeCharacters(numProgr_s);
-				xMLStreamWriter.writeEndElement();
-				
-				/* Creo il nodo 'DataDDT' */
-				xMLStreamWriter.writeStartElement("DataDDT");
-				Date data = (Date) ddt.getData();
-				String data_s = "";
-				if(data != null){
-					data_s = sdf.format(data);
-				}
-				xMLStreamWriter.writeCharacters(data_s);
-				xMLStreamWriter.writeEndElement();
-				
-				/* Creo i nodi 'RiferimentoNumeroLinea' */
-				if(dettagliDdtMap != null && !dettagliDdtMap.isEmpty()){
-					List<DettaglioDDT> dettagliDDT = dettagliDdtMap.get(idDdt);
-					if(dettagliDDT != null && !dettagliDDT.isEmpty()){
-						for(int i=0; i<dettagliDDT.size(); i++){
-							xMLStreamWriter.writeStartElement("RiferimentoNumeroLinea");
-							xMLStreamWriter.writeCharacters(String.valueOf(numLineaIndex));
-							xMLStreamWriter.writeEndElement();
-							
-							numLineaIndex = numLineaIndex + 1;
-						}
-					}
-				}
-				
-				/* Chiudo il nodo 'DatiDDT' */
-				xMLStreamWriter.writeEndElement();
-			}
-		}
-		
-		
-		/* Creo il nodo 'DatiTrasporto' */
-//		xMLStreamWriter.writeStartElement("DatiTrasporto");
-//		
-//		/* Creo il nodo 'DatiAnagraficiVettore' */
-//		xMLStreamWriter.writeStartElement("DatiAnagraficiVettore");
-//		
-//		/* Creo il nodo 'IdFiscaleIVA' */
-//		xMLStreamWriter.writeStartElement("IdFiscaleIVA");
-//		
-//		/* Creo il nodo 'IdPaese' */
-//		xMLStreamWriter.writeStartElement("IdPaese");
-//		xMLStreamWriter.writeCharacters("IT");
-//		xMLStreamWriter.writeEndElement();
-//		
-//		/* Creo il nodo 'IdCodice' */
-//		xMLStreamWriter.writeStartElement("IdCodice");
-//		xMLStreamWriter.writeCharacters("24681012141");
-//		xMLStreamWriter.writeEndElement();
-//		
-//		/* Chiudo il nodo 'IdFiscaleIVA' */
-//		xMLStreamWriter.writeEndElement();
-//		
-//		/* Creo il nodo 'Anagrafica' */
-//		xMLStreamWriter.writeStartElement("Anagrafica");
-//		
-//		/* Creo il nodo 'Denominazione' */
-//		xMLStreamWriter.writeStartElement("Denominazione");
-//		xMLStreamWriter.writeCharacters("Trasporto spa");
-//		xMLStreamWriter.writeEndElement();
-//		
-//		/* Chiudo il nodo 'Anagrafica' */
-//		xMLStreamWriter.writeEndElement();
-//		
-//		/* Chiudo il nodo 'DatiAnagraficiVettore' */
-//		xMLStreamWriter.writeEndElement();
-//				
-//		/* Chiudo il nodo 'DatiTrasporto' */
-//		xMLStreamWriter.writeEndElement();
-		
-		/* Creo il nodo 'FatturaPrincipale' */
 		
 		xMLStreamWriter.writeEndElement();
 	}
 		
-	private void createNodeBodyDatiBeniServizi(XMLStreamWriter xMLStreamWriter, Fattura fattura, Map<Integer, DDT> ddtMap, Map<Integer, List<DettaglioDDT>> dettagliDdtMap) throws Exception{
+	private void createNodeBodyDatiBeniServizi(XMLStreamWriter xMLStreamWriter, NotaAccredito notaCredito, List<DettaglioNotaAccredito> dettagliNotaCredito) throws Exception{
 		xMLStreamWriter.writeStartElement("DatiBeniServizi");
 		
 		int numLineaIndex = 1;
+		
 		/* Creo i nodi 'DettaglioLinee' */
-		if(ddtMap != null && !ddtMap.isEmpty()){
-			for(Map.Entry<Integer, DDT> ddtEntry : ddtMap.entrySet()){
-				Integer idDdt = ddtEntry.getKey();
+		if(dettagliNotaCredito != null && !dettagliNotaCredito.isEmpty()){
+					
+			for(DettaglioNotaAccredito dettaglioNotaCredito :  dettagliNotaCredito){
+				/* Creo il nodo 'DettaglioLinee' */
+				xMLStreamWriter.writeStartElement("DettaglioLinee");
 				
-				if(dettagliDdtMap != null && !dettagliDdtMap.isEmpty()){
-					List<DettaglioDDT> dettagliDDT = dettagliDdtMap.get(idDdt);
-					if(dettagliDDT != null && !dettagliDDT.isEmpty()){
-						for(DettaglioDDT dettaglioDDT :  dettagliDDT){
-							/* Creo il nodo 'DettaglioLinee' */
-							xMLStreamWriter.writeStartElement("DettaglioLinee");
-							
-							/* Creo il nodo 'NumeroLinea' */
-							xMLStreamWriter.writeStartElement("NumeroLinea");
-							xMLStreamWriter.writeCharacters(String.valueOf(numLineaIndex));
-							xMLStreamWriter.writeEndElement();
-							
-							/* Creo il nodo 'Descrizione' */
-							xMLStreamWriter.writeStartElement("Descrizione");
-							xMLStreamWriter.writeCharacters(dettaglioDDT.getDescrizioneArticolo());
-							xMLStreamWriter.writeEndElement();
-							
-							/* Creo il nodo 'Quantita' */
-							xMLStreamWriter.writeStartElement("Quantita");
-							BigDecimal quantita = dettaglioDDT.getQta();
-							String quantita_s = "";
-							if(quantita != null){
-								quantita_s = quantita.toString();
-							}
-							xMLStreamWriter.writeCharacters(quantita_s);
-							xMLStreamWriter.writeEndElement();
-							
-							/* Creo il nodo 'UnitaMisura' */
-							xMLStreamWriter.writeStartElement("UnitaMisura");
-							xMLStreamWriter.writeCharacters(dettaglioDDT.getUm());
-							xMLStreamWriter.writeEndElement();
-							
-							/* Creo il nodo 'PrezzoUnitario' */
-							xMLStreamWriter.writeStartElement("PrezzoUnitario");
-							BigDecimal prezzo = dettaglioDDT.getPrezzo();
-							String prezzo_s = "";
-							if(prezzo != null){
-								prezzo_s = prezzo.toString();
-							}
-							xMLStreamWriter.writeCharacters(prezzo_s);
-							xMLStreamWriter.writeEndElement();
-							
-							/* Creo il nodo 'PrezzoTotale' */
-							xMLStreamWriter.writeStartElement("PrezzoTotale");
-							BigDecimal prezzoTotale = dettaglioDDT.getTotale();
-							String prezzoTotale_s = "";
-							if(prezzoTotale != null){
-								prezzoTotale_s = prezzoTotale.toString();
-							}
-							xMLStreamWriter.writeCharacters(prezzoTotale_s);
-							xMLStreamWriter.writeEndElement();
-							
-							/* Creo il nodo 'AliquotaIVA' */
-							xMLStreamWriter.writeStartElement("AliquotaIVA");
-							Integer iva = dettaglioDDT.getIva();
-							String iva_s = "";
-							if(iva != null){
-								iva_s= String.valueOf(iva);
-							}
-							xMLStreamWriter.writeCharacters(iva_s);
-							xMLStreamWriter.writeEndElement();
-							
-							/* Chiudo il nodo 'DettaglioLinee' */
-							xMLStreamWriter.writeEndElement();
-							
-							numLineaIndex = numLineaIndex + 1;
-						}
-					}
+				/* Creo il nodo 'NumeroLinea' */
+				xMLStreamWriter.writeStartElement("NumeroLinea");
+				xMLStreamWriter.writeCharacters(String.valueOf(numLineaIndex));
+				xMLStreamWriter.writeEndElement();
+				
+				/* Creo il nodo 'Descrizione' */
+				xMLStreamWriter.writeStartElement("Descrizione");
+				xMLStreamWriter.writeCharacters(dettaglioNotaCredito.getDescrizioneArticolo());
+				xMLStreamWriter.writeEndElement();
+				
+				/* Creo il nodo 'Quantita' */
+				xMLStreamWriter.writeStartElement("Quantita");
+				BigDecimal quantita = dettaglioNotaCredito.getQta();
+				String quantita_s = "";
+				if(quantita != null){
+					quantita_s = quantita.toString();
 				}
-			}
-		}
-		/* Creo i nodi 'DatiRiepilogo' */
-		HashMap<BigDecimal, BigDecimal[]> imponibili = fattura.getImponibili();
-		if(imponibili != null && !imponibili.isEmpty()){
-			for(Map.Entry<BigDecimal, BigDecimal[]> imponibiliEntry : imponibili.entrySet()){
-				BigDecimal iva = imponibiliEntry.getKey();
-				BigDecimal[] imp = imponibiliEntry.getValue();
-				BigDecimal imposta = null;
+				xMLStreamWriter.writeCharacters(quantita_s);
+				xMLStreamWriter.writeEndElement();
 				
-				/* Creo il nodo 'DatiRiepilogo' */
-				xMLStreamWriter.writeStartElement("DatiRiepilogo");
+				/* Creo il nodo 'UnitaMisura' */
+				xMLStreamWriter.writeStartElement("UnitaMisura");
+				xMLStreamWriter.writeCharacters(dettaglioNotaCredito.getUm());
+				xMLStreamWriter.writeEndElement();
+				
+				/* Creo il nodo 'PrezzoUnitario' */
+				xMLStreamWriter.writeStartElement("PrezzoUnitario");
+				BigDecimal prezzo = dettaglioNotaCredito.getPrezzo();
+				String prezzo_s = "";
+				if(prezzo != null){
+					prezzo_s = prezzo.toString();
+				}
+				xMLStreamWriter.writeCharacters(prezzo_s);
+				xMLStreamWriter.writeEndElement();
+				
+				/* Creo il nodo 'PrezzoTotale' */
+				xMLStreamWriter.writeStartElement("PrezzoTotale");
+				BigDecimal prezzoTotale = dettaglioNotaCredito.getTotale();
+				String prezzoTotale_s = "";
+				if(prezzoTotale != null){
+					prezzoTotale_s = prezzoTotale.toString();
+				}
+				xMLStreamWriter.writeCharacters(prezzoTotale_s);
+				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'AliquotaIVA' */
 				xMLStreamWriter.writeStartElement("AliquotaIVA");
+				Integer iva = dettaglioNotaCredito.getIva();
 				String iva_s = "";
 				if(iva != null){
-					iva_s = iva.toString();
+					iva_s= String.valueOf(iva);
 				}
 				xMLStreamWriter.writeCharacters(iva_s);
 				xMLStreamWriter.writeEndElement();
 				
-				/* Creo il nodo 'ImponibileImporto' */
-				xMLStreamWriter.writeStartElement("ImponibileImporto");
-				String imp_s = "";
-				if(imp != null && imp.length > 0){
-					BigDecimal impo = imp[0];
-					
-					/* Calcolo l'imposta */
-					imposta = impo.multiply(iva.divide(new BigDecimal(100)).setScale(2, 4)).setScale(2, 0);
-					
-					if(impo != null){
-						imp_s = impo.toString();
-					}
-				}
-				xMLStreamWriter.writeCharacters(imp_s);
+				/* Chiudo il nodo 'DettaglioLinee' */
 				xMLStreamWriter.writeEndElement();
 				
-				/* Creo il nodo 'Imposta' */
-				xMLStreamWriter.writeStartElement("Imposta");
-				String imposta_s = "";
-				if(imposta != null){
-					imposta_s = imposta.toString();
-				}
-				xMLStreamWriter.writeCharacters(imposta_s);
-				xMLStreamWriter.writeEndElement();
-				
-				/* Chiudo il nodo 'DatiRiepilogo' */
-				xMLStreamWriter.writeEndElement();
+				numLineaIndex = numLineaIndex + 1;
 			}
 		}
 		
+		/* Creo il nodo 'DatiRiepilogo' */
+		xMLStreamWriter.writeStartElement("DatiRiepilogo");
+		
+		/* Creo il nodo 'AliquotaIVA' */
+		xMLStreamWriter.writeStartElement("AliquotaIVA");
+		xMLStreamWriter.writeCharacters("0.00");
+		xMLStreamWriter.writeEndElement();
+		
+		/* Creo il nodo 'ImponibileImporto' */
+		xMLStreamWriter.writeStartElement("ImponibileImporto");
+		String imp_s = "";
+		if(notaCredito.getTotaleImponibile() != null){
+			imp_s = notaCredito.getTotaleImponibile().toString();
+		}
+		xMLStreamWriter.writeCharacters(imp_s);
+		xMLStreamWriter.writeEndElement();
+		
+		/* Creo il nodo 'Imposta' */
+		xMLStreamWriter.writeStartElement("Imposta");
+		String imposta_s = "";
+		if(notaCredito.getTotaleImposta() != null){
+			imposta_s = notaCredito.getTotaleImposta().toString();
+		}
+		xMLStreamWriter.writeCharacters(imposta_s);
+		xMLStreamWriter.writeEndElement();
+		
+		/* Chiudo il nodo 'DatiRiepilogo' */
+		xMLStreamWriter.writeEndElement();
+				
 		xMLStreamWriter.writeEndElement();
 	}
 	
-	private void createNodeBodyDatiPagamento(XMLStreamWriter xMLStreamWriter, Fattura fattura) throws Exception{
+	private void createNodeBodyDatiPagamento(XMLStreamWriter xMLStreamWriter, NotaAccredito notaCredito, List<DettaglioNotaAccredito> dettagliNotaCredito) throws Exception{
 		xMLStreamWriter.writeStartElement("DatiPagamento");
 		
 		/* Creo il nodo 'CondizioniPagamento' */
@@ -1164,7 +972,7 @@ public class EFattureHelper {
 		
 		/* Creo il nodo 'ModalitaPagamento' */
 		String modalitaPagamento = "";
-		Cliente cliente = fattura.getCliente();
+		Cliente cliente = notaCredito.getCliente();
 		if(cliente != null){
 			Pagamento pagamento = cliente.getPagamento();
 			String descrPagamento = pagamento.getDescrizione();
@@ -1184,13 +992,19 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ImportoPagamento' */
-		BigDecimal totaleFattura = fattura.getTotaleFattura();
-		String totaleFattura_s = "";
-		if(totaleFattura != null){
-			totaleFattura_s = totaleFattura.toString();
+		BigDecimal totaleNotaCredito = new BigDecimal(0);
+		if(dettagliNotaCredito != null && !dettagliNotaCredito.isEmpty()){
+			for(DettaglioNotaAccredito dettaglio : dettagliNotaCredito){
+				totaleNotaCredito = totaleNotaCredito.add(dettaglio.getTotale());
+			}
+		}
+		
+		String totaleNotaCredito_s = "";
+		if(totaleNotaCredito != null){
+			totaleNotaCredito_s = totaleNotaCredito.toString();
 		}
 		xMLStreamWriter.writeStartElement("ImportoPagamento");
-		xMLStreamWriter.writeCharacters(totaleFattura_s);
+		xMLStreamWriter.writeCharacters(totaleNotaCredito_s);
 		xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'DettaglioPagamento' */
@@ -1199,7 +1013,7 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 	}
 	
-	private void createNodeBodyAllegati(XMLStreamWriter xMLStreamWriter, Fattura fattura) throws Exception{
+	private void createNodeBodyAllegati(XMLStreamWriter xMLStreamWriter, NotaAccredito notaCredito) throws Exception{
 		ByteArrayOutputStream baos = null;
         ZipOutputStream zos = null;
 		
@@ -1210,7 +1024,7 @@ public class EFattureHelper {
 			xMLStreamWriter.writeStartElement("Allegati");
 			
 			/* Creo il nome dell'allegato */
-			String nomeAttachment = "fattura_"+fattura.getNumeroProgressivo() + "/" + sdf.format(fattura.getData())+".pdf";
+			String nomeAttachment = "nota_credito_"+notaCredito.getNumeroProgressivo() + "/" + sdf.format(notaCredito.getData())+".pdf";
 			
 			/* Creo il nodo 'NomeAttachment' */
 			xMLStreamWriter.writeStartElement("NomeAttachment");
@@ -1227,24 +1041,29 @@ public class EFattureHelper {
 			xMLStreamWriter.writeCharacters("PDF");
 			xMLStreamWriter.writeEndElement();
 			
-			/* Creo il pdf della fattura */
-			byte[] pdfBytes = StampeMgr.getInstance().richiediPDFDocumento(fattura);
-			
-			/* Creo lo zip contenente il pdf */
-			baos = new ByteArrayOutputStream();
-	        zos = new ZipOutputStream(baos);
-	        ZipEntry entry = new ZipEntry(nomeAttachment);
-	        zos.putNextEntry(entry);
-	        zos.write(pdfBytes);
-	        zos.closeEntry();
-	                
-			/* File pdf in base64 */
-			String encodedPdf = new String(base64.encode(baos.toByteArray()));
-			
-			/* Creo il nodo 'Attachment' */
-			xMLStreamWriter.writeStartElement("Attachment");
-			xMLStreamWriter.writeCharacters(encodedPdf);
-			xMLStreamWriter.writeEndElement();
+			/* Creo il pdf della nota di credito */
+			try{
+				byte[] pdfBytes = StampeMgr.getInstance().richiediPDFDocumento(notaCredito);
+				
+				/* Creo lo zip contenente il pdf */
+				baos = new ByteArrayOutputStream();
+		        zos = new ZipOutputStream(baos);
+		        ZipEntry entry = new ZipEntry(nomeAttachment);
+		        zos.putNextEntry(entry);
+		        zos.write(pdfBytes);
+		        zos.closeEntry();
+		                
+				/* File pdf in base64 */
+				String encodedPdf = new String(base64.encode(baos.toByteArray()));
+				
+				/* Creo il nodo 'Attachment' */
+				xMLStreamWriter.writeStartElement("Attachment");
+				xMLStreamWriter.writeCharacters(encodedPdf);
+				xMLStreamWriter.writeEndElement();
+				
+			} catch(Exception e){
+				logger.error("Errore nella creazione del documento pdf per la nota di credito '" + notaCredito.getId()+"'", e);
+			}
 			
 			xMLStreamWriter.writeEndElement();
 			
@@ -1252,7 +1071,7 @@ public class EFattureHelper {
 			baos.close();
 			
 		} catch(Exception e){
-			logger.error("Errore nella creazione del tag 'Allegati' per la fattura '"+fattura.getId()+"'", e);
+			logger.error("Errore nella creazione del tag 'Allegati' per la nota di credito '" + notaCredito.getId()+"'", e);
 		} finally{
 			if(zos != null){
 				zos.close();

@@ -1,12 +1,13 @@
 package stampe;
 
+import dao.NoteAccredito;
 import stampemgr.StampeMgr;
 import vo.NotaAccredito;
-import dao.NoteAccredito;
 
 public class PrintNotaAccredito extends PrintPDF {
 	
 	private static final long serialVersionUID = 5417096769427980677L;
+	
 	private Integer id = null;
 	
 	public Integer getId() {

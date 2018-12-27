@@ -37,14 +37,17 @@ import com.lowagie.text.pdf.PdfReader;
 import dao.DataAccessObject;
 import dao.Fatture;
 import dao.Ivas;
+import dao.NoteAccredito;
 import dao.RiepilogoFatture;
 import dao.Settings;
 import email.FattureEmailSender;
 import stampemgr.StampeMgr;
 import utils.EFattureHelper;
+import utils.ENoteCreditoHelper;
 import vo.Cliente;
 import vo.Fattura;
 import vo.Iva;
+import vo.NotaAccredito;
 import vo.VOElement;
 
 @SuppressWarnings("rawtypes")
@@ -649,6 +652,71 @@ public class PrintFatture extends PrintPDF {
             return ERROR;
         }
         
+    }
+
+    public String creaNoteCreditoElettroniche() {
+        try {
+            logger.info("Creazione note di credito elettroniche dal '"+dataDal+"' al '"+dataAl+"'...");
+            
+            /* Creo le mappe contenenti i dati da inserire nei file xml */
+            Map<Integer, Cliente> clienti = new HashMap<Integer, Cliente>();
+            Map<Integer, List<NotaAccredito>> noteCreditoByCliente = new HashMap<Integer, List<NotaAccredito>>();
+            
+            /* Recupero le note di credito */
+            NoteAccredito noteCredito = new NoteAccredito();
+            noteCredito.setOrderByCliente();
+            Collection listaNoteCredito = noteCredito.getNoteAccredito(dataDal, dataAl);
+
+            logger.info("Lista note di credito ottenuta. Numero elementi: " + listaNoteCredito.size());
+
+            /* Itero sulle note di credito recuperate */
+            Iterator itr = listaNoteCredito.iterator();
+            while (itr.hasNext()) {
+            	NotaAccredito notaCredito = (NotaAccredito) itr.next();
+            	notaCredito.calcolaTotale();
+                Integer idCliente = notaCredito.getIdCliente();
+                
+                /* Inserisco il cliente nella mappa */
+                clienti.put(idCliente, notaCredito.getCliente());
+                
+                /* Recupero la lista di note di credito associate al cliente */
+                List<NotaAccredito> noteCreditoByCli = noteCreditoByCliente.get(idCliente);
+                if(noteCreditoByCli != null && !noteCreditoByCli.isEmpty()){
+                	noteCreditoByCli.add(notaCredito);
+                } else{
+                	noteCreditoByCli = new ArrayList<NotaAccredito>();
+                	noteCreditoByCli.add(notaCredito);
+                }
+                /* Inserisco le note di credito nella mappa */
+                noteCreditoByCliente.put(idCliente, noteCreditoByCli);
+            }
+            
+            String basePath = ServletActionContext.getServletContext().getRealPath("/note_credito_elettroniche");
+            
+            ENoteCreditoHelper eNoteCreditoHelper = new ENoteCreditoHelper();
+            eNoteCreditoHelper.setBasePath(basePath);
+            eNoteCreditoHelper.setClienti(clienti);
+            eNoteCreditoHelper.setNoteAccredito(noteCreditoByCliente);
+            Integer idEsportazione = eNoteCreditoHelper.createXml();
+            String zipFileName = eNoteCreditoHelper.createZip(basePath + "/" + idEsportazione);
+            
+            logger.info("Note di credito elettroniche create con successo.");
+            
+            File fileToDownload = new File(zipFileName);
+            fileToDownload.setReadable(true, false);
+            fileToDownload.setWritable(true, false);
+            fileInputStream = new FileInputStream(fileToDownload);
+     
+            contentLength = fileToDownload.length();
+            fileName = fileToDownload.getName();
+            
+            return SUCCESS;
+            
+        } catch (Exception e) {
+            logger.error("Errore creazione note di credito elettroniche", e);
+            stampaErrore("PrintFatture.creaNoteCreditoElettroniche()", e);
+            return ERROR;
+        }
     }
     
 }

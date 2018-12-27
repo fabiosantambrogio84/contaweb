@@ -919,11 +919,16 @@
 			  	<param name="contentDisposition">attachment;filename="${fileName}"</param>
 			  	<param name="bufferSize">4096</param>
 			</result>
-			<!--
-			<result name="success" type="redirect-action">
-           		<param name="actionName">stampeList_input</param>
-       		</result>
-       		-->
+			<result name="error" type="tiles">.errorList</result>
+		</action>
+
+		<action name="creaNoteCreditoElettroniche" method="creaNoteCreditoElettroniche" class="stampe.PrintFatture">
+			<result name="success" type="stream">
+				<param name="contentType">application/zip</param>
+			  	<param name="inputName">fileInputStream</param>
+			  	<param name="contentDisposition">attachment;filename="${fileName}"</param>
+			  	<param name="bufferSize">4096</param>
+			</result>
 			<result name="error" type="tiles">.errorList</result>
 		</action>
 
