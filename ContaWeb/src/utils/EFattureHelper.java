@@ -459,7 +459,11 @@ public class EFattureHelper {
 		
 		/* Creo il nodo 'CodiceDestinatario' */
 		xMLStreamWriter.writeStartElement("CodiceDestinatario");
-		xMLStreamWriter.writeCharacters(DEFAULT_CODICE_DESTINATARIO);
+		String codiceUnivocoSdi = cliente.getCodiceUnivocoSdi();
+		if(codiceUnivocoSdi == null || codiceUnivocoSdi.equals("")){
+			codiceUnivocoSdi = DEFAULT_CODICE_DESTINATARIO;
+		}
+		xMLStreamWriter.writeCharacters(codiceUnivocoSdi);
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ContattiTrasmittente' */
