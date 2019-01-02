@@ -46,6 +46,8 @@
 	<s:checkbox id="clienteRaggruppaRiba" labelposition="left" label="Raggruppa RiBa" name="cliente.raggruppaRiba" onchange="enableClienti()"/> 
     <s:textfield id="clienteNomeRaggruppamentoRiBa" labelposition="left" label="Nome raggruppamento RiBa" name="cliente.nomeRaggruppamentoRiba" size="40" cssClass="testo"/>
 	
+	<s:textfield labelposition="left" label="Codice univoco SDI" name="cliente.codiceUnivocoSdi" id="clienteCodiceUnivocoSdi" size="10" cssClass="testo"/>
+	
     <s:submit value="Aggiorna" cssClass="button"/>
     <s:if test="%{id}">
 	    <s:submit name="action:puntiConsegnaList_input" value="Gestione punti di consegna" cssClass="button"/>

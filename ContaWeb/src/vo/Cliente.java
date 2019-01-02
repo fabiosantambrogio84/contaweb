@@ -50,6 +50,8 @@ public class Cliente extends VOElement {
     private Boolean raggruppaRiba;
 
     private String nomeRaggruppamentoRiba;
+    
+    private String codiceUnivocoSdi;
 
     public String getNote() {
         return note;
@@ -384,6 +386,14 @@ public class Cliente extends VOElement {
     public void setNomeRaggruppamentoRiba(String nomeRaggruppamentoRiba) {
         this.nomeRaggruppamentoRiba = nomeRaggruppamentoRiba;
     }
+    
+    public String getCodiceUnivocoSdi(){
+    	return codiceUnivocoSdi;
+    }
+    
+    public void setCodiceUnivocoSdi(String codiceUnivocoSdi){
+    	this.codiceUnivocoSdi = codiceUnivocoSdi;
+    }
 
     @Override
     public String toString(){
@@ -433,9 +443,14 @@ public class Cliente extends VOElement {
         	sb.append("raggruppaRiba: , ");
         }
         if(nomeRaggruppamentoRiba != null){
-        	sb.append("nomeRaggruppamentoRiba: ").append(getNomeRaggruppamentoRiba()).append(";");
+        	sb.append("nomeRaggruppamentoRiba: ").append(getNomeRaggruppamentoRiba()).append(", ");
         } else{
         	sb.append("nomeRaggruppamentoRiba: , ");
+        }
+        if(codiceUnivocoSdi != null){
+        	sb.append("codiceUnivocoSdi: ").append(getCodiceUnivocoSdi()).append(", ");
+        } else{
+        	sb.append("codiceUnivocoSdi: , ");
         }
         return sb.toString();
     }
