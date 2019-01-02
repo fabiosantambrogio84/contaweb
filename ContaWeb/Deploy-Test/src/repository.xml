@@ -260,6 +260,7 @@
 	<field-descriptor name="cognome" column="cognome" jdbc-type="VARCHAR"/>
 	<field-descriptor name="raggruppaRiba" column="raggruppaRiba" jdbc-type="BOOLEAN"/>
 	<field-descriptor name="nomeRaggruppamentoRiba" column="nomeRaggruppamentoRiba" jdbc-type="VARCHAR"/>
+	<field-descriptor name="codiceUnivocoSdi" column="codice_univoco_sdi" jdbc-type="VARCHAR"/>
 	<reference-descriptor name="pagamento" class-ref="vo.Pagamento" auto-retrieve="true">
 		<foreignkey field-ref="idPagamento"/>
 		</reference-descriptor>
