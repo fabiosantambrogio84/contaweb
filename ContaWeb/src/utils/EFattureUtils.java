@@ -17,9 +17,13 @@ public class EFattureUtils {
         }
     }
 	
-	public static void removeFiles(List<File> files) throws IOException{
+	public static void removeFiles(List<File> files, List<String> fileNamesToExclude) throws IOException{
         for(int i=0; i<files.size(); i++){
-            removeFileOrDirectory(files.get(i));
+        	File file = files.get(i);
+        	String filename = file.getName();
+        	if(!fileNamesToExclude.isEmpty() && !fileNamesToExclude.contains(filename)){
+        		removeFileOrDirectory(files.get(i));
+        	}
         }
     }
     

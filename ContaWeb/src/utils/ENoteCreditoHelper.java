@@ -318,7 +318,7 @@ public class ENoteCreditoHelper {
 		        fos.close();
 		        
 		        /* Elimino i file xml inseriti nel file zip */
-		        EFattureUtils.removeFiles(filesToZip);
+		        EFattureUtils.removeFiles(filesToZip, new ArrayList<String>());
 			}
 			
 			/* Creo il file zip contenente tutti i file zip */
@@ -327,6 +327,9 @@ public class ENoteCreditoHelper {
 			
 			String fileName = "export_note_credito_elettroniche_"+sdf.format(new Date(System.currentTimeMillis()))+".zip";
 			resultFileName = folderPath + "/" + fileName;
+			
+			List<String> fileNamesToExclude = new ArrayList<String>();
+			fileNamesToExclude.add(fileName);
 			
 			File f = new File(resultFileName);
 			f.setReadable(true, false);
@@ -355,7 +358,7 @@ public class ENoteCreditoHelper {
 					}
 				}
 				/* Elimino i file zip */
-				EFattureUtils.removeFiles(new ArrayList<File>(Arrays.asList(filesZip)));
+				EFattureUtils.removeFiles(new ArrayList<File>(Arrays.asList(filesZip)), fileNamesToExclude);
 			}
 			zipOut.close();
 	        fos.close();
