@@ -61,7 +61,7 @@ public class EFattureHelper {
 	
 	private static final String EMAIL = "urbanialimentari@legalmail.it";
 	
-	private static final String RAGIONE_SOCIALE = "URBANI ALIMENTARI";
+	private static final String RAGIONE_SOCIALE = "URBANI GIUSEPPE AZIENDA COMMERCIALE";
 	
 	private static final String REGIME_FISCALE = "RF01";
 	
@@ -434,7 +434,7 @@ public class EFattureHelper {
 		xMLStreamWriter.writeStartElement("DatiTrasmissione");
 		
 		/* Creo il nodo 'IdTrasmittente' */
-		xMLStreamWriter.writeStartElement("IdTrasmissione");
+		xMLStreamWriter.writeStartElement("IdTrasmittente");
 		
 		/* Creo il nodo 'IdPaese' */
 		xMLStreamWriter.writeStartElement("IdPaese");
@@ -461,8 +461,8 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'CodiceDestinatario' */
-		xMLStreamWriter.writeStartElement("CodiceDestinatario");
 		String codiceUnivocoSdi = cliente.getCodiceUnivocoSdi();
+		xMLStreamWriter.writeStartElement("CodiceDestinatario");
 		if(codiceUnivocoSdi == null || codiceUnivocoSdi.equals("")){
 			codiceUnivocoSdi = DEFAULT_CODICE_DESTINATARIO;
 		}
@@ -528,47 +528,47 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Nome' */
-		xMLStreamWriter.writeStartElement("Nome");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Nome");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Cognome' */
-		xMLStreamWriter.writeStartElement("Cognome");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Cognome");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Titolo' */
-		xMLStreamWriter.writeStartElement("Titolo");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Titolo");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'CodEORI' */
-		xMLStreamWriter.writeStartElement("CodEORI");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("CodEORI");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'Anagrafica' */
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'AlboProfessionale' */
-		xMLStreamWriter.writeStartElement("AlboProfessionale");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("AlboProfessionale");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ProvinciaAlbo' */
-		xMLStreamWriter.writeStartElement("ProvinciaAlbo");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("ProvinciaAlbo");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'NumeroIscrizioneAlbo' */
-		xMLStreamWriter.writeStartElement("NumeroIscrizioneAlbo");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("NumeroIscrizioneAlbo");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'DataIscrizioneAlbo' */
-		xMLStreamWriter.writeStartElement("DataIscrizioneAlbo");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("DataIscrizioneAlbo");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'RegimeFiscale' */
 		xMLStreamWriter.writeStartElement("RegimeFiscale");
@@ -652,29 +652,32 @@ public class EFattureHelper {
 		if(ragioneSociale == null || ragioneSociale.equals("")){
 			ragioneSociale = cliente.getRs2();
 		}
+		if(ragioneSociale == null || ragioneSociale.equals("")){
+			ragioneSociale = cliente.getNome() + " " + cliente.getCognome();
+		}
 		xMLStreamWriter.writeStartElement("Denominazione");
 		xMLStreamWriter.writeCharacters(ragioneSociale);
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Nome' */
-		xMLStreamWriter.writeStartElement("Nome");
-		xMLStreamWriter.writeCharacters(cliente.getNome());
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Nome");
+		//xMLStreamWriter.writeCharacters(cliente.getNome());
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Cognome' */
-		xMLStreamWriter.writeStartElement("Cognome");
-		xMLStreamWriter.writeCharacters(cliente.getCognome());
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Cognome");
+		//xMLStreamWriter.writeCharacters(cliente.getCognome());
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Titolo' */
-		xMLStreamWriter.writeStartElement("Titolo");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Titolo");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'CodEORI' */
-		xMLStreamWriter.writeStartElement("CodEORI");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("CodEORI");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'Anagrafica' */
 		xMLStreamWriter.writeEndElement();
@@ -753,123 +756,123 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'DatiRitenuta' */
-		xMLStreamWriter.writeStartElement("DatiRitenuta");
+		//xMLStreamWriter.writeStartElement("DatiRitenuta");
 		
 		/* Creo il nodo 'TipoRitenuta' */
-		xMLStreamWriter.writeStartElement("TipoRitenuta");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("TipoRitenuta");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ImportoRitenuta' */
-		xMLStreamWriter.writeStartElement("ImportoRitenuta");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("ImportoRitenuta");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'AliquotaRitenuta' */
-		xMLStreamWriter.writeStartElement("AliquotaRitenuta");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("AliquotaRitenuta");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'CausalePagamento' */
-		xMLStreamWriter.writeStartElement("CausalePagamento");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("CausalePagamento");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'DatiRitenuta' */
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'DatiBollo' */
-		xMLStreamWriter.writeStartElement("DatiBollo");
+		//xMLStreamWriter.writeStartElement("DatiBollo");
 		
 		/* Creo il nodo 'BolloVirtuale' */
-		xMLStreamWriter.writeStartElement("BolloVirtuale");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("BolloVirtuale");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ImportoBollo' */
-		xMLStreamWriter.writeStartElement("ImportoBollo");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("ImportoBollo");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'DatiBollo' */
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'DatiCassaPrevidenziale' */
-		xMLStreamWriter.writeStartElement("DatiCassaPrevidenziale");
+		//xMLStreamWriter.writeStartElement("DatiCassaPrevidenziale");
 		
 		/* Creo il nodo 'TipoCassa' */
-		xMLStreamWriter.writeStartElement("TipoCassa");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("TipoCassa");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'AlCassa' */
-		xMLStreamWriter.writeStartElement("AlCassa");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("AlCassa");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ImportoContributoCassa' */
-		xMLStreamWriter.writeStartElement("ImportoContributoCassa");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("ImportoContributoCassa");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ImponibileCassa' */
-		xMLStreamWriter.writeStartElement("ImponibileCassa");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("ImponibileCassa");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'AliquotaIVA' */
-		xMLStreamWriter.writeStartElement("AliquotaIVA");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("AliquotaIVA");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Ritenuta' */
-		xMLStreamWriter.writeStartElement("Ritenuta");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Ritenuta");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Natura' */
-		xMLStreamWriter.writeStartElement("Natura");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Natura");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'RiferimentoAmministrazione' */
-		xMLStreamWriter.writeStartElement("RiferimentoAmministrazione");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("RiferimentoAmministrazione");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'DatiCassaPrevidenziale' */
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ScontoMaggiorazione' */
-		xMLStreamWriter.writeStartElement("ScontoMaggiorazione");
+		//xMLStreamWriter.writeStartElement("ScontoMaggiorazione");
 		
 		/* Creo il nodo 'Tipo' */
-		xMLStreamWriter.writeStartElement("Tipo");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Tipo");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Percentuale' */
-		xMLStreamWriter.writeStartElement("Percentuale");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Percentuale");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Importo' */
-		xMLStreamWriter.writeStartElement("Importo");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Importo");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'ScontoMaggiorazione' */
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ImportoTotaleDocumento' */
-		xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Arrotondamento' */
-		xMLStreamWriter.writeStartElement("Arrotondamento");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Arrotondamento");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Causale' */
 		/* Se la lunghezza è maggiore di 200 devo creare un nuovo nodo contenente i successivi 200 caratteri */
@@ -891,15 +894,15 @@ public class EFattureHelper {
 				}
 			}
 		} else{
-			xMLStreamWriter.writeStartElement("Causale");
-			xMLStreamWriter.writeCharacters("");
-			xMLStreamWriter.writeEndElement();
+			//xMLStreamWriter.writeStartElement("Causale");
+			//xMLStreamWriter.writeCharacters("");
+			//xMLStreamWriter.writeEndElement();
 		}
 				
 		/* Creo il nodo 'Art73' */
-		xMLStreamWriter.writeStartElement("Art73");
-		xMLStreamWriter.writeCharacters("");
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Art73");
+		//xMLStreamWriter.writeCharacters("");
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'DatiGeneraliDocumento' */
 		xMLStreamWriter.writeEndElement();
@@ -1071,7 +1074,7 @@ public class EFattureHelper {
 							BigDecimal prezzo = dettaglioDDT.getPrezzo();
 							String prezzo_s = "";
 							if(prezzo != null){
-								prezzo_s = prezzo.toString();
+								prezzo_s = prezzo.setScale(2).toPlainString();
 							}
 							xMLStreamWriter.writeCharacters(prezzo_s);
 							xMLStreamWriter.writeEndElement();
@@ -1081,7 +1084,7 @@ public class EFattureHelper {
 							BigDecimal prezzoTotale = dettaglioDDT.getTotale();
 							String prezzoTotale_s = "";
 							if(prezzoTotale != null){
-								prezzoTotale_s = prezzoTotale.toString();
+								prezzoTotale_s = prezzoTotale.setScale(2).toPlainString();
 							}
 							xMLStreamWriter.writeCharacters(prezzoTotale_s);
 							xMLStreamWriter.writeEndElement();
@@ -1091,7 +1094,7 @@ public class EFattureHelper {
 							Integer iva = dettaglioDDT.getIva();
 							String iva_s = "";
 							if(iva != null){
-								iva_s= String.valueOf(iva);
+								iva_s= String.valueOf(iva) + ".00";
 							}
 							xMLStreamWriter.writeCharacters(iva_s);
 							xMLStreamWriter.writeEndElement();
@@ -1120,7 +1123,7 @@ public class EFattureHelper {
 				xMLStreamWriter.writeStartElement("AliquotaIVA");
 				String iva_s = "";
 				if(iva != null){
-					iva_s = iva.toString();
+					iva_s = iva.toString() + ".00";
 				}
 				xMLStreamWriter.writeCharacters(iva_s);
 				xMLStreamWriter.writeEndElement();
@@ -1194,7 +1197,7 @@ public class EFattureHelper {
 		BigDecimal totaleFattura = fattura.getTotaleFattura();
 		String totaleFattura_s = "";
 		if(totaleFattura != null){
-			totaleFattura_s = totaleFattura.toString();
+			totaleFattura_s = totaleFattura.setScale(2).toPlainString();
 		}
 		xMLStreamWriter.writeStartElement("ImportoPagamento");
 		xMLStreamWriter.writeCharacters(totaleFattura_s);
