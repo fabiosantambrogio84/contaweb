@@ -53,25 +53,27 @@ public class EFattureHelper {
 	
 	private static final String CODICE_FISCALE = "RBNGPP56A14L551I";
 	
+	private static final String PARTITA_IVA = "02471520243";
+	
 	private static final String FORMATO_TRASMISSIONE = "FPR12";
 	
 	private static final String DEFAULT_CODICE_DESTINATARIO = "0000000";
 	
-	private static final String TELEFONO = "0456/550993";
+	private static final String TELEFONO = "0456550993";
 	
-	private static final String EMAIL = "urbanialimentari@legalmail.it";
+	private static final String EMAIL = "INFO@URBANIALIMENTARI.COM";
 	
 	private static final String RAGIONE_SOCIALE = "URBANI GIUSEPPE AZIENDA COMMERCIALE";
 	
 	private static final String REGIME_FISCALE = "RF01";
 	
-	private static final String SEDE_INDIRIZZO = "via 11 Settembre";
+	private static final String SEDE_INDIRIZZO = "VIA 11 SETTEMBRE";
 	
 	private static final String SEDE_NUMERO_CIVICO = "17";
 	
 	private static final String SEDE_CAP = "37035";
 	
-	private static final String SEDE_COMUNE = "S. Giovanni Ilarione";
+	private static final String SEDE_COMUNE = "SAN GIOVANNI ILARIONE";
 	
 	private static final String SEDE_PROVINCIA = "VR";
 	
@@ -172,9 +174,9 @@ public class EFattureHelper {
 						xMLStreamWriter.writeStartElement("p", "FatturaElettronica", "");
 						xMLStreamWriter.writeAttribute("xmlns", "", "ds", "http://www.w3.org/2000/09/xmldsig#");
 						xMLStreamWriter.writeAttribute("xmlns", "", "p", "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2");
-						xMLStreamWriter.writeAttribute("xmlns", "", "xsi", "http://www.w3.org/2001/XMLSchema-instance");
+						//xMLStreamWriter.writeAttribute("xmlns", "", "xsi", "http://www.w3.org/2001/XMLSchema-instance");
 						xMLStreamWriter.writeAttribute("versione", "FPR12");
-						xMLStreamWriter.writeAttribute("xsi", "", "schemaLocation", "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 http://www.fatturapa.gov.it/export/fatturazione/sdi/fatturapa/v1.2/Schema_del_file_xml_FatturaPA_versione_1.2.xsd");
+						//xMLStreamWriter.writeAttribute("xsi", "", "schemaLocation", "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 http://www.fatturapa.gov.it/export/fatturazione/sdi/fatturapa/v1.2/Schema_del_file_xml_FatturaPA_versione_1.2.xsd");
 									
 						/* Creo il nodo 'FatturaElettronicaHeader' */
 						xMLStreamWriter.writeStartElement("FatturaElettronicaHeader");
@@ -470,20 +472,20 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ContattiTrasmittente' */
-		xMLStreamWriter.writeStartElement("ContattiTrasmittente");
+		//xMLStreamWriter.writeStartElement("ContattiTrasmittente");
 		
 		/* Creo il nodo 'Telefono' */
-		xMLStreamWriter.writeStartElement("Telefono");
-		xMLStreamWriter.writeCharacters(TELEFONO);
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Telefono");
+		//xMLStreamWriter.writeCharacters(TELEFONO);
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Email' */
-		xMLStreamWriter.writeStartElement("Email");
-		xMLStreamWriter.writeCharacters(EMAIL);
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeStartElement("Email");
+		//xMLStreamWriter.writeCharacters(EMAIL);
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'ContattiTrasmittente' */
-		xMLStreamWriter.writeEndElement();
+		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'PECDestinatario' */
 		String email = cliente.getEmailPec();
@@ -513,10 +515,15 @@ public class EFattureHelper {
 		
 		/* Creo il nodo 'IdCodice' */
 		xMLStreamWriter.writeStartElement("IdCodice");
-		xMLStreamWriter.writeCharacters(CODICE_FISCALE);
+		xMLStreamWriter.writeCharacters(PARTITA_IVA);
 		xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'IdFiscaleIVA' */
+		xMLStreamWriter.writeEndElement();
+		
+		/* Creo il nodo 'CodiceFiscale' */
+		xMLStreamWriter.writeStartElement("CodiceFiscale");
+		xMLStreamWriter.writeCharacters(CODICE_FISCALE);
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Anagrafica' */
@@ -612,6 +619,22 @@ public class EFattureHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'Sede' */
+		xMLStreamWriter.writeEndElement();
+		
+		/* Creo il nodo 'Contatti' */
+		xMLStreamWriter.writeStartElement("Contatti");
+		
+		/* Creo il nodo 'Telefono' */
+		xMLStreamWriter.writeStartElement("Telefono");
+		xMLStreamWriter.writeCharacters(TELEFONO);
+		xMLStreamWriter.writeEndElement();
+		
+		/* Creo il nodo 'Email' */
+		xMLStreamWriter.writeStartElement("Email");
+		xMLStreamWriter.writeCharacters(EMAIL);
+		xMLStreamWriter.writeEndElement();
+		
+		/* Chiudo il nodo 'Contatti' */
 		xMLStreamWriter.writeEndElement();
 		
 		xMLStreamWriter.writeEndElement();
@@ -844,26 +867,7 @@ public class EFattureHelper {
 		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ScontoMaggiorazione' */
-		//xMLStreamWriter.writeStartElement("ScontoMaggiorazione");
-		
-		/* Creo il nodo 'Tipo' */
-		//xMLStreamWriter.writeStartElement("Tipo");
-		//xMLStreamWriter.writeCharacters("");
-		//xMLStreamWriter.writeEndElement();
-		
-		/* Creo il nodo 'Percentuale' */
-		//xMLStreamWriter.writeStartElement("Percentuale");
-		//xMLStreamWriter.writeCharacters("");
-		//xMLStreamWriter.writeEndElement();
-		
-		/* Creo il nodo 'Importo' */
-		//xMLStreamWriter.writeStartElement("Importo");
-		//xMLStreamWriter.writeCharacters("");
-		//xMLStreamWriter.writeEndElement();
-		
-		/* Chiudo il nodo 'ScontoMaggiorazione' */
-		//xMLStreamWriter.writeEndElement();
-		
+				
 		/* Creo il nodo 'ImportoTotaleDocumento' */
 		//xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
 		//xMLStreamWriter.writeCharacters("");
@@ -881,14 +885,14 @@ public class EFattureHelper {
 			int casualeLength = causale.length();
 			if(casualeLength < 200){
 				xMLStreamWriter.writeStartElement("Causale");
-				xMLStreamWriter.writeCharacters(causale);
+				xMLStreamWriter.writeCharacters(causale.toUpperCase());
 				xMLStreamWriter.writeEndElement();
 			}else{
 				String[] tokens = Iterables.toArray(Splitter.fixedLength(4).split(causale), String.class);
 				if(tokens != null && tokens.length > 0){
 					for(int j=0; j<tokens.length; j++){
 						xMLStreamWriter.writeStartElement("Causale");
-						xMLStreamWriter.writeCharacters(tokens[j]);
+						xMLStreamWriter.writeCharacters(tokens[j].toUpperCase());
 						xMLStreamWriter.writeEndElement();
 					}
 				}
@@ -1078,6 +1082,34 @@ public class EFattureHelper {
 							}
 							xMLStreamWriter.writeCharacters(prezzo_s);
 							xMLStreamWriter.writeEndElement();
+							
+							/* Creo il nodo 'Sconto' */
+							BigDecimal sconto = dettaglioDDT.getSconto();
+							String sconto_s = "";
+							if(sconto != null && sconto.compareTo(BigDecimal.ZERO) != 0){
+								sconto_s = sconto.setScale(2).toPlainString();
+							}
+							if(!sconto_s.equals("")){
+								xMLStreamWriter.writeStartElement("ScontoMaggiorazione");
+								
+								/* Creo il nodo 'Tipo' */
+								xMLStreamWriter.writeStartElement("Tipo");
+								xMLStreamWriter.writeCharacters("SC");
+								xMLStreamWriter.writeEndElement();
+								
+								/* Creo il nodo 'Percentuale' */
+								//xMLStreamWriter.writeStartElement("Percentuale");
+								//xMLStreamWriter.writeCharacters("");
+								//xMLStreamWriter.writeEndElement();
+								
+								/* Creo il nodo 'Importo' */
+								xMLStreamWriter.writeStartElement("Importo");
+								xMLStreamWriter.writeCharacters(sconto_s);
+								xMLStreamWriter.writeEndElement();
+								
+								/* Chiudo il nodo 'ScontoMaggiorazione' */
+								xMLStreamWriter.writeEndElement();
+							}
 							
 							/* Creo il nodo 'PrezzoTotale' */
 							xMLStreamWriter.writeStartElement("PrezzoTotale");

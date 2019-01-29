@@ -49,6 +49,8 @@ public class ENoteCreditoHelper {
 	
 	private static final String CODICE_FISCALE = "RBNGPP56A14L551I";
 	
+	private static final String PARTITA_IVA = "02471520243";
+	
 	private static final String FORMATO_TRASMISSIONE = "FPR12";
 	
 	private static final String DEFAULT_CODICE_DESTINATARIO = "0000000";
@@ -462,7 +464,7 @@ public class ENoteCreditoHelper {
 		
 		/* Creo il nodo 'IdCodice' */
 		xMLStreamWriter.writeStartElement("IdCodice");
-		xMLStreamWriter.writeCharacters(CODICE_FISCALE);
+		xMLStreamWriter.writeCharacters(PARTITA_IVA);
 		xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'IdFiscaleIVA' */
