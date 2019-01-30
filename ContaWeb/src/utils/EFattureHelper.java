@@ -63,7 +63,7 @@ public class EFattureHelper {
 	
 	private static final String EMAIL = "INFO@URBANIALIMENTARI.COM";
 	
-	private static final String RAGIONE_SOCIALE = "URBANI GIUSEPPE AZIENDA COMMERCIALE";
+	private static final String RAGIONE_SOCIALE = "AZIENDA COMMERCIALE URBANI GIUSEPPE";
 	
 	private static final String REGIME_FISCALE = "RF01";
 	
@@ -157,7 +157,7 @@ public class EFattureHelper {
 					for(int i=0; i<fatt.size(); i++){
 						
 						/* Creo il nome del file */
-						String fileName = PAESE + CODICE_FISCALE + "_DF_"; 
+						String fileName = PAESE + CODICE_FISCALE + "_"; 
 						
 						/* Recupero il progressivo del file */
 						Integer idProgressivo = dbUtils.getSequenceNextVal(conn, "seq_e_fatturazione_file");
@@ -340,7 +340,7 @@ public class EFattureHelper {
 				Integer numProgrZip = dbUtils.getSequenceNextVal(conn, "seq_e_fatturazione_file_zip");
 				
 				/* Creo il nome del file zip */
-				String fileName = PAESE + CODICE_FISCALE + "_DF_" + StringUtils.leftPad(String.valueOf(numProgrZip), 5, '0')+".zip";
+				String fileName = PAESE + CODICE_FISCALE + "_" + StringUtils.leftPad(String.valueOf(numProgrZip), 5, '0')+".zip";
 				
 				/* Recupero la lista dei file da inserire nel file zip */		
 				List<File> filesToZip = entry.getValue();
@@ -457,8 +457,8 @@ public class EFattureHelper {
 		xMLStreamWriter.writeCharacters(StringUtils.leftPad(numProg_s, 5, '0'));
 		xMLStreamWriter.writeEndElement();
 		
-		/* Creo il nodo 'FormatoTrasmittente' */
-		xMLStreamWriter.writeStartElement("FormatoTrasmittente");
+		/* Creo il nodo 'FormatoTrasmissione' */
+		xMLStreamWriter.writeStartElement("FormatoTrasmissione");
 		xMLStreamWriter.writeCharacters(FORMATO_TRASMISSIONE);
 		xMLStreamWriter.writeEndElement();
 		
@@ -489,12 +489,11 @@ public class EFattureHelper {
 		
 		/* Creo il nodo 'PECDestinatario' */
 		String email = cliente.getEmailPec();
-		if(email == null || email.equals("")){
-			email = cliente.getEmail();
+		if(email != null && !email.equals("")){
+			xMLStreamWriter.writeStartElement("PECDestinatario");
+			xMLStreamWriter.writeCharacters(email);
+			xMLStreamWriter.writeEndElement();
 		}
-		xMLStreamWriter.writeStartElement("PECDestinatario");
-		xMLStreamWriter.writeCharacters(email);
-		xMLStreamWriter.writeEndElement();
 		
 		xMLStreamWriter.writeEndElement();
 	}

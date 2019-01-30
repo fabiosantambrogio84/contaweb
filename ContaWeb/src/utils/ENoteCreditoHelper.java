@@ -55,21 +55,21 @@ public class ENoteCreditoHelper {
 	
 	private static final String DEFAULT_CODICE_DESTINATARIO = "0000000";
 	
-	private static final String TELEFONO = "0456/550993";
+	private static final String TELEFONO = "0456550993";
 	
-	private static final String EMAIL = "urbanialimentari@legalmail.it";
+	private static final String EMAIL = "INFO@URBANIALIMENTARI.COM";
 	
-	private static final String RAGIONE_SOCIALE = "URBANI GIUSEPPE AZIENDA COMMERCIALE";
+	private static final String RAGIONE_SOCIALE = "AZIENDA COMMERCIALE URBANI GIUSEPPE";
 	
 	private static final String REGIME_FISCALE = "RF01";
 	
-	private static final String SEDE_INDIRIZZO = "via 11 Settembre";
+	private static final String SEDE_INDIRIZZO = "VIA 11 SETTEMBRE";
 	
 	private static final String SEDE_NUMERO_CIVICO = "17";
 	
 	private static final String SEDE_CAP = "37035";
 	
-	private static final String SEDE_COMUNE = "S. Giovanni Ilarione";
+	private static final String SEDE_COMUNE = "SAN GIOVANNI ILARIONE";
 	
 	private static final String SEDE_PROVINCIA = "VR";
 	
@@ -153,7 +153,7 @@ public class ENoteCreditoHelper {
 					for(int i=0; i<notaCredito.size(); i++){
 						
 						/* Creo il nome del file */
-						String fileName = PAESE + CODICE_FISCALE + "_DF_"; 
+						String fileName = PAESE + CODICE_FISCALE + "_"; 
 						
 						/* Recupero il progressivo del file */
 						Integer idProgressivo = dbUtils.getSequenceNextVal(conn, "seq_e_fatturazione_file");
@@ -293,7 +293,7 @@ public class ENoteCreditoHelper {
 				Integer numProgrZip = dbUtils.getSequenceNextVal(conn, "seq_e_fatturazione_file_zip");
 				
 				/* Creo il nome del file zip */
-				String fileName = PAESE + CODICE_FISCALE + "_DF_" + StringUtils.leftPad(String.valueOf(numProgrZip), 5, '0')+".zip";
+				String fileName = PAESE + CODICE_FISCALE + "_" + StringUtils.leftPad(String.valueOf(numProgrZip), 5, '0')+".zip";
 				
 				/* Recupero la lista dei file da inserire nel file zip */		
 				List<File> filesToZip = entry.getValue();
@@ -410,8 +410,8 @@ public class ENoteCreditoHelper {
 		xMLStreamWriter.writeCharacters(StringUtils.leftPad(numProg_s, 5, '0'));
 		xMLStreamWriter.writeEndElement();
 		
-		/* Creo il nodo 'FormatoTrasmittente' */
-		xMLStreamWriter.writeStartElement("FormatoTrasmittente");
+		/* Creo il nodo 'FormatoTrasmissione' */
+		xMLStreamWriter.writeStartElement("FormatoTrasmissione");
 		xMLStreamWriter.writeCharacters(FORMATO_TRASMISSIONE);
 		xMLStreamWriter.writeEndElement();
 		
@@ -421,29 +421,28 @@ public class ENoteCreditoHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ContattiTrasmittente' */
-		xMLStreamWriter.writeStartElement("ContattiTrasmittente");
-		
-		/* Creo il nodo 'Telefono' */
-		xMLStreamWriter.writeStartElement("Telefono");
-		xMLStreamWriter.writeCharacters(TELEFONO);
-		xMLStreamWriter.writeEndElement();
-		
-		/* Creo il nodo 'Email' */
-		xMLStreamWriter.writeStartElement("Email");
-		xMLStreamWriter.writeCharacters(EMAIL);
-		xMLStreamWriter.writeEndElement();
-		
-		/* Chiudo il nodo 'ContattiTrasmittente' */
-		xMLStreamWriter.writeEndElement();
+//		xMLStreamWriter.writeStartElement("ContattiTrasmittente");
+//		
+//		/* Creo il nodo 'Telefono' */
+//		xMLStreamWriter.writeStartElement("Telefono");
+//		xMLStreamWriter.writeCharacters(TELEFONO);
+//		xMLStreamWriter.writeEndElement();
+//		
+//		/* Creo il nodo 'Email' */
+//		xMLStreamWriter.writeStartElement("Email");
+//		xMLStreamWriter.writeCharacters(EMAIL);
+//		xMLStreamWriter.writeEndElement();
+//		
+//		/* Chiudo il nodo 'ContattiTrasmittente' */
+//		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'PECDestinatario' */
 		String email = cliente.getEmailPec();
-		if(email == null || email.equals("")){
-			email = cliente.getEmail();
+		if(email != null && !email.equals("")){
+			xMLStreamWriter.writeStartElement("PECDestinatario");
+			xMLStreamWriter.writeCharacters(email);
+			xMLStreamWriter.writeEndElement();
 		}
-		xMLStreamWriter.writeStartElement("PECDestinatario");
-		xMLStreamWriter.writeCharacters(email);
-		xMLStreamWriter.writeEndElement();
 		
 		xMLStreamWriter.writeEndElement();
 	}
@@ -563,6 +562,22 @@ public class ENoteCreditoHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Chiudo il nodo 'Sede' */
+		xMLStreamWriter.writeEndElement();
+		
+		/* Creo il nodo 'Contatti' */
+		xMLStreamWriter.writeStartElement("Contatti");
+		
+		/* Creo il nodo 'Telefono' */
+		xMLStreamWriter.writeStartElement("Telefono");
+		xMLStreamWriter.writeCharacters(TELEFONO);
+		xMLStreamWriter.writeEndElement();
+		
+		/* Creo il nodo 'Email' */
+		xMLStreamWriter.writeStartElement("Email");
+		xMLStreamWriter.writeCharacters(EMAIL);
+		xMLStreamWriter.writeEndElement();
+		
+		/* Chiudo il nodo 'Contatti' */
 		xMLStreamWriter.writeEndElement();
 		
 		xMLStreamWriter.writeEndElement();
