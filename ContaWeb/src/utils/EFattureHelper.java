@@ -1097,14 +1097,14 @@ public class EFattureHelper {
 								xMLStreamWriter.writeEndElement();
 								
 								/* Creo il nodo 'Percentuale' */
-								//xMLStreamWriter.writeStartElement("Percentuale");
-								//xMLStreamWriter.writeCharacters("");
-								//xMLStreamWriter.writeEndElement();
-								
-								/* Creo il nodo 'Importo' */
-								xMLStreamWriter.writeStartElement("Importo");
+								xMLStreamWriter.writeStartElement("Percentuale");
 								xMLStreamWriter.writeCharacters(sconto_s);
 								xMLStreamWriter.writeEndElement();
+								
+								/* Creo il nodo 'Importo' */
+//								xMLStreamWriter.writeStartElement("Importo");
+//								xMLStreamWriter.writeCharacters(sconto_s);
+//								xMLStreamWriter.writeEndElement();
 								
 								/* Chiudo il nodo 'ScontoMaggiorazione' */
 								xMLStreamWriter.writeEndElement();
