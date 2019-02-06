@@ -868,9 +868,14 @@ public class EFattureHelper {
 		/* Creo il nodo 'ScontoMaggiorazione' */
 				
 		/* Creo il nodo 'ImportoTotaleDocumento' */
-		//xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
-		//xMLStreamWriter.writeCharacters("");
-		//xMLStreamWriter.writeEndElement();
+		BigDecimal totaleFattura = fattura.getTotaleFattura();
+		String totaleFattura_s = "";
+		if(totaleFattura != null){
+			totaleFattura_s = totaleFattura.toString();
+			xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
+			xMLStreamWriter.writeCharacters(totaleFattura_s);
+			xMLStreamWriter.writeEndElement();
+		}
 		
 		/* Creo il nodo 'Arrotondamento' */
 		//xMLStreamWriter.writeStartElement("Arrotondamento");
