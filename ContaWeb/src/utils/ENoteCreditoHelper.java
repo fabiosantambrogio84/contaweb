@@ -75,7 +75,7 @@ public class ENoteCreditoHelper {
 	
 	private static final String SEDE_NAZIONE = "IT";
 	
-	private static final String TIPO_DOCUMENTO = "TD01";
+	private static final String TIPO_DOCUMENTO = "TD04";
 	
 	private static final String DIVISA = "EUR";
 	
@@ -469,6 +469,11 @@ public class ENoteCreditoHelper {
 		/* Chiudo il nodo 'IdFiscaleIVA' */
 		xMLStreamWriter.writeEndElement();
 		
+		/* Creo il nodo 'CodiceFiscale' */
+		xMLStreamWriter.writeStartElement("CodiceFiscale");
+		xMLStreamWriter.writeCharacters(CODICE_FISCALE);
+		xMLStreamWriter.writeEndElement();
+		
 		/* Creo il nodo 'Anagrafica' */
 		xMLStreamWriter.writeStartElement("Anagrafica");
 		
@@ -831,9 +836,14 @@ public class ENoteCreditoHelper {
 		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ImportoTotaleDocumento' */
-		//xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
-		//xMLStreamWriter.writeCharacters("");
-		//xMLStreamWriter.writeEndElement();
+		BigDecimal totaleNotaCredito = notaCredito.getTotale();
+		String totaleNotaCredito_s = "";
+		if(totaleNotaCredito != null){
+			totaleNotaCredito_s = totaleNotaCredito.toString();
+			xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
+			xMLStreamWriter.writeCharacters(totaleNotaCredito_s);
+			xMLStreamWriter.writeEndElement();
+		}
 		
 		/* Creo il nodo 'Arrotondamento' */
 		//xMLStreamWriter.writeStartElement("Arrotondamento");
