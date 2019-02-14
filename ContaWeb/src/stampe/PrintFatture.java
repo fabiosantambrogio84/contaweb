@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -577,12 +578,12 @@ public class PrintFatture extends PrintPDF {
             logger.info("Creazione fatture elettroniche dal '"+dataDal+"' al '"+dataAl+"'...");
             
             /* Creo le mappe contenenti i dati da inserire nei file xml */
-            Map<Integer, Cliente> clienti = new HashMap<Integer, Cliente>();
-            Map<Integer, List<Fattura>> fattureByCliente = new HashMap<Integer, List<Fattura>>();
+            Map<Integer, Cliente> clienti = new LinkedHashMap<Integer, Cliente>();
+            Map<Integer, List<Fattura>> fattureByCliente = new LinkedHashMap<Integer, List<Fattura>>();
             
             /* Recupero le fatture */
             Fatture fatture = new Fatture();
-            fatture.setOrderByCliente();
+            fatture.setOrderByNumeroFattura();
             Collection listaFatture = fatture.getFatture(dataDal, dataAl);
 
             logger.info("Lista fatture ottenuta. Numero elementi: " + listaFatture.size());
