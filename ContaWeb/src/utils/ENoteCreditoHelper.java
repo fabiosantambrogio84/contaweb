@@ -839,7 +839,7 @@ public class ENoteCreditoHelper {
 		BigDecimal totaleNotaCredito = notaCredito.getTotale();
 		String totaleNotaCredito_s = "";
 		if(totaleNotaCredito != null){
-			totaleNotaCredito_s = totaleNotaCredito.toString();
+			totaleNotaCredito_s = totaleNotaCredito.setScale(2).toPlainString();
 			xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
 			xMLStreamWriter.writeCharacters(totaleNotaCredito_s);
 			xMLStreamWriter.writeEndElement();

@@ -871,7 +871,7 @@ public class EFattureHelper {
 		BigDecimal totaleFattura = fattura.getTotaleFattura();
 		String totaleFattura_s = "";
 		if(totaleFattura != null){
-			totaleFattura_s = totaleFattura.toString();
+			totaleFattura_s = totaleFattura.setScale(2).toPlainString();
 			xMLStreamWriter.writeStartElement("ImportoTotaleDocumento");
 			xMLStreamWriter.writeCharacters(totaleFattura_s);
 			xMLStreamWriter.writeEndElement();
