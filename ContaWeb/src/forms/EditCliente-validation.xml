@@ -26,11 +26,13 @@
             <message>E' richiesta la provincia del cliente</message>
         </field-validator>
     </field>
+	<!--
 	<field name="cliente.piva">
         <field-validator type="requiredstring">
             <message>E' richiesta la partita iva del cliente</message>
         </field-validator>
     </field>
+    -->
     <field name="cliente.fido">
         <field-validator type="required">
             <message>E' richiesto il fido del cliente</message>

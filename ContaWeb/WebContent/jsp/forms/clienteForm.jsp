@@ -14,7 +14,7 @@
 	<s:textfield labelposition="left" label="Cap" name="cliente.cap" required="true" size="10" cssClass="testo"/>
     <s:textfield labelposition="left" label="Prov" name="cliente.prov" required="true" size="5" cssClass="testo"/>
 
-    <s:textfield labelposition="left" label="Partita iva" name="cliente.piva" required="true" size="20" cssClass="testo"/>
+    <s:textfield labelposition="left" label="Partita iva" name="cliente.piva" size="20" cssClass="testo"/>
 
 	<div class="wwgrp">
 	<span class="wwlbl"><label class="label">Telefono:</label></span>
