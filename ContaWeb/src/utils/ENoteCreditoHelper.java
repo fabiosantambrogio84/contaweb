@@ -595,20 +595,23 @@ public class ENoteCreditoHelper {
 		xMLStreamWriter.writeStartElement("DatiAnagrafici");
 		
 		/* Creo il nodo 'IdFiscaleIVA' */
-		xMLStreamWriter.writeStartElement("IdFiscaleIVA");
-		
-		/* Creo il nodo 'IdPaese' */
-		xMLStreamWriter.writeStartElement("IdPaese");
-		xMLStreamWriter.writeCharacters(PAESE);
-		xMLStreamWriter.writeEndElement();
-		
-		/* Creo il nodo 'IdCodice' */
-		xMLStreamWriter.writeStartElement("IdCodice");
-		xMLStreamWriter.writeCharacters(cliente.getPiva());
-		xMLStreamWriter.writeEndElement();
-		
-		/* Chiudo il nodo 'IdFiscaleIVA' */
-		xMLStreamWriter.writeEndElement();
+		String partitaIva = cliente.getPiva();
+		if(partitaIva != null && !partitaIva.equals("")){
+			xMLStreamWriter.writeStartElement("IdFiscaleIVA");
+			
+			/* Creo il nodo 'IdPaese' */
+			xMLStreamWriter.writeStartElement("IdPaese");
+			xMLStreamWriter.writeCharacters(PAESE);
+			xMLStreamWriter.writeEndElement();
+			
+			/* Creo il nodo 'IdCodice' */
+			xMLStreamWriter.writeStartElement("IdCodice");
+			xMLStreamWriter.writeCharacters(cliente.getPiva());
+			xMLStreamWriter.writeEndElement();
+			
+			/* Chiudo il nodo 'IdFiscaleIVA' */
+			xMLStreamWriter.writeEndElement();
+		}
 		
 		/* Creo il nodo 'CodiceFiscale' */
 		xMLStreamWriter.writeStartElement("CodiceFiscale");
