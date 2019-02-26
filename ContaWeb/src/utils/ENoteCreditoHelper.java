@@ -912,49 +912,56 @@ public class ENoteCreditoHelper {
 				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'Quantita' */
-				xMLStreamWriter.writeStartElement("Quantita");
 				BigDecimal quantita = dettaglioNotaCredito.getQta();
 				String quantita_s = "";
 				if(quantita != null){
 					quantita_s = quantita.toString();
+					xMLStreamWriter.writeStartElement("Quantita");
+					xMLStreamWriter.writeCharacters(quantita_s);
+					xMLStreamWriter.writeEndElement();
 				}
-				xMLStreamWriter.writeCharacters(quantita_s);
-				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'UnitaMisura' */
-				xMLStreamWriter.writeStartElement("UnitaMisura");
-				xMLStreamWriter.writeCharacters(dettaglioNotaCredito.getUm());
-				xMLStreamWriter.writeEndElement();
-				
+				if(dettaglioNotaCredito.getUm() != null && !dettaglioNotaCredito.getUm().equals("")){
+					xMLStreamWriter.writeStartElement("UnitaMisura");
+					xMLStreamWriter.writeCharacters(dettaglioNotaCredito.getUm());
+					xMLStreamWriter.writeEndElement();
+				}
+								
 				/* Creo il nodo 'PrezzoUnitario' */
-				xMLStreamWriter.writeStartElement("PrezzoUnitario");
 				BigDecimal prezzo = dettaglioNotaCredito.getPrezzo();
 				String prezzo_s = "";
 				if(prezzo != null){
 					prezzo_s = prezzo.setScale(2).toPlainString();
+					xMLStreamWriter.writeStartElement("PrezzoUnitario");
+					xMLStreamWriter.writeCharacters(prezzo_s);
+					xMLStreamWriter.writeEndElement();
 				}
-				xMLStreamWriter.writeCharacters(prezzo_s);
-				xMLStreamWriter.writeEndElement();
+				
 				
 				/* Creo il nodo 'PrezzoTotale' */
-				xMLStreamWriter.writeStartElement("PrezzoTotale");
 				BigDecimal prezzoTotale = dettaglioNotaCredito.getTotale();
 				String prezzoTotale_s = "";
 				if(prezzoTotale != null){
 					prezzoTotale_s = prezzoTotale.setScale(2).toPlainString();
+					xMLStreamWriter.writeStartElement("PrezzoTotale");
+					xMLStreamWriter.writeCharacters(prezzoTotale_s);
+					xMLStreamWriter.writeEndElement();
 				}
-				xMLStreamWriter.writeCharacters(prezzoTotale_s);
-				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'AliquotaIVA' */
-				xMLStreamWriter.writeStartElement("AliquotaIVA");
 				Integer iva = dettaglioNotaCredito.getIva();
 				String iva_s = "";
 				if(iva != null){
-					iva_s= String.valueOf(iva);
+					if(iva != 0){
+						iva_s= String.valueOf(iva);
+					} else{
+						iva_s = "00.00";
+					}
+					xMLStreamWriter.writeStartElement("AliquotaIVA");
+					xMLStreamWriter.writeCharacters(iva_s);
+					xMLStreamWriter.writeEndElement();
 				}
-				xMLStreamWriter.writeCharacters(iva_s);
-				xMLStreamWriter.writeEndElement();
 				
 				/* Chiudo il nodo 'DettaglioLinee' */
 				xMLStreamWriter.writeEndElement();
