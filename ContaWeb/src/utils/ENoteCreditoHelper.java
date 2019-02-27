@@ -912,14 +912,14 @@ public class ENoteCreditoHelper {
 				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'Quantita' */
+				xMLStreamWriter.writeStartElement("Quantita");
 				BigDecimal quantita = dettaglioNotaCredito.getQta();
-				String quantita_s = "";
+				String quantita_s = "0.00";
 				if(quantita != null){
 					quantita_s = quantita.toString();
-					xMLStreamWriter.writeStartElement("Quantita");
-					xMLStreamWriter.writeCharacters(quantita_s);
-					xMLStreamWriter.writeEndElement();
 				}
+				xMLStreamWriter.writeCharacters(quantita_s);
+				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'UnitaMisura' */
 				if(dettaglioNotaCredito.getUm() != null && !dettaglioNotaCredito.getUm().equals("")){
@@ -1064,25 +1064,8 @@ public class ENoteCreditoHelper {
 			SimpleDateFormat sdf = new SimpleDateFormat();
 			sdf.applyPattern("yy");
 			
-			xMLStreamWriter.writeStartElement("Allegati");
-			
 			/* Creo il nome dell'allegato */
 			String nomeAttachment = "nota_credito_"+notaCredito.getNumeroProgressivo() + "/" + sdf.format(notaCredito.getData())+".pdf";
-			
-			/* Creo il nodo 'NomeAttachment' */
-			xMLStreamWriter.writeStartElement("NomeAttachment");
-			xMLStreamWriter.writeCharacters(nomeAttachment + ".zip");
-			xMLStreamWriter.writeEndElement();
-			
-			/* Creo il nodo 'AlgoritmoCompressione' */
-			xMLStreamWriter.writeStartElement("AlgoritmoCompressione");
-			xMLStreamWriter.writeCharacters("ZIP");
-			xMLStreamWriter.writeEndElement();
-			
-			/* Creo il nodo 'FormatoAttachment' */
-			xMLStreamWriter.writeStartElement("FormatoAttachment");
-			xMLStreamWriter.writeCharacters("PDF");
-			xMLStreamWriter.writeEndElement();
 			
 			/* Creo il pdf della nota di credito */
 			try{
@@ -1099,17 +1082,33 @@ public class ENoteCreditoHelper {
 				/* File pdf in base64 */
 				String encodedPdf = new String(base64.encode(baos.toByteArray()));
 				
+				xMLStreamWriter.writeStartElement("Allegati");
+				
+				/* Creo il nodo 'NomeAttachment' */
+				xMLStreamWriter.writeStartElement("NomeAttachment");
+				xMLStreamWriter.writeCharacters(nomeAttachment + ".zip");
+				xMLStreamWriter.writeEndElement();
+				
+				/* Creo il nodo 'AlgoritmoCompressione' */
+				xMLStreamWriter.writeStartElement("AlgoritmoCompressione");
+				xMLStreamWriter.writeCharacters("ZIP");
+				xMLStreamWriter.writeEndElement();
+				
+				/* Creo il nodo 'FormatoAttachment' */
+				xMLStreamWriter.writeStartElement("FormatoAttachment");
+				xMLStreamWriter.writeCharacters("PDF");
+				xMLStreamWriter.writeEndElement();
+				
 				/* Creo il nodo 'Attachment' */
 				xMLStreamWriter.writeStartElement("Attachment");
 				xMLStreamWriter.writeCharacters(encodedPdf);
 				xMLStreamWriter.writeEndElement();
 				
+				xMLStreamWriter.writeEndElement();
+				
 			} catch(Exception e){
 				logger.error("Errore nella creazione del documento pdf per la nota di credito '" + notaCredito.getId()+"'", e);
 			}
-			
-			xMLStreamWriter.writeEndElement();
-			
 			zos.close();
 			baos.close();
 			

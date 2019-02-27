@@ -1256,10 +1256,24 @@ public class EFattureHelper {
 			SimpleDateFormat sdf = new SimpleDateFormat();
 			sdf.applyPattern("yy");
 			
-			xMLStreamWriter.writeStartElement("Allegati");
-			
 			/* Creo il nome dell'allegato */
 			String nomeAttachment = "fattura_"+fattura.getNumeroProgressivo() + "/" + sdf.format(fattura.getData())+".pdf";
+			
+			/* Creo il pdf della fattura */
+			byte[] pdfBytes = StampeMgr.getInstance().richiediPDFDocumento(fattura);
+			
+			/* Creo lo zip contenente il pdf */
+			baos = new ByteArrayOutputStream();
+	        zos = new ZipOutputStream(baos);
+	        ZipEntry entry = new ZipEntry(nomeAttachment);
+	        zos.putNextEntry(entry);
+	        zos.write(pdfBytes);
+	        zos.closeEntry();
+	                
+			/* File pdf in base64 */
+			String encodedPdf = new String(base64.encode(baos.toByteArray()));
+			
+			xMLStreamWriter.writeStartElement("Allegati");
 			
 			/* Creo il nodo 'NomeAttachment' */
 			xMLStreamWriter.writeStartElement("NomeAttachment");
@@ -1275,20 +1289,6 @@ public class EFattureHelper {
 			xMLStreamWriter.writeStartElement("FormatoAttachment");
 			xMLStreamWriter.writeCharacters("PDF");
 			xMLStreamWriter.writeEndElement();
-			
-			/* Creo il pdf della fattura */
-			byte[] pdfBytes = StampeMgr.getInstance().richiediPDFDocumento(fattura);
-			
-			/* Creo lo zip contenente il pdf */
-			baos = new ByteArrayOutputStream();
-	        zos = new ZipOutputStream(baos);
-	        ZipEntry entry = new ZipEntry(nomeAttachment);
-	        zos.putNextEntry(entry);
-	        zos.write(pdfBytes);
-	        zos.closeEntry();
-	                
-			/* File pdf in base64 */
-			String encodedPdf = new String(base64.encode(baos.toByteArray()));
 			
 			/* Creo il nodo 'Attachment' */
 			xMLStreamWriter.writeStartElement("Attachment");
