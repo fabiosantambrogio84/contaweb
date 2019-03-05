@@ -929,25 +929,25 @@ public class ENoteCreditoHelper {
 				}
 								
 				/* Creo il nodo 'PrezzoUnitario' */
+				xMLStreamWriter.writeStartElement("PrezzoUnitario");
 				BigDecimal prezzo = dettaglioNotaCredito.getPrezzo();
-				String prezzo_s = "";
+				String prezzo_s = "0.00";
 				if(prezzo != null){
 					prezzo_s = prezzo.setScale(2).toPlainString();
-					xMLStreamWriter.writeStartElement("PrezzoUnitario");
-					xMLStreamWriter.writeCharacters(prezzo_s);
-					xMLStreamWriter.writeEndElement();
 				}
+				xMLStreamWriter.writeCharacters(prezzo_s);
+				xMLStreamWriter.writeEndElement();
 				
 				
 				/* Creo il nodo 'PrezzoTotale' */
+				xMLStreamWriter.writeStartElement("PrezzoTotale");
 				BigDecimal prezzoTotale = dettaglioNotaCredito.getTotale();
-				String prezzoTotale_s = "";
+				String prezzoTotale_s = "0.00";
 				if(prezzoTotale != null){
 					prezzoTotale_s = prezzoTotale.setScale(2).toPlainString();
-					xMLStreamWriter.writeStartElement("PrezzoTotale");
-					xMLStreamWriter.writeCharacters(prezzoTotale_s);
-					xMLStreamWriter.writeEndElement();
 				}
+				xMLStreamWriter.writeCharacters(prezzoTotale_s);
+				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'AliquotaIVA' */
 				Integer iva = dettaglioNotaCredito.getIva();
