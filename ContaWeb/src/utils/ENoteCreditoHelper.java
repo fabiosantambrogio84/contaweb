@@ -907,8 +907,12 @@ public class ENoteCreditoHelper {
 				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'Descrizione' */
+				String descrizione = dettaglioNotaCredito.getDescrizioneArticolo();
+				if(descrizione == null || descrizione.equals("")){
+					descrizione = "-";
+				}
 				xMLStreamWriter.writeStartElement("Descrizione");
-				xMLStreamWriter.writeCharacters(dettaglioNotaCredito.getDescrizioneArticolo());
+				xMLStreamWriter.writeCharacters(descrizione);
 				xMLStreamWriter.writeEndElement();
 				
 				/* Creo il nodo 'Quantita' */
@@ -956,10 +960,17 @@ public class ENoteCreditoHelper {
 					if(iva != 0){
 						iva_s= String.valueOf(iva);
 					} else{
-						iva_s = "00.00";
+						iva_s = "0.00";
 					}
 					xMLStreamWriter.writeStartElement("AliquotaIVA");
 					xMLStreamWriter.writeCharacters(iva_s);
+					xMLStreamWriter.writeEndElement();
+				}
+				
+				/* Creo il nodo 'Natura' (se aliquotaIVA è 0) */
+				if(iva == null || (iva != null && iva.equals(0))){
+					xMLStreamWriter.writeStartElement("Natura");
+					xMLStreamWriter.writeCharacters("N3");
 					xMLStreamWriter.writeEndElement();
 				}
 				
