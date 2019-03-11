@@ -1737,3 +1737,17 @@ function enableClienti(){
 function onBodyLoad(){
 	enableClienti();
 }
+
+// Funzione per controllare la valorizzazione dei filtri sulle date
+// nell'esportazione RiBa
+function checkRibaDate(){
+	var dateDa = $("input[name='dojo.filterDataDa']").val();
+	var dateA = $("input[name='dojo.filterDataA']").val();
+		
+	if((dateDa == null || dateDa == undefined || dateDa == '') && (dateA == null || dateA == undefined || dateA == '')){
+		window.alert("Valorizzare i campi 'Da:' e 'A:'");
+		return false;
+	} else{
+		return true;
+	}
+}

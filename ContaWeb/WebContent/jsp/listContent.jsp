@@ -111,7 +111,7 @@
 			<s:form validate="true" cssStyle="display: inline" action="exportRiba">
 				<s:hidden name="daData" required="true" value="%{filterDataDa}" />
 				<s:hidden name="alData" required="true" value="%{filterDataA}" />
-    			<input type="submit" class="link" cssStyle="display: inline" value="Esporta Riba">  	
+    			<input type="submit" class="link" cssStyle="display: inline" value="Esporta Riba" onclick="return checkRibaDate();">  	
 			</s:form>	
 		<% } %>
 	
