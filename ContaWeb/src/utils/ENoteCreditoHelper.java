@@ -989,6 +989,11 @@ public class ENoteCreditoHelper {
 		xMLStreamWriter.writeCharacters("0.00");
 		xMLStreamWriter.writeEndElement();
 		
+		/* Creo il nodo 'Natura' (visto che aliquotaIVA è 0) */
+		xMLStreamWriter.writeStartElement("Natura");
+		xMLStreamWriter.writeCharacters("N3");
+		xMLStreamWriter.writeEndElement();
+		
 		/* Creo il nodo 'ImponibileImporto' */
 		xMLStreamWriter.writeStartElement("ImponibileImporto");
 		String imp_s = "";
