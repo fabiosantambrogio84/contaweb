@@ -77,11 +77,14 @@ public class PagamentiEseguiti extends DataAccessObject {
 
             Pagamento payment = new Pagamento();
 
-            payment.setId(paymentExe.getPagamento().getId());
-            payment.setAmount(paymentExe.getPagamento().getAmount());
-            payment.setDescrizione(paymentExe.getPagamento().getDescrizione());
-            payment.setScadenza(paymentExe.getPagamento().getScadenza());
-
+            if(paymentExe != null){
+            	if(paymentExe.getPagamento() != null){
+            		payment.setId(paymentExe.getPagamento().getId());
+            		payment.setAmount(paymentExe.getPagamento().getAmount());
+                    payment.setDescrizione(paymentExe.getPagamento().getDescrizione());
+                    payment.setScadenza(paymentExe.getPagamento().getScadenza());
+            	}
+            }
             if (pays != null) {
                 Iterator citr = pays.iterator();
                 Integer i = 0;
@@ -115,7 +118,6 @@ public class PagamentiEseguiti extends DataAccessObject {
                 if (payment.getAmount().compareTo(BigDecimal.ZERO) == 0) {
                     payment.setAmount(paymentExe.getImporto());
                 }
-
                 pays.add(payment);
             }
         }
