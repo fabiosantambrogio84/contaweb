@@ -6,15 +6,18 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
 import org.apache.ojb.broker.PersistenceBroker;
 import org.apache.ojb.broker.PersistenceBrokerFactory;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 
+import utils.ENoteCreditoHelper;
 import vo.Articolo;
 import vo.Cliente;
 import vo.DettaglioDDT;
@@ -28,6 +31,8 @@ public class StatisticheVendite extends DataAccessObject {
 	static final public int PERIODO_CORRENTE = 2;
 	
 	private Cliente cliente = null;
+	private List<Integer> clienti = null;
+	
 	private Fornitore fornitore = null;
 	private Articolo articolo = null;
 	private Integer periodo = null;
@@ -43,6 +48,14 @@ public class StatisticheVendite extends DataAccessObject {
 		this.lotto = lotto;
 	}
 	
+	public List<Integer> getClienti(){
+		return clienti;
+	}
+	
+	public void setClienti(List<Integer> clienti){
+		this.clienti = clienti;
+	}
+	
 	private Criteria filterCriteria(Criteria criteria) {
 		if (fornitore != null) {//FILTRO IL FORNITORE
 			//FIXME: TOGLIERE IL CODICE SQL!
@@ -55,10 +68,15 @@ public class StatisticheVendite extends DataAccessObject {
 		if (lotto !=null && !lotto.equalsIgnoreCase("")) //FILTRO IL LOTTO
 			criteria.addColumnEqualTo("lotto", lotto);
 		
-		if (cliente != null) {
-			Criteria criteriaCliente = new Criteria();
-			criteriaCliente.addColumnEqualTo("ddt.idCliente", cliente.getId());
-			criteria.addAndCriteria(criteriaCliente);
+//		if (cliente != null) {
+//			Criteria criteriaCliente = new Criteria();
+//			criteriaCliente.addColumnEqualTo("ddt.idCliente", cliente.getId());
+//			criteria.addAndCriteria(criteriaCliente);
+//		}
+		if(clienti != null){
+			Criteria criteriaClienti = new Criteria();
+			criteriaClienti.addColumnIn("ddt.idCliente", clienti);
+			criteria.addAndCriteria(criteriaClienti);
 		}
 		return criteria;
 	}

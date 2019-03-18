@@ -6,9 +6,9 @@
 	<div id="riepilogoBox">
 		<table>
 			<tr>
-				<td>Cliente:</td>
-				<td><s:if test="cliente != null">
-				<s:property value="cliente.rs"/></s:if>
+				<td>Clienti:</td>
+				<td><s:if test="clientiRs != null && clientiRs != ''">
+				<s:property value="clientiRs"/></s:if>
 				<s:else>TUTTI</s:else></td>
 			</tr>
 			<tr>

@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <s:form action="statisticheEdit" validate="true" method="POST" theme="css_xhtml">
-	<s:select labelposition="left" label="Cliente" list="listClienti" listKey="id" listValue="rs" name="idCliente" cssClass="testo"/>
+	<s:select labelposition="left" label="Cliente" list="listClienti" listKey="id" listValue="rs" name="idClienti" cssClass="testo" multiple="true"/>
 	<hr/>
 	<s:select labelposition="left" label="Fornitore" list="listFornitori" listKey="id" listValue="descrizione" name="idFornitore" cssClass="testo"/>
 	<s:select labelposition="left" label="Articolo" list="listArticoli" listKey="id" listValue="descCompleta" name="idArticolo" cssClass="testo"/>	
