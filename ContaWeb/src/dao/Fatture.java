@@ -386,6 +386,7 @@ public class Fatture extends DataAccessObject implements Runnable {
                 ddt = ddts.completeReferences(ddt);
                 ddt.setFattura(null);
                 ddt.setIdFattura(null);
+                ddt.setPagato(false);
                 broker.store(ddt);
             }
             broker.delete(fattura);

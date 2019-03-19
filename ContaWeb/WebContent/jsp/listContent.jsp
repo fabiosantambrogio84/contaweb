@@ -285,35 +285,42 @@
 				Object[] itrTypes = null;
 				if (columnsTypes != null)
 					itrTypes = ((List<?>)columnsTypes).toArray();
-				%>
-				<% String trClass="normalRow"; 
+					String trClass = "normalRow";
 					int stato = 0;
 				%>
-				<s:if test="stato == 3">
-					<% trClass="storedRow"; 
-					stato = 3;
-					%>
-				</s:if>
-				<s:elseif test="stato == 2">
-					<% trClass="errorRow"; 
-					stato = 2;
-					%>
-				</s:elseif>
-				<s:elseif test="stato == 1">
-					<% trClass="warningRow"; 
-					stato = 1;
-					%>
-				</s:elseif>
-				<s:elseif test="stato == 4">
-					<% trClass="notActiveRow"; 
-					stato = 4;
-					%>
-				</s:elseif>
-				<s:elseif test="stato == 5">
-					<% trClass="partialRow"; 
-					stato = 5;
-					%>
-				</s:elseif>
+				<% if (titleList.equals("Lista Fatture")) { %>	
+					<s:if test="pagato == 0">
+						<% trClass="warningRow"; 
+						%>
+					</s:if>
+				<% }else{ %>
+					<s:if test="stato == 3">
+						<% trClass="storedRow"; 
+						stato = 3;
+						%>
+					</s:if>
+					<s:elseif test="stato == 2">
+						<% trClass="errorRow"; 
+						stato = 2;
+						%>
+					</s:elseif>
+					<s:elseif test="stato == 1">
+						<% trClass="warningRow"; 
+						stato = 1;
+						%>
+					</s:elseif>
+					<s:elseif test="stato == 4">
+						<% trClass="notActiveRow"; 
+						stato = 4;
+						%>
+					</s:elseif>
+					<s:elseif test="stato == 5">
+						<% trClass="partialRow"; 
+						stato = 5;
+						%>
+					</s:elseif>
+				<%	} %>
+				
 				<% if (titleList.equals("Lista Ordini Clienti")) { 
 					String trOrdiniClientClass = "ordiniClientiDefault";
 				%>
