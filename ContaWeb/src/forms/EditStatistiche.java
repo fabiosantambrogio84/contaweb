@@ -191,7 +191,9 @@ public class EditStatistiche extends List {
 				cliente.setId(-1);
 				cliente.setRs("TUTTI");
 				listClienti.add(cliente);
-				listClienti.addAll(new Clienti().getElements());
+				Clienti clientiDao = new Clienti();
+				clientiDao.setOrderByDescrizione(1);
+				listClienti.addAll(clientiDao.getElements());
 			} catch (Exception e) {
 				return null;
 			}
