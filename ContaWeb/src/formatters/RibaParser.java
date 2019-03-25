@@ -376,7 +376,7 @@ public class RibaParser implements ConadParser {
     }
     
     private Date getDataScadenza(Date dataFattura, Pagamento tipoPagamento) {
-        Integer scadenza = tipoPagamento.getScadenza();
+    	Integer scadenza = tipoPagamento.getScadenza();
         DateTime dateTimeFattura = new DateTime(dataFattura);
         
         switch (scadenza) {
@@ -712,5 +712,5 @@ public class RibaParser implements ConadParser {
 	    }
     	
     }
-
+    
 }
