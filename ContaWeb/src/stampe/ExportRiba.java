@@ -23,6 +23,7 @@ public class ExportRiba extends GenericAction {
         fat.setFilterDataA(alData);
         fat.setFilterPagamento("ricevuta bancaria");
         fat.setFilterStato("02");
+        fat.setOrderByClienteAndData();
 
         try {
             Collection<?> fatture = fat.getElements();

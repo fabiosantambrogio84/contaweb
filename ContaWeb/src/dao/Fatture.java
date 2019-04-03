@@ -122,6 +122,12 @@ public class Fatture extends DataAccessObject implements Runnable {
         getQueryByCriteria().addOrderByAscending("cliente.rs");
         getQueryByCriteria().addOrderByAscending("idFattura");
     }
+    
+    public void setOrderByClienteAndData() {
+        this.useDefaultCriteria = false;
+        getQueryByCriteria().addOrderByAscending("cliente.rs");
+        getQueryByCriteria().addOrderByAscending("data");
+    }
 
     public void setOrderByNumeroFattura() {
         this.useDefaultCriteria = false;
