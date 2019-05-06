@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+	
+<project name="ContaWeb" default="war">
+
+  <property name="file.name" value="ContaWeb.war" />
+  <property name="path.lib" value="WebContent/WEB-INF/lib" />
+  <!--<property name="tomcat.lib" value="/Applications/Netbeans/apache-tomcat-5.5.36/common/lib" />-->
+  <property name="tomcat.lib" value="/Tomcat/common/lib" />
+
+  <target name="compile">
+  	<mkdir dir="build/classes"/>
+  	<javac srcdir="src/" destdir="build/classes">
+  		<classpath>
+  			<fileset dir="${path.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+  			<fileset dir="${tomcat.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
+  	</javac>
+  	<copy file="Deploy-Locale-Docker/src/repository.xml" todir="build/classes" overwrite="true"/>
+  	<copy file="Deploy-Locale-Docker/src/db.properties" todir="build/classes" overwrite="true"/>
+  	<copy file="Deploy-Locale-Docker/src/log4j.properties" todir="build/classes" overwrite="true"/>
+  </target>
+	
+  <target name="applet" depends="compile">
+  	<jar destfile="WebContent/jsp/applet/ContaApplets.jar">  		
+  		<fileset dir="build/classes/">
+  			<include name="vo/*.class"/>
+  			<include name="applet/**/*.class"/>
+  		</fileset>
+  	</jar>
+  	<!--<signjar jar="WebContent/jsp/applet/ContaApplets.jar" alias="applet" keystore="applet.key" storepass="ContaWeb" />-->
+  </target>
+	
+  <target name="war" depends="compile,applet">    
+  	<war destfile="${file.name}" webxml="WebContent/WEB-INF/web.xml">
+		<fileset dir="WebContent"/>
+  		<fileset dir=".">
+			<include name="src/**/*"/>
+			<exclude name="src/repository.xml"/>
+			<exclude name="src/db.properties"/>
+  			<exclude name="src/log4j.properties"/>
+		</fileset>
+		<fileset dir="Deploy-Locale-Docker">
+			<include name="src/repository.xml"/>
+			<include name="src/db.properties"/>
+			<include name="src/log4j.properties"/>
+		</fileset>
+	
+		<classes dir="build/classes" />		
+	</war>
+  </target>
+
+</project>
