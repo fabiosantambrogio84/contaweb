@@ -197,4 +197,11 @@ public class Clienti extends DataAccessObject {
 
         return getElements();
     }
+    
+    public void setFilterByBloccaDDT() {
+        Criteria criteria = getCriteria();
+        Criteria bloccaDdtCriteria = new Criteria();
+        bloccaDdtCriteria.addEqualTo("bloccaDDT", true);
+        criteria.addAndCriteria(bloccaDdtCriteria);
+    }
 }

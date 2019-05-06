@@ -220,8 +220,14 @@
 				<s:form method="post" id="frmSearchCliente" theme="simple" action="${pagDownAction}">
 					<s:select id="idStatoOrdineSelect" labelposition="left" label="Stato ordine"
 						list="statoOrdini" emptyOption="true" name="filterStatoOrdini"/>
-					<s:select id="idClienteSelect" labelposition="left" label="Cliente" onchange="$('#frmSearch').submit();"
+					<% if (titleList.equals("Lista Ordini Clienti")) { %>	
+						<s:select id="idClienteSelect" labelposition="left" label="Cliente" onchange="$('#frmSearch').submit();"
+						list="listClientiNoBloccaDdt" emptyOption="true" listKey="id" listValue="rs" name="filterCliente" cssClass="testo"/>
+					<% }else{ %>
+						<s:select id="idClienteSelect" labelposition="left" label="Cliente" onchange="$('#frmSearch').submit();"
 						list="listClienti" emptyOption="true" listKey="id" listValue="rs" name="filterCliente" cssClass="testo"/>
+					<% } %>
+					
 				</s:form>
 				<script type="text/javascript">
 					$(function()  {		
@@ -244,7 +250,12 @@
 				<th class="hide">Num</th>
 				<!-- LISTA DEI TITOLI DELLE COLONNE -->
 				<%-- Exclude "Aut. Ord." --%>
-				<% 
+				<%
+				if(editAction.equals("scontiEdit")){
+				%>
+					<th>&nbsp;</th>
+				<%	
+				}
 				ListIterator<?> itr = ((List<?>)headersList).listIterator();
 				ListIterator<?> itrWidth = ((List<?>)columnsWidth).listIterator();
 				while (itr.hasNext()) {
@@ -346,6 +357,12 @@
 					<%-- 		<% } %> --%>
 
 					<td class="hide"><%=stato%></td>
+					<%
+						if(editAction.equals("scontiEdit")){
+					%>
+						<td>ciao</td>
+					<% } %>
+					
 					<% for(int i=0;i<itrCol.length;++i) {
 						Object valueCol = itrCol[i];
 						String type = "String";

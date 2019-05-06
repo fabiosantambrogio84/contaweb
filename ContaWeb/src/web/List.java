@@ -79,10 +79,10 @@ public class List extends GenericAction {
     private Collection<Pagamento> pagamenti;
     private String filterStatoOrdini = null;
     private Collection<?> statoOrdini = null;
-
     private Collection<?> deleteOrdini = null;
+    private Collection<?> listClientiNoBloccaDdt = null;
 
-    public List() {
+	public List() {
         this.LIST_ELEMS = Integer.valueOf(Settings.getInstance().getValue("list.elementi")); // .intValue();
         this.statoOrdini = StatoOrdini.list();
         this.setDeleteOrdini(DeleteOrdini.list());
@@ -635,4 +635,23 @@ public class List extends GenericAction {
         return "success";
     }
 
+    public Collection<?> getListClientiNoBloccaDdt() {
+    	if (listClientiNoBloccaDdt == null) {
+            try {
+                Clienti dao = new Clienti();
+                dao.setFilterByBloccaDDT();
+                dao.setOrderByDescrizione(Clienti.ORDER_ASC);
+                listClientiNoBloccaDdt = dao.getElements();
+            } catch (Exception e) {
+                stampaMessaggio("EditOrdine.getListClientiNoBloccaDdt()", e);
+                return null;
+            }
+        }
+        return listClientiNoBloccaDdt;
+	}
+
+	public void setListClientiNoBloccaDdt(Collection<?> listClientiNoBloccaDdt) {
+		this.listClientiNoBloccaDdt = listClientiNoBloccaDdt;
+	}
+    
 }
