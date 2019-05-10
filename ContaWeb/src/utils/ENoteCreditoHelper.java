@@ -854,7 +854,7 @@ public class ENoteCreditoHelper {
 		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Causale' */
-		/* Se la lunghezza è maggiore di 200 devo creare un nuovo nodo contenente i successivi 200 caratteri */
+		/* Se la lunghezza ï¿½ maggiore di 200 devo creare un nuovo nodo contenente i successivi 200 caratteri */
 		String causale = notaCredito.getCausale();
 		if(causale != null && !causale.isEmpty()){
 			int casualeLength = causale.length();
@@ -958,7 +958,7 @@ public class ENoteCreditoHelper {
 				String iva_s = "";
 				if(iva != null){
 					if(iva != 0){
-						iva_s= String.valueOf(iva);
+						iva_s= String.valueOf(iva) + ".00";
 					} else{
 						iva_s = "0.00";
 					}
@@ -967,7 +967,7 @@ public class ENoteCreditoHelper {
 					xMLStreamWriter.writeEndElement();
 				}
 				
-				/* Creo il nodo 'Natura' (se aliquotaIVA è 0) */
+				/* Creo il nodo 'Natura' (se aliquotaIVA ï¿½ 0) */
 				if(iva == null || (iva != null && iva.equals(0))){
 					xMLStreamWriter.writeStartElement("Natura");
 					xMLStreamWriter.writeCharacters("N3");
@@ -989,7 +989,7 @@ public class ENoteCreditoHelper {
 		xMLStreamWriter.writeCharacters("0.00");
 		xMLStreamWriter.writeEndElement();
 		
-		/* Creo il nodo 'Natura' (visto che aliquotaIVA è 0) */
+		/* Creo il nodo 'Natura' (visto che aliquotaIVA ï¿½ 0) */
 		xMLStreamWriter.writeStartElement("Natura");
 		xMLStreamWriter.writeCharacters("N3");
 		xMLStreamWriter.writeEndElement();
@@ -1054,7 +1054,13 @@ public class ENoteCreditoHelper {
 		BigDecimal totaleNotaCredito = new BigDecimal(0);
 		if(dettagliNotaCredito != null && !dettagliNotaCredito.isEmpty()){
 			for(DettaglioNotaAccredito dettaglio : dettagliNotaCredito){
-				totaleNotaCredito = totaleNotaCredito.add(dettaglio.getTotale());
+				BigDecimal totale = dettaglio.getTotale();
+				Integer iva = dettaglio.getIva();
+				if(iva != null) {
+					BigDecimal augend = BigDecimal.valueOf(iva / 100).multiply(totale);
+					totale = totale.add(augend);
+				}
+				totaleNotaCredito = totaleNotaCredito.add(totale);
 			}
 		}
 		
