@@ -705,7 +705,7 @@ function confermaCancellazione(id, link) {
 	var confirmText = "Sei sicuro di voler cancellare la riga selezionata?";
 	if(link == '/ContaWeb/fattureEdit.do?action=delete'){
 		confirmText = confirmText + "\nATTENZIONE\nSe la fattura ha dei pagamenti gia' effettuati, questi verranno cancellati.";
-	}
+	} 
 	answer = confirm(confirmText);
 	
 	if (answer != "0") {
@@ -846,7 +846,13 @@ function confermaCancellazioneDDT(id, link) {
 
 	var row = document.getElementById('tr_' + id);
 	row.style.backgroundColor = "#FF0000";
-	answer = confirm('Sei sicuro di voler cancellare la riga selezionata?');
+	
+	var confirmText = "Sei sicuro di voler cancellare la riga selezionata?"
+	if(link == '/ContaWeb/editDDT.do?action=delete'){
+		confirmText = confirmText + "\nATTENZIONE\nSe il DDT ha dei pagamenti gia' effettuati, questi verranno cancellati.";
+	}
+	
+	answer = confirm(confirmText);
 	if (answer != "0") {
 		$( "#update-confirm" ).dialog({
 	      resizable: false,
@@ -867,6 +873,8 @@ function confermaCancellazioneDDT(id, link) {
 	    });
 	} else {
 		row.style.backgroundColor = "#ffffff";
+		$("#messageBox").css("background-color", "");
+    	$("#messageBox").text("");
 	}
 	return false;
 }

@@ -15,6 +15,7 @@ import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
 
+import vo.DDT;
 import vo.Fattura;
 import vo.Pagamento;
 import vo.PagamentoEseguito;
@@ -42,6 +43,23 @@ public class PagamentiEseguiti extends DataAccessObject {
             broker = PersistenceBrokerFactory.defaultPersistenceBroker();
             Criteria criteria = new Criteria();
             criteria.addEqualTo("idFattura", fattura.getId());
+            QueryByCriteria query = QueryFactory.newQuery(PagamentoEseguito.class, criteria);
+            results = broker.getCollectionByQuery(query);
+        } finally {
+            if (broker != null) {
+                broker.close();
+            }
+        }
+        return results;
+    }
+    
+    public Collection findByDdt(DDT ddt) {
+        PersistenceBroker broker = null;
+        Collection results = null;
+        try {
+            broker = PersistenceBrokerFactory.defaultPersistenceBroker();
+            Criteria criteria = new Criteria();
+            criteria.addEqualTo("idDDT", ddt.getId());
             QueryByCriteria query = QueryFactory.newQuery(PagamentoEseguito.class, criteria);
             results = broker.getCollectionByQuery(query);
         } finally {

@@ -13,6 +13,7 @@ import dao.Fatture;
 import dao.Ivas;
 import dao.Listini;
 import dao.Ordini;
+import dao.PagamentiEseguiti;
 import dao.Settings;
 import vo.Articolo;
 import vo.Autista;
@@ -21,6 +22,7 @@ import vo.DDT;
 import vo.DettaglioDDT;
 import vo.Fattura;
 import vo.Ordine;
+import vo.PagamentoEseguito;
 import vo.PuntoConsegna;
 
 public class EditDDT extends Edit {
@@ -101,7 +103,10 @@ public class EditDDT extends Edit {
     @Override
     public String store() {
         try {
-            DDTs ddts = new DDTs();
+            // Se ci sono dei pagamenti eseguiti per il ddt, li cancello
+        	deletePagamentiEseguiti(ddt);
+        	
+        	DDTs ddts = new DDTs();
             ddts.store(ddt);
             // SERIALIZZO L'ID PER L'APPLET
             setSerializedObject(ddt.getId());
@@ -115,8 +120,12 @@ public class EditDDT extends Edit {
 
     public String store2() {
         try {
-            DDTs ddts = new DDTs();
+        	// Se ci sono dei pagamenti eseguiti per il ddt, li cancello
+        	deletePagamentiEseguiti(ddt);
+        	
+        	DDTs ddts = new DDTs();
             ddts.store(ddt, false);
+            
             // SERIALIZZO L'ID PER L'APPLET
             setSerializedObject(ddt.getId());
         } catch (Exception e) {
@@ -172,11 +181,17 @@ public class EditDDT extends Edit {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected String delete() {
         try {
             DDT ddt = new DDT();
             ddt.setId(id);
+            ddt = (DDT) new DDTs().find(ddt);
+            
+            // Se il DDT risulta pagato, cancello anche i pagamenti eseguiti
+            deletePagamentiEseguiti(ddt);
+            
             new DDTs().delete(ddt);
         } catch (Exception e) {
             stampaErrore("EditDDT.delete()", e);
@@ -189,6 +204,10 @@ public class EditDDT extends Edit {
         try {
             DDT ddt = new DDT();
             ddt.setId(id);
+            
+            // Se il DDT risulta pagato, cancello anche i pagamenti eseguiti
+            deletePagamentiEseguiti(ddt);
+            
             new DDTs().delete(ddt, false);
         } catch (Exception e) {
             stampaErrore("EditDDT.delete()", e);
@@ -341,5 +360,18 @@ public class EditDDT extends Edit {
 
     public void setIdDDT(Integer idDDT) {
         this.idDDT = idDDT;
+    }
+    
+    @SuppressWarnings("unchecked")
+	private void deletePagamentiEseguiti(DDT ddt) throws Exception{
+    	if(ddt.getPagato()){
+        	PagamentiEseguiti pagamentiEseguiti = new PagamentiEseguiti();
+        	Collection<PagamentoEseguito> pagEseguiti = pagamentiEseguiti.findByDdt(ddt);
+ 			if(pagEseguiti != null && !pagEseguiti.isEmpty()){
+ 				for(PagamentoEseguito pagEseguito: pagEseguiti){
+ 					pagamentiEseguiti.delete(pagEseguito);
+ 				}
+ 			}
+        }
     }
 }
