@@ -701,7 +701,13 @@ function confermaCancellazione(id, link) {
 	
 	var row = document.getElementById('tr_' + id);
 	row.style.backgroundColor = "#FF0000";
-	answer = confirm('Sei sicuro di voler cancellare la riga selezionata?');
+	
+	var confirmText = "Sei sicuro di voler cancellare la riga selezionata?";
+	if(link == '/ContaWeb/fattureEdit.do?action=delete'){
+		confirmText = confirmText + "\nATTENZIONE\nSe la fattura ha dei pagamenti gia' effettuati, questi verranno cancellati.";
+	}
+	answer = confirm(confirmText);
+	
 	if (answer != "0") {
 		document.getElementById("messageBox").style.backgroundColor = "yellow";
 		document.getElementById("messageBox").textContent= 'Cancellazione in corso...';		
@@ -725,7 +731,9 @@ function confermaCancellazione(id, link) {
 		
 	} else {
 		row.style.backgroundColor = "#ffffff";
-		document.getElementById("messageBox").remove();
+		$("#messageBox").css("background-color", "");
+		$("#messageBox").text("");
+		//document.getElementById("messageBox").remove();
 	}
 	return false;
 }

@@ -11,10 +11,12 @@ import dao.Clienti;
 import dao.DDTs;
 import dao.DataAccessException;
 import dao.Fatture;
+import dao.PagamentiEseguiti;
 import stampemgr.StampeMgr;
 import vo.Cliente;
 import vo.DDT;
 import vo.Fattura;
+import vo.PagamentoEseguito;
 
 public class EditFattura extends Edit {
 
@@ -164,6 +166,7 @@ public class EditFattura extends Edit {
 	 	return SUCCESS;
 	 }
 	 
+	@SuppressWarnings("unchecked")
 	protected String delete() {
 	 	try {
 	 		Fattura fattura = new Fattura();
@@ -172,6 +175,18 @@ public class EditFattura extends Edit {
 	 		fattura = (Fattura) fatture.findWithAllReferences(fattura);
 	 		//CANCELLO IL PDF
 	 		StampeMgr.getInstance().cancellaPDFDocumento(fattura);
+	 		
+	 		// Se la fattura ha un pagamento eseguito cancello anche questo
+	 		if(fattura.getPagato()){
+	 			PagamentiEseguiti pagamentiEseguiti = new PagamentiEseguiti();
+	 			Collection<PagamentoEseguito> pagEseguiti = pagamentiEseguiti.findByFattura(fattura);
+	 			if(pagEseguiti != null && !pagEseguiti.isEmpty()){
+	 				for(PagamentoEseguito pagEseguito: pagEseguiti){
+	 					pagamentiEseguiti.delete(pagEseguito);
+	 				}
+	 			}
+	 		}
+	 		
 	 		new Fatture().delete(fattura);
 		} catch (Exception e) {
 			stampaErrore("EditFattura.delete()",e);
