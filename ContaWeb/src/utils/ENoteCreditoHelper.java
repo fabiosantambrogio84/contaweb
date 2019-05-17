@@ -854,7 +854,7 @@ public class ENoteCreditoHelper {
 		//xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Causale' */
-		/* Se la lunghezza � maggiore di 200 devo creare un nuovo nodo contenente i successivi 200 caratteri */
+		/* Se la lunghezza e' maggiore di 200 devo creare un nuovo nodo contenente i successivi 200 caratteri */
 		String causale = notaCredito.getCausale();
 		if(causale != null && !causale.isEmpty()){
 			int casualeLength = causale.length();
@@ -893,6 +893,7 @@ public class ENoteCreditoHelper {
 		xMLStreamWriter.writeStartElement("DatiBeniServizi");
 		
 		int numLineaIndex = 1;
+		String iva_riepilogo_s = "0.00";
 		
 		/* Creo i nodi 'DettaglioLinee' */
 		if(dettagliNotaCredito != null && !dettagliNotaCredito.isEmpty()){
@@ -959,6 +960,7 @@ public class ENoteCreditoHelper {
 				if(iva != null){
 					if(iva != 0){
 						iva_s= String.valueOf(iva) + ".00";
+						iva_riepilogo_s = iva_s;
 					} else{
 						iva_s = "0.00";
 					}
@@ -986,7 +988,7 @@ public class ENoteCreditoHelper {
 		
 		/* Creo il nodo 'AliquotaIVA' */
 		xMLStreamWriter.writeStartElement("AliquotaIVA");
-		xMLStreamWriter.writeCharacters("0.00");
+		xMLStreamWriter.writeCharacters(iva_riepilogo_s);
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'Natura' (visto che aliquotaIVA � 0) */
@@ -1051,18 +1053,19 @@ public class ENoteCreditoHelper {
 		xMLStreamWriter.writeEndElement();
 		
 		/* Creo il nodo 'ImportoPagamento' */
-		BigDecimal totaleNotaCredito = new BigDecimal(0);
-		if(dettagliNotaCredito != null && !dettagliNotaCredito.isEmpty()){
-			for(DettaglioNotaAccredito dettaglio : dettagliNotaCredito){
-				BigDecimal totale = dettaglio.getTotale();
-				Integer iva = dettaglio.getIva();
-				if(iva != null) {
-					BigDecimal augend = BigDecimal.valueOf(iva / 100).multiply(totale);
-					totale = totale.add(augend);
-				}
-				totaleNotaCredito = totaleNotaCredito.add(totale);
-			}
-		}
+		BigDecimal totaleNotaCredito = notaCredito.getTotale();
+//		BigDecimal totaleNotaCredito = new BigDecimal(0);
+//		if(dettagliNotaCredito != null && !dettagliNotaCredito.isEmpty()){
+//			for(DettaglioNotaAccredito dettaglio : dettagliNotaCredito){
+//				BigDecimal totale = dettaglio.getTotale();
+//				Integer iva = dettaglio.getIva();
+//				if(iva != null) {
+//					BigDecimal augend = BigDecimal.valueOf(iva / 100).multiply(totale);
+//					totale = totale.add(augend);
+//				}
+//				totaleNotaCredito = totaleNotaCredito.add(totale);
+//			}
+//		}
 		
 		String totaleNotaCredito_s = "";
 		if(totaleNotaCredito != null){
