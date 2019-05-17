@@ -1,15 +1,16 @@
 package forms;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
+import org.apache.ojb.broker.accesslayer.QueryCustomizerDefaultImpl;
 
 import dao.Articoli;
 import dao.Clienti;
 import dao.Fornitori;
 import dao.Sconti;
-
-import vo.Articolo;
 import vo.Sconto;
 
 public class EditSconto extends Edit {
@@ -20,16 +21,35 @@ public class EditSconto extends Edit {
 	private Collection listFornitori = null;
 	private Collection listArticoli = null;
 	private Collection listClienti = null;
+	List<String> clienti;
+	List<String> fornitori;
+	List<String> articoli;
 	private Sconto sconto = null;
+	private String ids = null;
 
-	public Sconto getSconto() {
-		return sconto;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setSconto(Sconto sconto) {
-		this.sconto = sconto;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public Collection getListFornitori() {
+		if (listFornitori == null) {
+			try {
+				listFornitori = new Fornitori().getElements();
+			} catch (Exception e) {
+				return null;
+			}
+		}
+		return listFornitori;
 	}
 
+	public void setListFornitori(Collection listFornitori) {
+		this.listFornitori = listFornitori;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Collection getListArticoli() {
 		if (listArticoli == null) {
@@ -52,22 +72,52 @@ public class EditSconto extends Edit {
 	public void setListArticoli(Collection listArticoli) {
 		this.listArticoli = listArticoli;
 	}
-
-	public Collection getListFornitori() {
-		if (listFornitori == null) {
+	
+	public Collection getListClienti() {
+		if (listClienti == null) {
 			try {
-				listFornitori = new Fornitori().getElements();
+				Clienti clienti = new Clienti();
+				clienti.setOrderByDescrizione(Clienti.ORDER_ASC);	
+				listClienti = clienti.getElements();
 			} catch (Exception e) {
 				return null;
 			}
 		}
-		return listFornitori;
+		return listClienti;
 	}
 
-	public void setListFornitori(Collection listFornitori) {
-		this.listFornitori = listFornitori;
+	public void setListClienti(Collection listClienti) {
+		this.listClienti = listClienti;
+	}
+	
+	public void setClienti(List<String> clienti) {
+		this.clienti = clienti;
 	}
 
+	public void setFornitori(List<String> fornitori) {
+		this.fornitori = fornitori;
+	}
+
+	public void setArticoli(List<String> articoli) {
+		this.articoli = articoli;
+	}
+		
+	public Sconto getSconto() {
+		return sconto;
+	}
+
+	public void setSconto(Sconto sconto) {
+		this.sconto = sconto;
+	}
+	
+	public String getIds(){
+		return ids;
+	}
+
+	public void setIds(String ids){
+		this.ids = ids;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public String input() {
 		try {
@@ -75,32 +125,18 @@ public class EditSconto extends Edit {
 				return delete();
 			}
 
-			if (getAction().equalsIgnoreCase("edit"))
+			if (getAction().equalsIgnoreCase("edit")) {
 				sconto = new Sconti().find(id);
-
+			}
+			
+			if (getAction().equalsIgnoreCase("deleteBulk")) {
+				return deleteBulk();
+			}
 		} catch (Exception e) {
 			stampaErrore("EditSconto.input()", e);
 			return ERROR;
 		}
 		return INPUT;
-	}
-
-	List<String> clienti;
-
-	public void setClienti(List<String> clienti) {
-		this.clienti = clienti;
-	}
-
-	List<String> fornitori;
-
-	public void setFornitori(List<String> fornitori) {
-		this.fornitori = fornitori;
-	}
-
-	List<String> articoli;
-
-	public void setArticoli(List<String> articoli) {
-		this.articoli = articoli;
 	}
 
 	protected String store() {
@@ -159,28 +195,21 @@ public class EditSconto extends Edit {
 		return SUCCESS;
 	}
 
-	public Collection getListClienti() {
-		if (listClienti == null) {
-			try {
-				Clienti clienti = new Clienti();
-				clienti.setOrderByDescrizione(Clienti.ORDER_ASC);	
-				listClienti = clienti.getElements();
-			} catch (Exception e) {
-				return null;
+	protected String deleteBulk() {
+		try {
+			Sconti sconti = new Sconti();
+			
+			List<String> idsList = Arrays.asList(ids.split("-"));
+			if(idsList != null && !idsList.isEmpty()){
+				sconti.setQueryDeleteBulkByCriteriaIds(idsList);
+				sconti.deleteBulk();
 			}
+		} catch (Exception e) {
+			stampaErrore("EditSconto.deleteBulk()", e);
+			return ERROR_DELETE;
 		}
-		return listClienti;
+		return SUCCESS;
 	}
 
-	public void setListClienti(Collection listClienti) {
-		this.listClienti = listClienti;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 }

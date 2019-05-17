@@ -31,6 +31,8 @@ public class DataAccessObject extends stampe.PrintPDF {
 
     protected String filterKey = null;
     protected boolean useDefaultCriteria = true;
+    
+    protected QueryByCriteria queryDeleteBulk = null;
 
     /* METODI SCELTA DEL CRITERIO */
     protected void setDefaultCriteria() {
@@ -349,6 +351,24 @@ public class DataAccessObject extends stampe.PrintPDF {
             broker = PersistenceBrokerFactory.defaultPersistenceBroker();
             broker.beginTransaction();
             broker.delete(value);
+            broker.commitTransaction();
+            broker.serviceConnectionManager().releaseConnection();
+            broker.close();
+        } catch (Exception e) {
+            broker.abortTransaction();
+            throw new DataAccessException(e.getMessage());
+        } finally {
+            if (broker != null)
+                broker.close();
+        }
+    }
+    
+    public void deleteBulk() throws DataAccessException {
+        PersistenceBroker broker = null;
+        try {
+            broker = PersistenceBrokerFactory.defaultPersistenceBroker();
+            broker.beginTransaction();
+            broker.deleteByQuery(queryDeleteBulk);
             broker.commitTransaction();
             broker.serviceConnectionManager().releaseConnection();
             broker.close();

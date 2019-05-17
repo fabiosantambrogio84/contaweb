@@ -150,7 +150,14 @@
 		
 	<div id="titoloLista">
 		<tiles:getAsString name="titleList"/>
-		<label id="messageBox" style="margin-left: 20px"></label>
+		<% 
+			String style = "margin-left: 20px;";
+		 	
+			if(editAction.equals("scontiEdit")){
+				style = style + "display: none;";
+			} 
+		%>
+		<label id="messageBox" style="<%=style%>"></label>
 	</div>
 	<br />
 	<% if (trova != null) { %>
@@ -187,8 +194,13 @@
 					<s:hidden name="pagina" value="1"></s:hidden>
 					<s:submit name="invia" value="Cerca" ></s:submit>
 				</s:form>
-			<% } else { %>			
-				<s:form  id="frmSearch"  method="get" theme="simple" action="${pagDownAction}">
+			<% } else { 
+				String cssClass= "";
+			%>			
+				<% if(editAction.equals("scontiEdit")){
+					cssClass = "scontiForm";
+				} %>
+				<s:form id="frmSearch"  method="get" theme="simple" action="${pagDownAction}" cssClass="<%=cssClass%>">
 					<s:hidden name="pagina" value="1"></s:hidden>
 					<s:textfield labelposition="left" label="Trova" name="filterKey" size="30" cssClass="testo"/>	
 					<%if (editAction.equals("clientiEdit")) {%>
@@ -210,7 +222,12 @@
 							});
 						</script>
 					<%} %>			 				
-				</s:form>			
+				</s:form>
+				<% if(editAction.equals("scontiEdit")){%>
+					<div style="display:inline-block; padding-left: 25px;">
+						<a href="#" class="link" onclick="return cancellaSconti();">Cancella</a>
+					</div>
+				<%}%>			
 			<% } %>
 		</div>
 	<% } else { %>
@@ -253,7 +270,7 @@
 				<%
 				if(editAction.equals("scontiEdit")){
 				%>
-					<th>&nbsp;</th>
+					<th width="10">&nbsp;</th>
 				<%	
 				}
 				ListIterator<?> itr = ((List<?>)headersList).listIterator();
@@ -280,7 +297,13 @@
 				%>
 					<th>Autisti</th>
 				<% } %>
-				<th width="230px"></th>
+				<%
+				if(!editAction.equals("scontiEdit")){
+				%>
+					<th width="230px"></th>
+				<%	
+				}
+				%>
 			</tr>
 		</thead>
 		<tbody>
@@ -360,7 +383,9 @@
 					<%
 						if(editAction.equals("scontiEdit")){
 					%>
-						<td>ciao</td>
+						<td data-sort="<%=stato%>" class="tableCell" align="center">
+							<input type="checkbox" name="selectSconto" value="1"/>
+						</td>
 					<% } %>
 					
 					<% for(int i=0;i<itrCol.length;++i) {
@@ -420,7 +445,8 @@
 						</td>
 					<% } %>
 		
-					<td class="tableCell" style="width: 250px;">
+					<% if(!editAction.equals("scontiEdit")){ %>
+						<td class="tableCell" style="width: 250px;">
 						<!-- AZIONE DETTAGLI -->
 						<% if (dettagliAction != null) { %>
 							<s:url id="dettagliURL" action="${dettagliAction}_input">
@@ -477,9 +503,11 @@
 									<s:param name="action">delete</s:param>
 								</s:url>
 							<% } else if(editAction.equals("scontiEdit")){%>
+								
 								<s:url id="deleteURL" action="${editAction}_input" includeParams="none">
 									<s:param name="action">delete</s:param>
-								</s:url>	
+								</s:url>
+									
 							<% } else {%>
 							<s:url id="deleteURL" action="${editAction}" includeParams="none">
 								<s:param name="action">delete</s:param>
@@ -548,6 +576,7 @@
 							</s:if>
 						<% } %>
 					</td>
+					<% } %>
 				</tr>
 			</s:iterator>
 		

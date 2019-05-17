@@ -3,8 +3,11 @@ package dao;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ojb.broker.query.Criteria;
+import org.apache.ojb.broker.query.QueryByCriteria;
+import org.apache.ojb.broker.query.QueryFactory;
 
 import vo.Articolo;
 import vo.Cliente;
@@ -93,5 +96,12 @@ public class Sconti extends DataAccessObject {
 		
 		getQueryByCriteria().addOrderByAscending("cliente.rs");
 		getQueryByCriteria().addOrderByDescending("dataDal");
+	}
+	
+	public void setQueryDeleteBulkByCriteriaIds(List<String> ids){
+		Criteria criteria = new Criteria();
+		criteria.addIn("id", ids);
+		
+		queryDeleteBulk = QueryFactory.newQuery(elementClass, criteria);
 	}
 }

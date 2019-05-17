@@ -615,3 +615,9 @@ TABLE TR TD{padding:4px}
 }
 
 /* END ORDINI CLIENTI */
+
+/* SCONTI LIST */
+.scontiForm {
+	display: inline-block;
+	padding-bottom: 10px;
+}

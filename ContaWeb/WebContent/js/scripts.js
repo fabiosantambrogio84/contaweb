@@ -723,29 +723,63 @@ function confermaCancellazione(id, link) {
 	        row.parentNode.removeChild(row);
 		});
 		
-		/*
-		dojo.io.bind({
-			url: link,
-			method: "get",
-			handle: function(type,data,evt) {
-	         if ((type=='load') && (data != 'error')) {
-	        	 document.getElementById("messageBox").style.backgroundColor = "#66FF33";
-	        	 document.getElementById("messageBox").textContent= 'Riga cancellata con successo!';
-	        	row.parentNode.removeChild(row);	        	
-	         } else {
-	        	document.getElementById("messageBox").style.backgroundColor = "yellow";
-	        	document.getElementById("messageBox").textContent= 'Errore nella cancellazione!';
-	         	row.style.backgroundColor = "#ffffff";      
-	         }
-	        },
-		});
-		*/
 	} else {
 		row.style.backgroundColor = "#ffffff";
 		document.getElementById("messageBox").remove();
 	}
 	return false;
 }
+
+function cancellaSconti(){
+	var answer = confirm('Sei sicuro di voler procedere con la cancellazione?');
+	if (answer != "0") {
+		var checkedLength = $("input[name='selectSconto']:checked").length;
+		if(checkedLength != 0){
+			$("#messageBox").css("display", "");
+			$("#messageBox").css("background-color", "yellow");
+			$("#messageBox").text("Cancellazione in corso...");
+			
+			var ids = "";
+			$("input[name='selectSconto']:checked").each(function(index) {
+				var trId = $(this).parent().parent().attr("id");
+				trId = trId.substr(trId.indexOf("_") + 1);
+				ids = ids + trId + "-";
+				
+				$(this).parent().parent().css("background-color","#FF0000");
+			});
+			
+			var url = "/ContaWeb/scontiEdit_input.do?action=deleteBulk";
+			url = url + "&ids=" + ids;
+			
+			$.ajax({
+			    url: url,
+			    type: "GET",
+			    success: function(res) {
+			    	$("#messageBox").css("display", "");
+			    	$("#messageBox").css("background-color", "#66FF33");
+			    	$("#messageBox").text("Cancellazione avvenuta con successo");
+			    	
+			    	$("input[name='selectSconto']:checked").parent().parent().remove();
+			    },
+			    error: function(err) {
+			    	$("#messageBox").css("display", "");
+			    	$("#messageBox").css("background-color", "#FF0000");
+			    	$("#messageBox").text("Errore nella cancellazione");
+			    	
+			    	$("input[name='selectSconto']:checked").parent().parent().css("background-color","#ffffff");
+			    }
+			});
+		} else{
+			alert("Nessuno sconto selezionato");
+		}
+		
+	} else{
+		$("#messageBox").css("display", "none");
+	}
+	
+	return false;
+}
+
 
 function confermaCancellazioneTuttiDDT2() {
 	document.getElementById("messageBox").style.backgroundColor = "green";
