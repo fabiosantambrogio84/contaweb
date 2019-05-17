@@ -5,6 +5,8 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -137,6 +139,7 @@ public class RibaParser implements ConadParser {
                         PagamentoEseguito pagamento = pagFatt.getPagamento();
                         Cliente cliente = pagFatt.getCliente();
                         
+                        row.setNumProgressivoFattura(fattura.getNumeroProgressivo());
                         row.setAbiCliente(cliente.getBancaABI());
                         row.setCabCliente(cliente.getBancaCAB());
                         row.setCapCliente(cliente.getCap());
@@ -177,6 +180,7 @@ public class RibaParser implements ConadParser {
                         		Integer numProgr = fattura.getNumeroProgressivo();
                         		if(numProgr != null){
                         			logNumProgressivo = logNumProgressivo + String.valueOf(numProgr) + ",";
+                        			row.setNumProgressivoFattura(numProgr);
                         		}
                         	}
                         }
@@ -215,6 +219,14 @@ public class RibaParser implements ConadParser {
             }
         }
 
+        // ordino le righe in base al numero progressivo delle fatture
+        Collections.sort(rows, new Comparator<RiBaRow>() {
+            @Override
+            public int compare(RiBaRow o1, RiBaRow o2) {
+                return o1.getNumProgressivoFattura().compareTo(o2.getNumProgressivoFattura());
+            }
+        });
+        
         for (RiBaRow row : rows) {
             logger.info("Creazione record...");
             /* aggiorno il totale globale */
@@ -510,6 +522,8 @@ public class RibaParser implements ConadParser {
 
         private Integer index;
 
+        private Integer numProgressivoFattura;
+                
         private Date dataScadenza;
 
         private Integer importo;
@@ -547,6 +561,14 @@ public class RibaParser implements ConadParser {
             this.index = index;
         }
 
+        public Integer getNumProgressivoFattura(){
+        	return numProgressivoFattura;
+        }
+        
+        public void setNumProgressivoFattura(Integer numProgressivoFattura){
+        	this.numProgressivoFattura = numProgressivoFattura;
+        }
+        
         public Date getDataScadenza() {
             return dataScadenza;
         }
@@ -666,6 +688,7 @@ public class RibaParser implements ConadParser {
     	
     	private Boolean isRaggruppaRiba;
 
+		@SuppressWarnings("unused")
 		public String getPartitaIva() {
 			return partitaIva;
 		}
