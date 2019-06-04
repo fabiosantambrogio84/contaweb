@@ -1,5 +1,6 @@
 package forms;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -104,7 +105,7 @@ public class EditDDT extends Edit {
     public String store() {
         try {
             // Se ci sono dei pagamenti eseguiti per il ddt, li cancello
-        	deletePagamentiEseguiti(ddt);
+        	ddt = deletePagamentiEseguiti(ddt);
         	
         	DDTs ddts = new DDTs();
             ddts.store(ddt);
@@ -121,7 +122,7 @@ public class EditDDT extends Edit {
     public String store2() {
         try {
         	// Se ci sono dei pagamenti eseguiti per il ddt, li cancello
-        	deletePagamentiEseguiti(ddt);
+        	ddt = deletePagamentiEseguiti(ddt);
         	
         	DDTs ddts = new DDTs();
             ddts.store(ddt, false);
@@ -181,8 +182,7 @@ public class EditDDT extends Edit {
         }
     }
 
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     protected String delete() {
         try {
             DDT ddt = new DDT();
@@ -190,7 +190,7 @@ public class EditDDT extends Edit {
             ddt = (DDT) new DDTs().find(ddt);
             
             // Se il DDT risulta pagato, cancello anche i pagamenti eseguiti
-            deletePagamentiEseguiti(ddt);
+            ddt = deletePagamentiEseguiti(ddt);
             
             new DDTs().delete(ddt);
         } catch (Exception e) {
@@ -204,9 +204,10 @@ public class EditDDT extends Edit {
         try {
             DDT ddt = new DDT();
             ddt.setId(id);
+            ddt = (DDT) new DDTs().find(ddt);
             
             // Se il DDT risulta pagato, cancello anche i pagamenti eseguiti
-            deletePagamentiEseguiti(ddt);
+            ddt = deletePagamentiEseguiti(ddt);
             
             new DDTs().delete(ddt, false);
         } catch (Exception e) {
@@ -363,8 +364,8 @@ public class EditDDT extends Edit {
     }
     
     @SuppressWarnings("unchecked")
-	private void deletePagamentiEseguiti(DDT ddt) throws Exception{
-    	if(ddt.getPagato()){
+	private DDT deletePagamentiEseguiti(DDT ddt) throws Exception{
+    	if(ddt != null && ddt.getPagato()){
         	PagamentiEseguiti pagamentiEseguiti = new PagamentiEseguiti();
         	Collection<PagamentoEseguito> pagEseguiti = pagamentiEseguiti.findByDdt(ddt);
  			if(pagEseguiti != null && !pagEseguiti.isEmpty()){
@@ -372,6 +373,9 @@ public class EditDDT extends Edit {
  					pagamentiEseguiti.delete(pagEseguito);
  				}
  			}
+ 			ddt.setPagato(false);
+ 			ddt.setAcconto(BigDecimal.ZERO);
         }
+    	return ddt;
     }
 }

@@ -845,6 +845,7 @@ function confermaCancellazioneDDT(id, link) {
 	document.getElementById("messageBox").textContent= 'confermaCancellazioneDDT - Start';		
 
 	var row = document.getElementById('tr_' + id);
+	var className = row.className;
 	row.style.backgroundColor = "#FF0000";
 	
 	var confirmText = "Sei sicuro di voler cancellare la riga selezionata?"
@@ -872,7 +873,8 @@ function confermaCancellazioneDDT(id, link) {
 	      }
 	    });
 	} else {
-		row.style.backgroundColor = "#ffffff";
+		row.style.backgroundColor = "";
+		row.className = className;
 		$("#messageBox").css("background-color", "");
     	$("#messageBox").text("");
 	}

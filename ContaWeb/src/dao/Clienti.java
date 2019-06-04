@@ -201,7 +201,7 @@ public class Clienti extends DataAccessObject {
     public void setFilterByBloccaDDT() {
         Criteria criteria = getCriteria();
         Criteria bloccaDdtCriteria = new Criteria();
-        bloccaDdtCriteria.addEqualTo("bloccaDDT", true);
+        bloccaDdtCriteria.addEqualTo("bloccaDDT", false);
         criteria.addAndCriteria(bloccaDdtCriteria);
     }
 }
