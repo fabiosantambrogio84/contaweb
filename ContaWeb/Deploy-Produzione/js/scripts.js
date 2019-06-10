@@ -701,7 +701,13 @@ function confermaCancellazione(id, link) {
 	
 	var row = document.getElementById('tr_' + id);
 	row.style.backgroundColor = "#FF0000";
-	answer = confirm('Sei sicuro di voler cancellare la riga selezionata?');
+	
+	var confirmText = "Sei sicuro di voler cancellare la riga selezionata?";
+	if(link == '/ContaWeb_1.0.1/fattureEdit.do?action=delete'){
+		confirmText = confirmText + "\nATTENZIONE\nSe la fattura ha dei pagamenti gia' effettuati, questi verranno cancellati.";
+	} 
+	answer = confirm(confirmText);
+	
 	if (answer != "0") {
 		document.getElementById("messageBox").style.backgroundColor = "yellow";
 		document.getElementById("messageBox").textContent= 'Cancellazione in corso...';		
@@ -723,28 +729,66 @@ function confermaCancellazione(id, link) {
 	        row.parentNode.removeChild(row);
 		});
 		
-		/*dojo.io.bind({
-			url: link,
-			method: "get",
-			handle: function(type,data,evt) {
-	         if ((type=='load') && (data != 'error')) {
-	        	 document.getElementById("messageBox").style.backgroundColor = "#66FF33";
-	        	 document.getElementById("messageBox").textContent= 'Riga cancellata con successo!';
-	        	row.parentNode.removeChild(row);	        	
-	         } else {
-	        	document.getElementById("messageBox").style.backgroundColor = "yellow";
-	        	document.getElementById("messageBox").textContent= 'Errore nella cancellazione!';
-	         	row.style.backgroundColor = "#ffffff";      
-	         }
-	        },
-		});
-		*/
 	} else {
 		row.style.backgroundColor = "#ffffff";
-		document.getElementById("messageBox").remove();
+		$("#messageBox").css("background-color", "");
+		$("#messageBox").text("");
+		$("#messageBox").text("");
+		//document.getElementById("messageBox").remove();
 	}
 	return false;
 }
+
+function cancellaSconti(){
+	var answer = confirm('Sei sicuro di voler procedere con la cancellazione?');
+	if (answer != "0") {
+		var checkedLength = $("input[name='selectSconto']:checked").length;
+		if(checkedLength != 0){
+			$("#messageBox").css("display", "");
+			$("#messageBox").css("background-color", "yellow");
+			$("#messageBox").text("Cancellazione in corso...");
+			
+			var ids = "";
+			$("input[name='selectSconto']:checked").each(function(index) {
+				var trId = $(this).parent().parent().attr("id");
+				trId = trId.substr(trId.indexOf("_") + 1);
+				ids = ids + trId + "-";
+				
+				$(this).parent().parent().css("background-color","#FF0000");
+			});
+			
+			var url = "/ContaWeb_1.0.1/scontiEdit_input.do?action=deleteBulk";
+			url = url + "&ids=" + ids;
+			
+			$.ajax({
+			    url: url,
+			    type: "GET",
+			    success: function(res) {
+			    	$("#messageBox").css("display", "");
+			    	$("#messageBox").css("background-color", "#66FF33");
+			    	$("#messageBox").text("Cancellazione avvenuta con successo");
+			    	
+			    	$("input[name='selectSconto']:checked").parent().parent().remove();
+			    },
+			    error: function(err) {
+			    	$("#messageBox").css("display", "");
+			    	$("#messageBox").css("background-color", "#FF0000");
+			    	$("#messageBox").text("Errore nella cancellazione");
+			    	
+			    	$("input[name='selectSconto']:checked").parent().parent().css("background-color","#ffffff");
+			    }
+			});
+		} else{
+			alert("Nessuno sconto selezionato");
+		}
+		
+	} else{
+		$("#messageBox").css("display", "none");
+	}
+	
+	return false;
+}
+
 
 function confermaCancellazioneTuttiDDT2() {
 	document.getElementById("messageBox").style.backgroundColor = "green";
@@ -802,8 +846,15 @@ function confermaCancellazioneDDT(id, link) {
 	document.getElementById("messageBox").textContent= 'confermaCancellazioneDDT - Start';		
 
 	var row = document.getElementById('tr_' + id);
+	var className = row.className;
 	row.style.backgroundColor = "#FF0000";
-	answer = confirm('Sei sicuro di voler cancellare la riga selezionata?');
+	
+	var confirmText = "Sei sicuro di voler cancellare la riga selezionata?"
+	if(link == '/ContaWeb_1.0.1/editDDT.do?action=delete'){
+		confirmText = confirmText + "\nATTENZIONE\nSe il DDT ha dei pagamenti gia' effettuati, questi verranno cancellati.";
+	}
+	
+	answer = confirm(confirmText);
 	if (answer != "0") {
 		$( "#update-confirm" ).dialog({
 	      resizable: false,
@@ -823,7 +874,10 @@ function confermaCancellazioneDDT(id, link) {
 	      }
 	    });
 	} else {
-		row.style.backgroundColor = "#ffffff";
+		row.style.backgroundColor = "";
+		row.className = className;
+		$("#messageBox").css("background-color", "");
+    	$("#messageBox").text("");
 	}
 	return false;
 }
@@ -1284,10 +1338,12 @@ function autocompleteArticoli()
 	try
 	{
 		$( "#txtIdArticolo" ).bind( "keydown", function( event ) {
+			
 			if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) 
 			{
 				event.preventDefault();
 			}
+			
 		}).autocomplete({
 			source : function(request, response) {
 				try
@@ -1733,4 +1789,18 @@ function enableClienti(){
 // Funzione caricata al load del body
 function onBodyLoad(){
 	enableClienti();
+}
+
+// Funzione per controllare la valorizzazione dei filtri sulle date
+// nell'esportazione RiBa
+function checkRibaDate(){
+	var dateDa = $("input[name='dojo.filterDataDa']").val();
+	var dateA = $("input[name='dojo.filterDataA']").val();
+		
+	if((dateDa == null || dateDa == undefined || dateDa == '') && (dateA == null || dateA == undefined || dateA == '')){
+		window.alert("Valorizzare i campi 'Da:' e 'A:'");
+		return false;
+	} else{
+		return true;
+	}
 }
