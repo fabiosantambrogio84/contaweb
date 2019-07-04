@@ -177,16 +177,17 @@
 	<field-descriptor name="idIva" column="idIva" jdbc-type="INTEGER"/>
 	<field-descriptor name="idFornitore" column="idFornitore" jdbc-type="INTEGER"/>
 	<field-descriptor name="idCategoria" column="idCategoria" jdbc-type="INTEGER"/>
-		<field-descriptor name="idDestinazione" column="idDestinazione" jdbc-type="INTEGER"/>
+	<field-descriptor name="idDestinazione" column="idDestinazione" jdbc-type="INTEGER"/>
 	<field-descriptor name="attivo" column="attivo" jdbc-type="BOOLEAN"/>
-		<field-descriptor name="immagine1" column="immagine_1" jdbc-type="VARCHAR"/>
-		<field-descriptor name="immagine2" column="immagine_2" jdbc-type="VARCHAR"/>
-		<field-descriptor name="immagine3" column="immagine_3" jdbc-type="VARCHAR"/>
-		<field-descriptor name="immagine4" column="immagine_4" jdbc-type="VARCHAR"/>
-		<field-descriptor name="immagine5" column="immagine_5" jdbc-type="VARCHAR"/>
-		<field-descriptor name="immagine6" column="immagine_6" jdbc-type="VARCHAR"/>
-		<field-descriptor name="web" column="web" jdbc-type="BOOLEAN"/>
-		<field-descriptor name="dataAggiornamento" column="data_aggiornamento" jdbc-type="DATE"/>
+	<field-descriptor name="immagine1" column="immagine_1" jdbc-type="VARCHAR"/>
+	<field-descriptor name="immagine2" column="immagine_2" jdbc-type="VARCHAR"/>
+	<field-descriptor name="immagine3" column="immagine_3" jdbc-type="VARCHAR"/>
+	<field-descriptor name="immagine4" column="immagine_4" jdbc-type="VARCHAR"/>
+	<field-descriptor name="immagine5" column="immagine_5" jdbc-type="VARCHAR"/>
+	<field-descriptor name="immagine6" column="immagine_6" jdbc-type="VARCHAR"/>
+	<field-descriptor name="web" column="web" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="dataAggiornamento" column="data_aggiornamento" jdbc-type="DATE"/>
+	<field-descriptor name="prodottoUsoInterno" column="prodotto_uso_interno" jdbc-type="BOOLEAN"/>
 	<reference-descriptor name="fornitore" class-ref="vo.Fornitore" auto-retrieve="true">
 		<foreignkey field-ref="idFornitore"/>
 	</reference-descriptor>

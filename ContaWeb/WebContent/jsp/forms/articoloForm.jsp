@@ -28,7 +28,9 @@
     <s:select labelposition="left" label="Fornitore" list="listFornitori" listKey="id" listValue="descrizione" value="articolo.idFornitore" name="articolo.idFornitore" cssClass="testo"/>
     <!-- IVA -->
     <s:select labelposition="left" label="Iva" list="listIvas" listKey="id" listValue="valore" value="articolo.idIva" name="articolo.idIva" cssClass="testo"/>
-		
+	
+	<s:checkbox id="articoloProdottoUsoInterno" labelposition="left" label="Prodotto uso interno" name="articolo.prodottoUsoInterno" />
+	
     <!-- PREZZI -->
 	    <div class="formSubGroup">
 	    		<h4>Prezzo per listini:</h4>

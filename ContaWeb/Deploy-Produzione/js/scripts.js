@@ -688,11 +688,21 @@ function checkSaveDdt(){
 }
 
 //#### END ACTION ##########################################
-
 function apriFinestra(link,action,id) {
 	var url = link + '?action=' + action + '&id=' + id;
-	window.open(url, 'subwnd', 'width=655,height=630,toolbar=0,resizable=0');
-	return false;
+	if(action == 'edit'){
+		var confirmText = "ATTENZIONE\nSe il DDT ha dei pagamenti gia' effettuati, questi verranno cancellati.\nProseguire con la modifica?"
+		var answer = confirm(confirmText);
+		if (answer != "0") {
+			window.open(url, 'subwnd', 'width=655,height=630,toolbar=0,resizable=0');
+			return false;
+		} else{
+			return false;
+		}
+	} else{
+		window.open(url, 'subwnd', 'width=655,height=630,toolbar=0,resizable=0');
+		return false;
+	}
 }
 
 function confermaCancellazione(id, link) {
@@ -703,7 +713,7 @@ function confermaCancellazione(id, link) {
 	row.style.backgroundColor = "#FF0000";
 	
 	var confirmText = "Sei sicuro di voler cancellare la riga selezionata?";
-	if(link == '/ContaWeb_1.0.1/fattureEdit.do?action=delete'){
+	if(link == '/ContaWeb_v1.0.1/fattureEdit.do?action=delete'){
 		confirmText = confirmText + "\nATTENZIONE\nSe la fattura ha dei pagamenti gia' effettuati, questi verranno cancellati.";
 	} 
 	answer = confirm(confirmText);
@@ -757,7 +767,7 @@ function cancellaSconti(){
 				$(this).parent().parent().css("background-color","#FF0000");
 			});
 			
-			var url = "/ContaWeb_1.0.1/scontiEdit_input.do?action=deleteBulk";
+			var url = "/ContaWeb_v1.0.1/scontiEdit_input.do?action=deleteBulk";
 			url = url + "&ids=" + ids;
 			
 			$.ajax({
@@ -850,7 +860,7 @@ function confermaCancellazioneDDT(id, link) {
 	row.style.backgroundColor = "#FF0000";
 	
 	var confirmText = "Sei sicuro di voler cancellare la riga selezionata?"
-	if(link == '/ContaWeb_1.0.1/editDDT.do?action=delete'){
+	if(link == '/ContaWeb_v1.0.1/editDDT.do?action=delete'){
 		confirmText = confirmText + "\nATTENZIONE\nSe il DDT ha dei pagamenti gia' effettuati, questi verranno cancellati.";
 	}
 	

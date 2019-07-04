@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
+
 import dao.Articoli;
 import dao.Autisti;
 import dao.Clienti;
@@ -16,6 +18,7 @@ import dao.Listini;
 import dao.Ordini;
 import dao.PagamentiEseguiti;
 import dao.Settings;
+import utils.EFattureHelper;
 import vo.Articolo;
 import vo.Autista;
 import vo.Cliente;
@@ -28,6 +31,8 @@ import vo.PuntoConsegna;
 
 public class EditDDT extends Edit {
     private static final long serialVersionUID = 1L;
+    
+    private static final Logger logger = Logger.getLogger(EditDDT.class);
 
     private Integer id = null;
     private Integer idAutista = null;
@@ -211,7 +216,8 @@ public class EditDDT extends Edit {
             
             new DDTs().delete(ddt, false);
         } catch (Exception e) {
-            stampaErrore("EditDDT.delete()", e);
+            e.printStackTrace();
+        	stampaErrore("EditDDT.delete()", e);
             return ERROR_DELETE;
         }
         return SUCCESS;
@@ -364,18 +370,22 @@ public class EditDDT extends Edit {
     }
     
     @SuppressWarnings("unchecked")
-	private DDT deletePagamentiEseguiti(DDT ddt) throws Exception{
-    	if(ddt != null && ddt.getPagato()){
-        	PagamentiEseguiti pagamentiEseguiti = new PagamentiEseguiti();
-        	Collection<PagamentoEseguito> pagEseguiti = pagamentiEseguiti.findByDdt(ddt);
- 			if(pagEseguiti != null && !pagEseguiti.isEmpty()){
- 				for(PagamentoEseguito pagEseguito: pagEseguiti){
- 					pagamentiEseguiti.delete(pagEseguito);
- 				}
- 			}
- 			ddt.setPagato(false);
- 			ddt.setAcconto(BigDecimal.ZERO);
-        }
+	private DDT deletePagamentiEseguiti(DDT ddt) {
+    	try{
+    		if(ddt != null && ddt.getPagato()){
+        		PagamentiEseguiti pagamentiEseguiti = new PagamentiEseguiti();
+            	Collection<PagamentoEseguito> pagEseguiti = pagamentiEseguiti.findByDdt(ddt);
+     			if(pagEseguiti != null && !pagEseguiti.isEmpty()){
+     				for(PagamentoEseguito pagEseguito: pagEseguiti){
+     					//pagamentiEseguiti.delete(pagEseguito);
+     					new DDTs().nonpagato(ddt, pagEseguito);
+     				}
+     			}
+            }
+    	} catch(Exception e){
+    		logger.error("Errore nella cancellazione dei pagamenti eseguiti associati al ddt", e);
+    	}
     	return ddt;
+    	
     }
 }

@@ -493,6 +493,7 @@ public class DDTs extends DataAccessObject {
             ddt.setAcconto(ddt.getAcconto().subtract(pagamentoEseguito.getImporto()));
             ddt.setPagato(Boolean.valueOf(false));
             store(ddt);
+            
             if (pagamentoEseguito.getId() != null) {
                 new PagamentiEseguiti().delete(pagamentoEseguito);
             }

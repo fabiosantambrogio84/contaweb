@@ -187,6 +187,7 @@
 		<field-descriptor name="immagine6" column="immagine_6" jdbc-type="VARCHAR"/>
 		<field-descriptor name="web" column="web" jdbc-type="BOOLEAN"/>
 		<field-descriptor name="dataAggiornamento" column="data_aggiornamento" jdbc-type="DATE"/>
+	<field-descriptor name="prodottoUsoInterno" column="prodotto_uso_interno" jdbc-type="BOOLEAN"/>
 	<reference-descriptor name="fornitore" class-ref="vo.Fornitore" auto-retrieve="true">
 		<foreignkey field-ref="idFornitore"/>
 	</reference-descriptor>

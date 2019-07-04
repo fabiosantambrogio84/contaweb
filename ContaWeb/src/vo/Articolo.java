@@ -36,6 +36,7 @@ public class Articolo extends VOElement {
 	private String immagine5;
 	private String immagine6;
 	private BigDecimal prezzoConSconto;
+	private Boolean prodottoUsoInterno;
 	
 	public Boolean getAttivo() {
 		return attivo;
@@ -270,4 +271,20 @@ public class Articolo extends VOElement {
 		this.prezzoConSconto = prezzoConSconto;
 	}
 
+	public Boolean getProdottoUsoInterno() {
+        return prodottoUsoInterno;
+    }
+
+    public boolean isProdottoUsoInterno() {
+        return prodottoUsoInterno;
+    }
+
+    public void setProdottoUsoInterno(boolean prodottoUsoInterno) {
+        this.prodottoUsoInterno = prodottoUsoInterno;
+    }
+
+    public void setProdottoUsoInterno(Boolean prodottoUsoInterno) {
+        this.prodottoUsoInterno = prodottoUsoInterno;
+    }
+	
 }

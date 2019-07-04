@@ -82,16 +82,17 @@ public class ListinoPrintHandler extends DocumentPrintHandler {
 			else articoli = new Articoli().getListaArticoliAttivi(idFornitore, catArticolo.getId());
 			
 			catArticolo.setArticoli(new Vector<Prezzo>());
-			for(Articolo articolo : articoli)
-			{
-				new Articoli().completeReferences(articolo);
-				if(articolo.getPrezzi() == null) continue;
-				for(Object obj : articolo.getPrezzi())
-				{
-					Prezzo prezzo = (Prezzo)obj;
-					prezzo.setArticolo(articolo);
-					if(prezzo.getIdListino() == listino.getId())
-						catArticolo.getArticoli().add(prezzo);
+			for(Articolo articolo : articoli){
+				if(articolo != null && !articolo.isProdottoUsoInterno()){
+					new Articoli().completeReferences(articolo);
+					if(articolo.getPrezzi() == null) continue;
+					for(Object obj : articolo.getPrezzi())
+					{
+						Prezzo prezzo = (Prezzo)obj;
+						prezzo.setArticolo(articolo);
+						if(prezzo.getIdListino() == listino.getId())
+							catArticolo.getArticoli().add(prezzo);
+					}
 				}
 			}
 			dettagli.add(catArticolo);				

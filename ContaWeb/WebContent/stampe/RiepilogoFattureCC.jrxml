@@ -50,9 +50,9 @@ $F{iva1}.compareTo(new BigDecimal(4.00)) == 0 ? $F{imposta1} : new BigDecimal(0)
 	</variable>
 	<variable name="SUM_imponibile3_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
-    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) +
-	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imponibile3}.doubleValue() : 0 )
+    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imponibile1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imponibile2}.doubleValue() : 0 ) +
+	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imponibile3}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
@@ -65,9 +65,9 @@ $F{iva1}.compareTo(new BigDecimal(4.00)) == 0 ? $F{imposta1} : new BigDecimal(0)
 	</variable>
 	<variable name="SUM_imposta3_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
-    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) +
-	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta3}.doubleValue() : 0 )
+    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) +
+	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imposta3}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
@@ -88,9 +88,9 @@ $F{iva1}.compareTo(new BigDecimal(4.00)) == 0 ? $F{imposta1} : new BigDecimal(0)
 	</variable>
 	<variable name="SUM_imposta3_2" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(
-    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
-    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) +
-	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(20.0)) == 0) ? $F{imposta3}.doubleValue() : 0 )
+    (($F{iva1} != null && $F{iva1}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imposta1}.doubleValue() : 0 ) +
+    (($F{iva2} != null && $F{iva2}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imposta2}.doubleValue() : 0 ) +
+	(($F{iva3} != null && $F{iva3}.compareTo(new BigDecimal(22.0)) == 0) ? $F{imposta3}.doubleValue() : 0 )
 )]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>

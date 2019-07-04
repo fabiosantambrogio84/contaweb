@@ -691,8 +691,19 @@ function checkSaveDdt(){
 
 function apriFinestra(link,action,id) {
 	var url = link + '?action=' + action + '&id=' + id;
-	window.open(url, 'subwnd', 'width=655,height=630,toolbar=0,resizable=0');
-	return false;
+	if(action == 'edit'){
+		var confirmText = "ATTENZIONE\nSe il DDT ha dei pagamenti gia' effettuati, questi verranno cancellati.\nProseguire con la modifica?"
+		var answer = confirm(confirmText);
+		if (answer != "0") {
+			window.open(url, 'subwnd', 'width=655,height=630,toolbar=0,resizable=0');
+			return false;
+		} else{
+			return false;
+		}
+	} else{
+		window.open(url, 'subwnd', 'width=655,height=630,toolbar=0,resizable=0');
+		return false;
+	}
 }
 
 function confermaCancellazione(id, link) {
