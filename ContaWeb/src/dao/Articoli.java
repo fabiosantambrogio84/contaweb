@@ -92,7 +92,7 @@ public class Articoli extends DataAccessObject {
 			description.addLike("descrizione", codDescrArticolo + "%");
 			getCriteria().addOrCriteria(description);
 		}
-		
+		getCriteria().addEqualTo("prodottoUsoInterno", false);
 		getQueryByCriteria().addOrderByAscending("codiceArticolo");
 		
 		return getActiveElements();
