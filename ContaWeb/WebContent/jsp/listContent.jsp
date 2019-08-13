@@ -153,7 +153,7 @@
 		<% 
 			String style = "margin-left: 20px;";
 		 	
-			if(editAction.equals("scontiEdit")){
+			if(editAction.equals("scontiEdit") || editAction.equals("giacenzaEdit")){
 				style = style + "display: none;";
 			} 
 		%>
@@ -197,7 +197,7 @@
 			<% } else { 
 				String cssClass= "";
 			%>			
-				<% if(editAction.equals("scontiEdit")){
+				<% if(editAction.equals("scontiEdit") || editAction.equals("giacenzaEdit")){
 					cssClass = "scontiForm";
 				} %>
 				<s:form id="frmSearch"  method="get" theme="simple" action="${pagDownAction}" cssClass="<%=cssClass%>">
@@ -227,7 +227,11 @@
 					<div style="display:inline-block; padding-left: 25px;">
 						<a href="#" class="link" onclick="return cancellaSconti();">Cancella</a>
 					</div>
-				<%}%>			
+				<% } else if(editAction.equals("giacenzaEdit")) {%>
+					<div style="display:inline-block; padding-left: 25px;">
+						<a href="#" class="link" onclick="return cancellaGiacenze();">Cancella</a>
+					</div>
+				<% } %>			
 			<% } %>
 		</div>
 	<% } else { %>
@@ -268,7 +272,7 @@
 				<!-- LISTA DEI TITOLI DELLE COLONNE -->
 				<%-- Exclude "Aut. Ord." --%>
 				<%
-				if(editAction.equals("scontiEdit")){
+				if(editAction.equals("scontiEdit") || editAction.equals("giacenzaEdit")){
 				%>
 					<th width="10">&nbsp;</th>
 				<%	
@@ -280,7 +284,7 @@
 					Object width = itrWidth.next();
 					org.apache.tiles.Attribute valueAttr = (org.apache.tiles.Attribute)value;
 					Object value2 = valueAttr.getValue(); 
-					if(value2 instanceof String){
+					if(value2 instanceof String || value2 instanceof Boolean){
 					    String valueS = (String)value2;
 					    if(!valueS.equalsIgnoreCase("Aut. Ord.")){
 				%>
@@ -386,8 +390,12 @@
 						<td data-sort="<%=stato%>" class="tableCell" align="center">
 							<input type="checkbox" name="selectSconto" value="1"/>
 						</td>
+					<% } else if(editAction.equals("giacenzaEdit")){ %>
+						<td data-sort="<%=stato%>" class="tableCell" align="center">
+							<input type="checkbox" name="selectGiacenza" value="1"/>
+						</td>
 					<% } %>
-					
+										
 					<% for(int i=0;i<itrCol.length;++i) {
 						Object valueCol = itrCol[i];
 						String type = "String";

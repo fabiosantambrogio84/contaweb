@@ -9,6 +9,8 @@ public class ReportGiacenza extends VOElement {
 	private String codiceArticolo = null;
 	private String descrizione = null;
 	private BigDecimal qta = null;
+	private Boolean attivo = null;
+	private String descrizioneFornitore;
 
 	public String getDescrizione() {
 		return descrizione;
@@ -29,4 +31,18 @@ public class ReportGiacenza extends VOElement {
 		this.codiceArticolo = codiceArticolo;
 	}
 
+	public Boolean getAttivo() {
+		return attivo;
+	}
+
+	public void setAttivo(Boolean attivo) {
+		this.attivo = attivo;
+	}
+	
+	public String getDescrizioneFornitore() {
+		return descrizioneFornitore;
+	}
+	public void setDescrizioneFornitore(String descrizioneFornitore) {
+		this.descrizioneFornitore = descrizioneFornitore;
+	}
 }

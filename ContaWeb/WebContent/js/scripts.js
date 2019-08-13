@@ -1814,3 +1814,55 @@ function checkRibaDate(){
 		return true;
 	}
 }
+
+// 12/08/2019
+function cancellaGiacenze(){
+	var answer = confirm('Sei sicuro di voler procedere con la cancellazione?');
+	if (answer != "0") {
+		var checkedLength = $("input[name='selectGiacenza']:checked").length;
+		if(checkedLength != 0){
+			$("#messageBox").css("display", "");
+			$("#messageBox").css("background-color", "yellow");
+			$("#messageBox").text("Cancellazione in corso...");
+			
+			var ids = "";
+			$("input[name='selectGiacenza']:checked").each(function(index) {
+				var trId = $(this).parent().parent().attr("id");
+				trId = trId.substr(trId.indexOf("_") + 1);
+				ids = ids + trId + "-";
+				
+				$(this).parent().parent().css("background-color","#FF0000");
+			});
+			
+			var url = "/ContaWeb/giacenzaEdit_input.do?action=deleteBulk";
+			url = url + "&idArticoli=" + ids;
+			
+			$.ajax({
+			    url: url,
+			    type: "GET",
+			    success: function(res) {
+			    	$("#messageBox").css("display", "");
+			    	$("#messageBox").css("background-color", "#66FF33");
+			    	$("#messageBox").text("Cancellazione avvenuta con successo");
+			    	
+			    	$("input[name='selectGiacenza']:checked").parent().parent().remove();
+			    },
+			    error: function(err) {
+			    	$("#messageBox").css("display", "");
+			    	$("#messageBox").css("background-color", "#FF0000");
+			    	$("#messageBox").text("Errore nella cancellazione");
+			    	
+			    	$("input[name='selectGiacenza']:checked").parent().parent().css("background-color","#ffffff");
+			    }
+			});
+		} else{
+			alert("Nessuna giacenza selezionata");
+		}
+		
+	} else{
+		$("#messageBox").css("display", "none");
+	}
+	
+	return false;
+}
+

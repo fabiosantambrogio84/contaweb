@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.ojb.broker.PersistenceBroker;
@@ -63,10 +64,12 @@ public class Giacenze extends DataAccessObject {
 				setCriteriaUsingFilterKey();
 
 			ReportQueryByCriteria q = QueryFactory.newReportQuery(Giacenza.class, getCriteria());
-			q.setAttributes(new String[] { "sum(qta)", "idArticolo", "articolo.descrizione", "articolo.codiceArticolo" });
+			q.setAttributes(new String[] { "sum(qta)", "idArticolo", "articolo.descrizione", "articolo.codiceArticolo", "articolo.attivo", "articolo.fornitore.descrizione" });
 			q.addGroupBy("idArticolo");
 			q.addGroupBy("articolo.descrizione");
 			q.addGroupBy("articolo.codiceArticolo");
+			q.addGroupBy("articolo.attivo");
+			q.addGroupBy("articolo.fornitore.descrizione");
 			
 			//FILTRO LE GIACENZE NULLE
 			Criteria criteria = new Criteria();
@@ -90,6 +93,8 @@ public class Giacenze extends DataAccessObject {
 				reportGiacenza.setId((Integer) obj[1]);
 				reportGiacenza.setDescrizione((String) obj[2]);
 				reportGiacenza.setCodiceArticolo((String)obj[3]);
+				reportGiacenza.setAttivo((Boolean)obj[4]);
+				reportGiacenza.setDescrizioneFornitore((String)obj[5]);
 				results.add(reportGiacenza);
 			}
 			
@@ -491,5 +496,12 @@ public class Giacenze extends DataAccessObject {
 		} catch (Exception e) {
 			throw new DataAccessException(e.getMessage());
 		}
+	}
+	
+	public void setQueryDeleteBulkByCriteriaIdArticoli(List<String> idArticoli){
+		Criteria criteria = new Criteria();
+		criteria.addIn("idArticolo", idArticoli);
+		
+		queryDeleteBulk = QueryFactory.newQuery(elementClass, criteria);
 	}
 }

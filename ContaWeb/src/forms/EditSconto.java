@@ -210,6 +210,5 @@ public class EditSconto extends Edit {
 		}
 		return SUCCESS;
 	}
-
 	
 }

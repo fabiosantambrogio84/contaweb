@@ -1,12 +1,14 @@
 package forms;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import dao.Articoli;
 import dao.Giacenze;
-
+import dao.Sconti;
 import vo.Giacenza;
 import vo.MovimentoGiacenza;
 
@@ -16,9 +18,25 @@ public class EditGiacenza extends Edit {
 
    private Collection listArticoli = null;
    private Collection dettagli = null;
+   private Giacenza giacenza;
+   private String idArticoli = null;
 
-private Giacenza giacenza;
-	
+   public Giacenza getGiacenza() {
+		return giacenza;
+	}
+
+	public void setGiacenza(Giacenza giacenza) {
+		this.giacenza = giacenza;
+	}
+
+	public Collection getDettagli() {
+		return dettagli;
+	}
+
+	public void setDettagli(Collection dettagli) {
+		this.dettagli = dettagli;
+	}
+   
    @SuppressWarnings("unchecked")
    public Collection getListArticoli() {
 		if (listArticoli == null) {
@@ -35,12 +53,24 @@ private Giacenza giacenza;
 	public void setListArticoli(Collection listArticoli) {
 		this.listArticoli = listArticoli;
 	}
+	
+	public String getIdArticoli(){
+		return idArticoli;
+	}
+
+	public void setIdArticoli(String idArticoli){
+		this.idArticoli = idArticoli;
+	}
 
 	@SuppressWarnings("unchecked")
 	public String input() {
   		try {
 			if (getAction().equalsIgnoreCase("delete")) {
 				return delete();
+			}
+			
+			if (getAction().equalsIgnoreCase("deleteBulk")) {
+				return deleteBulk();
 			}
   			
   			if (getAction().equalsIgnoreCase("edit")) {
@@ -86,20 +116,20 @@ private Giacenza giacenza;
 		}
 	 	return SUCCESS;
 	 }
-
-	public Giacenza getGiacenza() {
-		return giacenza;
-	}
-
-	public void setGiacenza(Giacenza giacenza) {
-		this.giacenza = giacenza;
-	}
-
-	public Collection getDettagli() {
-		return dettagli;
-	}
-
-	public void setDettagli(Collection dettagli) {
-		this.dettagli = dettagli;
+	
+	 protected String deleteBulk() {
+		try {
+			Giacenze giacenze = new Giacenze();
+			
+			List<String> idsList = Arrays.asList(idArticoli.split("-"));
+			if(idsList != null && !idsList.isEmpty()){
+				giacenze.setQueryDeleteBulkByCriteriaIdArticoli(idsList);
+				giacenze.deleteBulk();
+			}
+		} catch (Exception e) {
+			stampaErrore("EditGiacenza.deleteBulk()", e);
+			return ERROR_DELETE;
+		}
+		return SUCCESS;
 	}
 }

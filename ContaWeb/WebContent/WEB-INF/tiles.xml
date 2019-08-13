@@ -698,19 +698,27 @@
 	<put-list-attribute name="headersList">
 		<add-attribute>Codice</add-attribute>
 		<add-attribute>Descrizione</add-attribute>
+		<add-attribute>Attivo</add-attribute>
+		<add-attribute>Fornitore</add-attribute>
 		<add-attribute>Q.tà</add-attribute>	
 	</put-list-attribute>
 	<put-list-attribute name="columnsWidth">
 		<add-attribute>100</add-attribute>
-		<add-attribute>500</add-attribute>
+		<add-attribute>200</add-attribute>
+		<add-attribute>30</add-attribute>
+		<add-attribute>200</add-attribute>
 		<add-attribute>50</add-attribute>
 	</put-list-attribute>
 	<put-list-attribute name="columnsElements">
 		<add-attribute>codiceArticolo</add-attribute>
 		<add-attribute>descrizione</add-attribute>
+		<add-attribute>attivo</add-attribute>
+		<add-attribute>descrizioneFornitore</add-attribute>
 		<add-attribute>qta</add-attribute>
 	</put-list-attribute>
 	<put-list-attribute name="columnsTypes">
+		<add-attribute>String</add-attribute>
+		<add-attribute>String</add-attribute>
 		<add-attribute>String</add-attribute>
 		<add-attribute>String</add-attribute>
 		<add-attribute>Qta</add-attribute>
