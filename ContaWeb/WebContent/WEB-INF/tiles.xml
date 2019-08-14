@@ -719,7 +719,7 @@
 	<put-list-attribute name="columnsTypes">
 		<add-attribute>String</add-attribute>
 		<add-attribute>String</add-attribute>
-		<add-attribute>String</add-attribute>
+		<add-attribute>Boolean</add-attribute>
 		<add-attribute>String</add-attribute>
 		<add-attribute>Qta</add-attribute>
 	</put-list-attribute>

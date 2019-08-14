@@ -1865,3 +1865,10 @@ function cancellaGiacenze(){
 	
 	return false;
 }
+
+function selectAllGiacenze(){
+	var checkboxes = $("#selectAllGiacenze").closest("table").find("tbody").find(":checkbox").prop("checked", true)
+    checkboxes.prop('checked', $("#selectAllGiacenze").is(':checked'));
+	
+	return false;
+}

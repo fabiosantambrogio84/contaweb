@@ -27,6 +27,10 @@ import vo.ReportGiacenza;
 
 public class Giacenze extends DataAccessObject {
 
+	private boolean filterByAttivo = false;
+
+    private String attivo;
+	
 	public Giacenze() {
 		this.elementClass = Giacenza.class;
 	}
@@ -48,10 +52,34 @@ public class Giacenze extends DataAccessObject {
 			//FILTRO PER NUMERO
 			Criteria criteriaNprog = new Criteria();
 			criteriaNprog.addEqualTo("articolo.codiceArticolo", filterKey);
+			
+			// Filtro per fornitore
+			Criteria criteriaFornitore = new Criteria();
+			criteriaFornitore.addLike("articolo.fornitore.descrizione", "%" + filterKey + "%");
+			
+			criteria.addOrCriteria(criteriaFornitore);
 			criteria.addOrCriteria(criteriaNprog);
 		}
 	}
 
+	protected void setCriteriaUsingFilterByAttivo() {
+		Criteria criteria = getCriteria();
+
+		if(filterByAttivo) {
+
+			Boolean attivoB = null;
+			
+			if(attivo != null) {
+				if(attivo.equals("si")){
+					attivoB = true;
+				} else {
+					attivoB = false;
+				}
+				criteria.addEqualTo("articolo.attivo", attivoB);
+			}
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Collection getElements() throws DataAccessException {
 		//RICAVO UNA LISTA RAGGRUPPATA PER ARTICOLO
@@ -63,6 +91,11 @@ public class Giacenze extends DataAccessObject {
 			if (filterKey != null && filterKey.length()>0)
 				setCriteriaUsingFilterKey();
 
+			// Filtro per attivo si/no
+			if(filterByAttivo){
+				setCriteriaUsingFilterByAttivo();
+			}
+			
 			ReportQueryByCriteria q = QueryFactory.newReportQuery(Giacenza.class, getCriteria());
 			q.setAttributes(new String[] { "sum(qta)", "idArticolo", "articolo.descrizione", "articolo.codiceArticolo", "articolo.attivo", "articolo.fornitore.descrizione" });
 			q.addGroupBy("idArticolo");
@@ -504,4 +537,9 @@ public class Giacenze extends DataAccessObject {
 		
 		queryDeleteBulk = QueryFactory.newQuery(elementClass, criteria);
 	}
+	
+	public void setFilterByAttivo(String attivo) {
+        this.filterByAttivo = true;
+        this.attivo = attivo;
+    }
 }

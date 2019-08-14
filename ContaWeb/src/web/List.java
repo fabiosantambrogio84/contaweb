@@ -1,6 +1,7 @@
 package web;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -62,6 +63,7 @@ public class List extends GenericAction {
     private Integer filterListino = null;
     private Collection listClienti = null;
     protected String filterImporto = null;
+    private String filterAttivo = null;
     private BigDecimal totaleAcconto = new BigDecimal(0);
     private BigDecimal totaleGuadagno = new BigDecimal(0);
     private BigDecimal totaleImporto = new BigDecimal(0);
@@ -77,6 +79,7 @@ public class List extends GenericAction {
     private Collection<Fornitore> listFornitori;
     private Collection<Listino> listListini;
     private Collection<Pagamento> pagamenti;
+    private Collection<String> listAttivo;
     private String filterStatoOrdini = null;
     private Collection<?> statoOrdini = null;
     private Collection<?> deleteOrdini = null;
@@ -86,6 +89,11 @@ public class List extends GenericAction {
         this.LIST_ELEMS = Integer.valueOf(Settings.getInstance().getValue("list.elementi")); // .intValue();
         this.statoOrdini = StatoOrdini.list();
         this.setDeleteOrdini(DeleteOrdini.list());
+        
+        this.listAttivo = new ArrayList<String>();
+        this.listAttivo.add("si");
+        this.listAttivo.add("no");
+        
     }
 
     public String getFilterArticolo() {
@@ -112,6 +120,14 @@ public class List extends GenericAction {
         this.filterImporto = filterImporto;
     }
 
+    public String getFilterAttivo() {
+        return filterAttivo;
+    }
+
+    public void setFilterAttivo(String filterAttivo) {
+        this.filterAttivo = filterAttivo;
+    }
+    
     @SuppressWarnings("unchecked")
     public Collection<Autista> getListAutisti() {
         if (listAutori == null) {
@@ -576,6 +592,8 @@ public class List extends GenericAction {
             }
             if (currentAction.equalsIgnoreCase("giacenzeList")) {
                 obj = new Giacenze();
+                if (filterAttivo != null && !filterAttivo.equals(""))
+                    ((Giacenze) obj).setFilterByAttivo(filterAttivo);
             }
             if (currentAction.equalsIgnoreCase("bolleAcquistoList")) {
                 obj = new BolleAcquisto();
@@ -653,5 +671,8 @@ public class List extends GenericAction {
 	public void setListClientiNoBloccaDdt(Collection<?> listClientiNoBloccaDdt) {
 		this.listClientiNoBloccaDdt = listClientiNoBloccaDdt;
 	}
-    
+
+	public Collection<String> getListAttivo(){
+		return listAttivo;
+	}	
 }

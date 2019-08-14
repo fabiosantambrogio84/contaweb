@@ -221,7 +221,20 @@
 								});
 							});
 						</script>
-					<%} %>			 				
+					<%} else if(editAction.equals("giacenzaEdit")) {%>		
+						<s:select labelposition="left" label="Attivo" onchange="$('#frmSearch').submit();"
+							list="listAttivo" emptyOption="true" name="filterAttivo" cssClass="testo" />	
+							
+						<script type="text/javascript">
+							$(function()  {		
+								$("select[name='filterAttivo']").select2({
+									allowClear: true,
+									placeholder: 'Attivo si/no',
+									width: '120px'
+								});
+							});
+						</script>				
+					<% } %>	 				
 				</s:form>
 				<% if(editAction.equals("scontiEdit")){%>
 					<div style="display:inline-block; padding-left: 25px;">
@@ -272,10 +285,17 @@
 				<!-- LISTA DEI TITOLI DELLE COLONNE -->
 				<%-- Exclude "Aut. Ord." --%>
 				<%
-				if(editAction.equals("scontiEdit") || editAction.equals("giacenzaEdit")){
+				if(editAction.equals("scontiEdit")){
 				%>
 					<th width="10">&nbsp;</th>
 				<%	
+				}
+				if(editAction.equals("giacenzaEdit")){
+				%>
+					<th width="10" style="text-align: center;">
+						<input type="checkbox" id="selectAllGiacenze" name="selectAllGiacenze" onchange="return selectAllGiacenze();"/>		
+					</th>
+				<% 	
 				}
 				ListIterator<?> itr = ((List<?>)headersList).listIterator();
 				ListIterator<?> itrWidth = ((List<?>)columnsWidth).listIterator();
@@ -284,7 +304,7 @@
 					Object width = itrWidth.next();
 					org.apache.tiles.Attribute valueAttr = (org.apache.tiles.Attribute)value;
 					Object value2 = valueAttr.getValue(); 
-					if(value2 instanceof String || value2 instanceof Boolean){
+					if(value2 instanceof String){
 					    String valueS = (String)value2;
 					    if(!valueS.equalsIgnoreCase("Aut. Ord.")){
 				%>
@@ -409,8 +429,17 @@
 			        <% if (ElementTitle[i].toString().equalsIgnoreCase("Importo")) { %>	
 			        	<b><b>
 			        <% } %>			
-					<% if (type.equalsIgnoreCase("Boolean")) { %>
+					<% if (type.equalsIgnoreCase("Boolean") && !editAction.equals("giacenzaEdit")) { %>
 						<s:checkbox disabled="true" name="<%=valueCol.toString()%>"/>
+					<% } %>
+					<% if (editAction.equals("giacenzaEdit") && type.equalsIgnoreCase("Boolean") && valueCol.toString().equals("attivo")) { 
+					%>
+						<s:if test="attivo == true">
+							<p>si</p>
+						</s:if>
+						<s:else>
+						    <p>no</p>
+						</s:else>
 					<% } %>
 					<% if (type.equalsIgnoreCase("Prezzo")) { %>				
 						<s:text name="format.prezzo">
