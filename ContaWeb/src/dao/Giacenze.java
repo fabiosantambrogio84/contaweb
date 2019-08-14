@@ -542,4 +542,9 @@ public class Giacenze extends DataAccessObject {
         this.filterByAttivo = true;
         this.attivo = attivo;
     }
+	
+	public Collection<?> getGiacenzeByIdArticoli(List<String> idArticoli) throws DataAccessException {
+        getCriteria().addIn("idArticolo", idArticoli);
+        return getElements();
+    }
 }

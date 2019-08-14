@@ -13,10 +13,6 @@ import vo.Ordine;
 import vo.OrdineFornitore;
 import vo.VOElement;
 
-
-
-
-
 public class StampeMgr {
 	
 	static private StampeMgr sm = null;
