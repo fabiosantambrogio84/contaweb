@@ -202,7 +202,12 @@
 				} %>
 				<s:form id="frmSearch"  method="get" theme="simple" action="${pagDownAction}" cssClass="<%=cssClass%>">
 					<s:hidden name="pagina" value="1"></s:hidden>
-					<s:textfield labelposition="left" label="Trova" name="filterKey" size="30" cssClass="testo"/>	
+					<%if (editAction.equals("giacenzaEdit")) {%>
+						<s:textfield labelposition="left" label="Trova" name="filterKey" size="30" cssClass="testo" style="padding-left: 10px;" placeholder="Articolo, fornitore"/>
+					<% } else {%>
+						<s:textfield labelposition="left" label="Trova" name="filterKey" size="30" cssClass="testo"/>
+					<% } %>
+						
 					<%if (editAction.equals("clientiEdit")) {%>
 						<s:select labelposition="left" label="Fornitore" onchange="$('#frmSearch').submit();"
 							list="listFornitori" emptyOption="true" listKey="id" listValue="descrizione" name="filterFornitore" cssClass="testo"/>
@@ -244,6 +249,13 @@
 					<div style="display:inline-block; padding-left: 25px;">
 						<a href="#" class="link" onclick="return cancellaGiacenze();">Cancella</a>
 					</div>
+					<% if (printAction != null) { %>
+						<div style="display:inline-block; padding-left: 15px;">
+							<s:url id="printURL" action="${printAction}" includeParams="none">
+							</s:url>						
+							<a id="stampaGiacenze" onclick="return setUrlStampaGiacenze('<s:property value="printURL" />')" href="#" target="_blank" class="link">Esporta PDF</a> 
+						</div>
+					<% } %>
 				<% } %>			
 			<% } %>
 		</div>

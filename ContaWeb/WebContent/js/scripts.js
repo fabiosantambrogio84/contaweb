@@ -1858,7 +1858,6 @@ function cancellaGiacenze(){
 		} else{
 			alert("Nessuna giacenza selezionata");
 		}
-		
 	} else{
 		$("#messageBox").css("display", "none");
 	}
@@ -1873,3 +1872,23 @@ function selectAllGiacenze(){
 	return false;
 }
 
+function setUrlStampaGiacenze(url) {
+	
+	var checkedLength = $("input[name='selectGiacenza']:checked").length;
+	if(checkedLength != 0){
+		
+		var ids = "";
+		$("input[name='selectGiacenza']:checked").each(function(index) {
+			var trId = $(this).parent().parent().attr("id");
+			trId = trId.substr(trId.indexOf("_") + 1);
+			ids = ids + trId + "-";
+		});
+		
+		var newUrl = url + "?idArticoli=" + ids;
+		
+		$("#stampaGiacenze").attr('href', newUrl);
+	} else{
+		alert("Nessuna giacenza selezionata");
+		return false;
+	}
+}

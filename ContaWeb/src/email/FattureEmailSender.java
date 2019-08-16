@@ -182,6 +182,9 @@ public class FattureEmailSender extends AbstractEmailSender{
                         
                         logger.info("Messaggio email per fattura num="+((Fattura)fattura).getNumeroProgressivo()+ " creato con successo");
                         
+                        /* aggiungo un delay di 3 secondi prima di inviare l'email (14/08/2019) */
+                        Thread.sleep(3000);
+                        
                         /* invia il messaggio */
                         SMTPMessage msg = new SMTPMessage(message);
                         transport.sendMessage(msg, msg.getRecipients(Message.RecipientType.TO));

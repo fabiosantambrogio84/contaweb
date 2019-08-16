@@ -691,6 +691,7 @@
 	<put-attribute name="newActionCaption" value="Inserisci nuova giacenza"/>
 	<put-attribute name="dettagliAction" value="giacenzaEdit"/>	
 	<put-attribute name="editAction" value="giacenzaEdit"/>
+	<put-attribute name="printAction" value="printGiacenze"/>
 	<put-attribute name="editButtons" value="false"/>
 	<put-attribute name="pagDownAction" value="giacenzeList"/>
 	<put-attribute name="pagUpAction" value="giacenzeList"/>

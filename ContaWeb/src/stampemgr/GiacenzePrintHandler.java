@@ -34,7 +34,7 @@ public class GiacenzePrintHandler extends DocumentPrintHandler {
 		
 		Map params = new HashMap();
 		params.put("dataCreazione", new Date());
-		params.put("SUBREPORT_DIR", ServletActionContext.getServletContext().getRealPath("/stampe") + "/");
+		//params.put("SUBREPORT_DIR", ServletActionContext.getServletContext().getRealPath("/stampe") + "/");
 		
 		try {
 			params.put("image", ServletActionContext.getServletContext().getResource("/img/star.jpg"));

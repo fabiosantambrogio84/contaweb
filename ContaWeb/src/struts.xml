@@ -809,6 +809,11 @@
 			<result name="error" type="tiles">.error</result>
 		</action>
 		
+		<action name="printGiacenze" class="stampe.PrintGiacenze" method="execute">
+			<result name="success" type="pdf"/>
+			<result name="error" type="tiles">.error</result>
+		</action>
+		
 		<action name="printDDTRiepilogo" class="dao.DDTs" method="printRiepilogo">
 			<result name="success" type="pdf"/>
 			<result name="error" type="tiles">.error</result>
