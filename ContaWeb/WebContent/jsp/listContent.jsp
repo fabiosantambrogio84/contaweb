@@ -203,7 +203,12 @@
 				<s:form id="frmSearch"  method="get" theme="simple" action="${pagDownAction}" cssClass="<%=cssClass%>">
 					<s:hidden name="pagina" value="1"></s:hidden>
 					<%if (editAction.equals("giacenzaEdit")) {%>
-						<s:textfield labelposition="left" label="Trova" name="filterKey" size="30" cssClass="testo" style="padding-left: 10px;" placeholder="Articolo, fornitore"/>
+						<s:textfield labelposition="left" label="Trova" name="filterKey" size="30" cssClass="testo2" id="searchGiacenze"/>
+						<script type="text/javascript">
+							$(function()  {		
+								$("#searchGiacenze").attr("placeholder", "Articolo, fornitore");
+							});
+						</script>
 					<% } else {%>
 						<s:textfield labelposition="left" label="Trova" name="filterKey" size="30" cssClass="testo"/>
 					<% } %>

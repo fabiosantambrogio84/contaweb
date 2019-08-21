@@ -283,6 +283,11 @@ TABLE TR TD{padding:4px}
 	border: 1px solid #000000;
 }
 
+.testo2 {
+	border: 1px solid #000000;
+	padding-left: 10px;
+}
+
 .testo-small {
 	border: 1px solid #000000;
 	width: 100px
