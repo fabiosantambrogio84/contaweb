@@ -40,8 +40,9 @@ public abstract class AbstractEmailSender {
         props.setProperty("mail.smtps.host", host);
         props.setProperty("mail.smtps.auth", auth ? "true" : "false");
         props.setProperty("mail.smtp.connectiontimeout", "5000");
+        //props.setProperty("mail.smtps.ssl.protocols", "TLSv1.2");
         props.setProperty("mail.debug", "false");
-
+        
         mailSession = Session.getInstance(props, new javax.mail.Authenticator(){
             public PasswordAuthentication getPasswordAuthentication(){
                 return new PasswordAuthentication( username , password);

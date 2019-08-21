@@ -1,5 +1,6 @@
 package stampe;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ public class PrintFattura extends PrintPDF {
 			props.setProperty("mail.transport.protocol", "smtps");
 			props.setProperty("mail.smtps.host", smtpHost);
 			props.setProperty("mail.smtps.auth", "true");
+			props.setProperty("mail.smtps.ssl.protocols", "TLSv1.2");
 	
 			Session mailSession = Session.getInstance(props,new javax.mail.Authenticator()
 			{
@@ -101,7 +103,8 @@ public class PrintFattura extends PrintPDF {
 			//SAVE MESSAGE COPY IN FOLDER
 			OutputStream out = null;
 			try {
-	  			out = new FileOutputStream(Settings.getInstance().getValue("mail.repositoryFatture") + "Mail_" + message.getMessageID());		  			
+	  			File file = new File(Settings.getInstance().getValue("mail.repositoryFatture") + "Mail_" + message.getMessageID().replace("<", "").replace(">", ""));
+				out = new FileOutputStream(file);		  			
 	  			message.writeTo(out);
 	  			out.flush();
 	  			out.close();
@@ -110,9 +113,15 @@ public class PrintFattura extends PrintPDF {
 					out.close();
 				stampaErrore("PrintFattura.pec()", e);
 				return ERROR;
+			} finally{
+				if(out != null){
+					out.close();
+				}
 			}
 				
 		} catch (Exception e) {
+			e.printStackTrace();
+			
 			stampaErrore("PrintFattura.pec()", e);
 			return ERROR;
 		}
@@ -148,6 +157,7 @@ public class PrintFattura extends PrintPDF {
 		props.setProperty("mail.transport.protocol", "smtps");
 		props.setProperty("mail.smtps.host", smtpHost);
 		props.setProperty("mail.smtps.auth", "true");
+		props.setProperty("mail.smtps.ssl.protocols", "TLSv1.2");
 
 		Session mailSession = Session.getInstance(props,new javax.mail.Authenticator()
 		{
@@ -180,18 +190,22 @@ public class PrintFattura extends PrintPDF {
 		//SAVE MESSAGE COPY IN FOLDER
 		OutputStream out = null;
 		try {
-  			out = new FileOutputStream(Settings.getInstance().getValue("mail.repositoryFatture") + "Mail_" + message.getMessageID());		  			
+			File file = new File(Settings.getInstance().getValue("mail.repositoryFatture") + "Mail_" + message.getMessageID().replace("<", "").replace(">", ""));
+			out = new FileOutputStream(file);		  			
   			message.writeTo(out);
   			out.flush();
   			out.close();
 		} catch (Exception e) {
 			if (out != null)
 				out.close();
+		} finally{
+			if(out != null){
+				out.close();
+			}
 		}
-		
-		
-		
+				
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 		
