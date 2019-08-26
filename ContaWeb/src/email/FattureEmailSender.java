@@ -55,8 +55,8 @@ public class FattureEmailSender extends AbstractEmailSender{
     
     private boolean pec;
     
-    public FattureEmailSender(Collection<?> fattureElements, Fatture fatture, String protocol, String host, int port, String username, String password, boolean auth, boolean pec) {
-        super(protocol, host, port, username, password, auth);
+    public FattureEmailSender(Collection<?> fattureElements, Fatture fatture, String protocol, String host, int port, String username, String password, boolean auth, boolean pec, String tlsVersion) {
+        super(protocol, host, port, username, password, auth, tlsVersion);
         this.fattureElements = fattureElements;
         this.fatture = fatture;
         this.stmgr = StampeMgr.getInstance();
@@ -237,7 +237,7 @@ public class FattureEmailSender extends AbstractEmailSender{
             final String password = Settings.getInstance().getValue("mail.smtpPassword");
             final int port = 465;
             
-            AdminEmailSender adminEmailSender = new AdminEmailSender("smtps", host, port, username, password, true, pec);
+            AdminEmailSender adminEmailSender = new AdminEmailSender("smtps", host, port, username, password, true, pec, null);
             adminEmailSender.sendFattureReport(results);
             
             logger.info("Report invio fatture email/pec inviato con successo all'amministratore");

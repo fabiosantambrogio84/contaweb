@@ -517,12 +517,12 @@ public class PrintFatture extends PrintPDF {
             Collection listaFatture = fatture.getFattureMail(dataDal, dataAl);
 
             logger.info("Lista fatture ottenuta. Numero elementi: " + listaFatture.size());
-            logger.info("Prepara invio email. Host=" + host + ", protocol=smtps, port=" + port + ", username=" + username
+            logger.info("Prepara invio email. Host=" + host + ", protocol=smtp, port=" + port + ", username=" + username
                     + ", password=" + password + ", pec=false");
 
             /* prepara l'invio email */
             FattureEmailSender emailSender = new FattureEmailSender(listaFatture, fatture, "smtps", host, port, username, password,
-                    true, false);
+                    true, false, null);
 
             /* invia le fatture in un nuovo thread (in modo asincrono) */
             // ExecutorService newCachedThreadPool = Executors.newCachedThreadPool();
@@ -559,7 +559,7 @@ public class PrintFatture extends PrintPDF {
 
             /* prepara l'invio email PEC */
             FattureEmailSender emailSender = new FattureEmailSender(listaFatture, fatture, "smtps", host, port, username, password,
-                    true, true);
+                    true, true, "TLSv1.2");
 
             /* invia le fatture */
             emailSender.invia();

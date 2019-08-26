@@ -3,7 +3,6 @@ package stampe;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
@@ -13,7 +12,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
-import com.lowagie.text.List;
 import com.sun.mail.smtp.SMTPMessage;
 
 import dao.Fatture;
@@ -21,7 +19,6 @@ import dao.Settings;
 import stampemgr.FatturaPrintHandler;
 import stampemgr.StampeMgr;
 import vo.Fattura;
-import vo.VOElement;
 
 public class PrintFattura extends PrintPDF {
 	
@@ -37,7 +34,6 @@ public class PrintFattura extends PrintPDF {
 		this.id = id;
 	}
 
-	@SuppressWarnings("unchecked")
 	public String execute() throws Exception {
 		try {
 			Fattura fattura = new Fattura();
@@ -57,7 +53,7 @@ public class PrintFattura extends PrintPDF {
 			fattura.setId(id);
 			fattura = (Fattura) new Fatture().findWithAllReferences(fattura);
 			pdfFile = StampeMgr.getInstance().richiediPDFDocumento(fattura);
-			String smtpHost = Settings.getInstance().getValue("pec.smtpHost");
+			final String smtpHost = Settings.getInstance().getValue("pec.smtpHost");
 			final String user = Settings.getInstance().getValue("pec.smtpUser");
 			final String password = Settings.getInstance().getValue("pec.smtpPassword");
 			//java.security.Security.setProperty("ssl.SocketFactory.provider", "org.apache.tomcat.net.SSLSocketFactory");
@@ -67,8 +63,9 @@ public class PrintFattura extends PrintPDF {
 			
 			Properties props = new Properties();
 			props.setProperty("mail.transport.protocol", "smtps");
-			props.setProperty("mail.smtps.host", smtpHost);
 			props.setProperty("mail.smtps.auth", "true");
+			props.setProperty("mail.smtps.host", smtpHost);
+			props.setProperty("mail.smtps.port", "465");
 			props.setProperty("mail.smtps.ssl.protocols", "TLSv1.2");
 	
 			Session mailSession = Session.getInstance(props,new javax.mail.Authenticator()
@@ -144,19 +141,15 @@ public class PrintFattura extends PrintPDF {
 		FatturaPrintHandler fph = new FatturaPrintHandler(fattura);
 		String percorsoFattura = fph.getPDFPath();
 		*** */ 
-		String smtpHost = Settings.getInstance().getValue("pec.smtpHost");
+		final String smtpHost = Settings.getInstance().getValue("pec.smtpHost");
 		final String user = Settings.getInstance().getValue("pec.smtpUser");
 		final String password = Settings.getInstance().getValue("pec.smtpPassword");
 		
 		Properties props = new Properties();
-		/* **.
-		props.setProperty("mail.transport.protocol", "smtp");
-		props.setProperty("mail.smtp.host", smtpHost);
-		props.setProperty("mail.smtp.auth", "true");
-		**. */
 		props.setProperty("mail.transport.protocol", "smtps");
-		props.setProperty("mail.smtps.host", smtpHost);
 		props.setProperty("mail.smtps.auth", "true");
+		props.setProperty("mail.smtps.host", smtpHost);
+		props.setProperty("mail.smtps.port", "465");
 		props.setProperty("mail.smtps.ssl.protocols", "TLSv1.2");
 
 		Session mailSession = Session.getInstance(props,new javax.mail.Authenticator()

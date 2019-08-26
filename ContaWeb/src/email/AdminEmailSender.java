@@ -39,8 +39,8 @@ public class AdminEmailSender extends AbstractEmailSender {
 
     private boolean pec;
 
-    AdminEmailSender(String protocol, String host, int port, String username, String password, boolean auth, boolean pec) {
-        super(protocol, host, port, username, password, auth);
+    AdminEmailSender(String protocol, String host, int port, String username, String password, boolean auth, boolean pec, String tlsVersion) {
+        super(protocol, host, port, username, password, auth, tlsVersion);
         this.pec = pec;
     }
 
