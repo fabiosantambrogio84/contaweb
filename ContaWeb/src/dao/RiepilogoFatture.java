@@ -14,6 +14,8 @@ public class RiepilogoFatture extends VOElement
 	private Date dataDal = null;
 	private Date dataAl = null;
 	private BigDecimal totale = null;
+	private BigDecimal totaleAcconto = null;
+	private BigDecimal totaleDaPagare = null;
 	
 	private List<Fattura> listaFatture = null;
 	private String tipo = null;
@@ -57,5 +59,21 @@ public class RiepilogoFatture extends VOElement
 
 	public void setTotale(BigDecimal totale) {	
 		this.totale = totale;
+	}
+	
+	public BigDecimal getTotaleAcconto() {
+		return totaleAcconto;
+	}
+
+	public void setTotaleAcconto(BigDecimal totaleAcconto) {	
+		this.totaleAcconto = totaleAcconto;
+	}
+	
+	public BigDecimal getTotaleDaPagare() {
+		return totaleDaPagare;
+	}
+
+	public void setTotaleDaPagare(BigDecimal totaleDaPagare) {	
+		this.totaleDaPagare = totaleDaPagare;
 	}
 }

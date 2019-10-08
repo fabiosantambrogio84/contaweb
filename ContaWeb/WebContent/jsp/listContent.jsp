@@ -446,12 +446,20 @@
 			        <% if (ElementTitle[i].toString().equalsIgnoreCase("Importo")) { %>	
 			        	<b><b>
 			        <% } %>			
-					<% if (type.equalsIgnoreCase("Boolean") && !editAction.equals("giacenzaEdit")) { %>
+					<% if (type.equalsIgnoreCase("Boolean") && !editAction.equals("giacenzaEdit") && !titleList.equals("Lista Fatture") && !titleList.equals("Lista Note Accredito")) { %>
 						<s:checkbox disabled="true" name="<%=valueCol.toString()%>"/>
 					<% } %>
 					<% if (editAction.equals("giacenzaEdit") && type.equalsIgnoreCase("Boolean") && valueCol.toString().equals("attivo")) { 
 					%>
 						<s:if test="attivo == true">
+							<p>si</p>
+						</s:if>
+						<s:else>
+						    <p>no</p>
+						</s:else>
+					<% } %>
+					<% if(type.equalsIgnoreCase("Boolean") && (titleList.equals("Lista Fatture") || titleList.equals("Lista Note Accredito"))) {%>
+						<s:if test="speditoAde == true">
 							<p>si</p>
 						</s:if>
 						<s:else>
@@ -522,7 +530,13 @@
 									<% newWindowScript = "return apriFinestra('"+ editAction + "_input.do','edit','%{id}');"; %>
 								<% } %>
 										
-							<s:a onclick="<%=newWindowScript %>" href="%{editURL}" cssClass="link">Mod.</s:a>							
+							<% if(titleList.equals("Lista Fatture") || titleList.equals("Lista Note Accredito")) { %>
+								<s:if test="speditoAde == false">
+									<s:a onclick="<%=newWindowScript %>" href="%{editURL}" cssClass="link">Mod.</s:a>
+								</s:if>
+							<% } else {%>
+								<s:a onclick="<%=newWindowScript %>" href="%{editURL}" cssClass="link">Mod.</s:a>
+							<% } %>							
 							<%-- <%if (onModal == null) { %>								
 								<s:a onclick="<%=newWindowScript %>" href="%{editURL}" cssClass="link">Mod.</s:a>
 							<% } else {%>

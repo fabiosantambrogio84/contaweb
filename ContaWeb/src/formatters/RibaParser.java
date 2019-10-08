@@ -58,7 +58,7 @@ public class RibaParser implements ConadParser {
         /* applica il pattern per il formatter delle date */
         sdf.applyPattern("ddMMyy");
 
-        /* applicat il pattern per il formatter dei numeri */
+        /* applica il pattern per il formatter dei numeri */
         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ITALY));
         df.applyPattern("#.00");
 

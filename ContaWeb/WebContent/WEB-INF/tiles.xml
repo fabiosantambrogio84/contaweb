@@ -474,6 +474,7 @@
 	<put-attribute name="trova" value="true"/>
 	<put-attribute name="filtroData" value="true"/>
 	<put-list-attribute name="headersList">
+		<add-attribute>Spedito AdE</add-attribute>
 		<add-attribute>Numero</add-attribute>
 		<add-attribute>Data</add-attribute>
 		<add-attribute>Ragione sociale</add-attribute>
@@ -482,12 +483,14 @@
 	</put-list-attribute>
 	<put-list-attribute name="columnsWidth">
 		<add-attribute>20</add-attribute>
+		<add-attribute>20</add-attribute>
 		<add-attribute>50</add-attribute>
 		<add-attribute>200</add-attribute>
 		<add-attribute>100</add-attribute>
 		<add-attribute>50</add-attribute>			
 	</put-list-attribute>
 	<put-list-attribute name="columnsElements">
+		<add-attribute>speditoAde</add-attribute>
 		<add-attribute>numeroProgressivoCompleto</add-attribute>
 		<add-attribute>data</add-attribute>
 		<add-attribute>cliente.rs</add-attribute>
@@ -495,6 +498,7 @@
 		<add-attribute>totale</add-attribute>
 	</put-list-attribute>
 	<put-list-attribute name="columnsTypes">
+		<add-attribute>Boolean</add-attribute>
 		<add-attribute>String</add-attribute>
 		<add-attribute>Date</add-attribute>		
 		<add-attribute>String</add-attribute>
@@ -600,6 +604,7 @@
 	<put-attribute name="filtroData" value="true"/>
 	<put-attribute name="pagamentoAction" value="editFattura_pagamento"/>
 	<put-list-attribute name="headersList">
+		<add-attribute>Spedito AdE</add-attribute>
 		<add-attribute>Numero</add-attribute>
 		<add-attribute>Data</add-attribute>
 		<add-attribute>Cliente</add-attribute>
@@ -609,6 +614,7 @@
 	</put-list-attribute>
 	<put-list-attribute name="columnsWidth">
 		<add-attribute>20</add-attribute>
+		<add-attribute>20</add-attribute>
 		<add-attribute>50</add-attribute> 
 		<add-attribute>230</add-attribute>
 		<add-attribute>100</add-attribute>
@@ -616,6 +622,7 @@
 		<add-attribute>50</add-attribute>			
 	</put-list-attribute>
 	<put-list-attribute name="columnsElements">
+		<add-attribute>speditoAde</add-attribute>
 		<add-attribute>numeroProgressivo</add-attribute>
 		<add-attribute>data</add-attribute>
 		<add-attribute>cliente.rs</add-attribute>
@@ -624,6 +631,7 @@
 		<add-attribute>totaleFattura</add-attribute>	
 	</put-list-attribute>
 	<put-list-attribute name="columnsTypes">
+		<add-attribute>Boolean</add-attribute>	
 		<add-attribute>Integer</add-attribute>
 		<add-attribute>Date</add-attribute>
 		<add-attribute>String</add-attribute>

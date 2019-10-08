@@ -33,6 +33,7 @@ public class NotaAccredito
   private Integer idFattura = null;
   private Fattura fattura = null;
   private BigDecimal[][] imponibili = null;
+  private Boolean speditoAde = null;
   
   public Fattura getFattura()
   {
@@ -332,4 +333,13 @@ public BigDecimal[][] getImponibili() {
 public void setImponibili(BigDecimal[][] imponibili) {
 	this.imponibili = imponibili;
 }
+
+	public Boolean getSpeditoAde() {
+	    return speditoAde;
+	}
+	
+	public void setSpeditoAde(Boolean speditoAde) {
+	    this.speditoAde = speditoAde;
+	}
+
 }

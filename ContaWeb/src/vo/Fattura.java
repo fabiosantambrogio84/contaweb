@@ -27,6 +27,7 @@ public class Fattura extends VOElement {
     private BigDecimal totaleMerce = null;
     private BigDecimal totaleFattura = null;
     private HashMap<BigDecimal, BigDecimal[]> imponibili = null;
+    private Boolean speditoAde = null;
 
     public String getDescrizioneBreveDDT() {
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALIAN);
@@ -205,6 +206,14 @@ public class Fattura extends VOElement {
     public void setSpedito(Boolean spedito) {
         this.spedito = spedito;
     }
+    
+    public Boolean getSpeditoAde() {
+        return speditoAde;
+    }
+
+    public void setSpeditoAde(Boolean speditoAde) {
+        this.speditoAde = speditoAde;
+    }
 
     @Override
     public String toString(){
@@ -238,6 +247,7 @@ public class Fattura extends VOElement {
             }
         }
         sb.append("]");
+        sb.append("speditoAde: ").append(getSpeditoAde());
         return sb.toString();
     }
 }

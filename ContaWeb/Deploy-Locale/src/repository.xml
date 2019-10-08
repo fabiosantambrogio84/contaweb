@@ -414,6 +414,7 @@
 		<field-descriptor name="oraTrasporto" column="oraTrasporto" jdbc-type="TIME"/>
 		<field-descriptor name="pagato" column="pagato" jdbc-type="BOOLEAN"/>
 		<field-descriptor name="acconto" column="acconto" jdbc-type="DECIMAL"/>
+		<field-descriptor name="speditoAde" column="spedito_ade" jdbc-type="BOOLEAN"/>
 		<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
 			<foreignkey field-ref="idCliente"/>
 		</reference-descriptor>
@@ -500,6 +501,7 @@
 	<field-descriptor name="sconto" column="scontoFineFattura" jdbc-type="DECIMAL"/>
 	<field-descriptor name="pagato" column="pagato" jdbc-type="BOOLEAN"/>
 	<field-descriptor name="spedito" column="spedito" jdbc-type="BOOLEAN"/>
+	<field-descriptor name="speditoAde" column="spedito_ade" jdbc-type="BOOLEAN"/>
 	<field-descriptor name="acconto" column="acconto" jdbc-type="DECIMAL"/>
 	<reference-descriptor name="cliente" class-ref="vo.Cliente" auto-retrieve="true">
 		<foreignkey field-ref="idCliente"/>

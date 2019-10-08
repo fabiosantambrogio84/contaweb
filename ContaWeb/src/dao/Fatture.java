@@ -257,6 +257,9 @@ public class Fatture extends DataAccessObject implements Runnable {
             if (fattura.getSpedito() == null) {
                 fattura.setSpedito(false);
             }
+            if (fattura.getSpeditoAde() == null) {
+                fattura.setSpeditoAde(false);
+            }
             if ((fattura.getNumeroProgressivo() == null) && (fattura.getAnnoContabile() == null)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(fattura.getData());
@@ -429,6 +432,12 @@ public class Fatture extends DataAccessObject implements Runnable {
 
     public Collection<?> getFatture(java.util.Date dataInizio, java.util.Date dataFine) throws DataAccessException {
         getCriteria().addBetween("data", dataInizio, dataFine);
+        return getElements();
+    }
+    
+    public Collection<?> getFattureNonSpediteAde(java.util.Date dataInizio, java.util.Date dataFine) throws DataAccessException {
+        getCriteria().addBetween("data", dataInizio, dataFine);
+        getCriteria().addEqualTo("speditoAde", Boolean.valueOf(false));
         return getElements();
     }
 

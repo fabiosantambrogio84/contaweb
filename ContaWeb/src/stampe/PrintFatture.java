@@ -343,6 +343,8 @@ public class PrintFatture extends PrintPDF {
     public String printRiepilogoFatture() throws Exception {
 
         BigDecimal totale = new BigDecimal(0);
+        BigDecimal totaleAcconto = new BigDecimal(0);
+        BigDecimal totaleDaPagare = new BigDecimal(0);
 
         try {
             // COMPILO LA LISTA DELLE FATTURE
@@ -356,6 +358,8 @@ public class PrintFatture extends PrintPDF {
                 Fattura fattura = (Fattura) itr.next();
                 listaFatture.add(fattura);
                 totale = totale.add(fattura.getTotaleFattura());
+                totaleAcconto = totaleAcconto.add(fattura.getAcconto());
+                totaleDaPagare = totaleDaPagare.add(fattura.getDaPagare());
             }
 
             if (listaFatture.size() == 0) {
@@ -371,6 +375,8 @@ public class PrintFatture extends PrintPDF {
         pf.setDataDal(dataDal);
         pf.setListaFatture(listaFatture);
         pf.setTotale(totale);
+        pf.setTotaleAcconto(totaleAcconto);
+        pf.setTotaleDaPagare(totaleDaPagare);
         pf.setTipo("F");
 
         pdfFile = StampeMgr.getInstance().richiediPDFDocumentoList(pf);
@@ -584,7 +590,7 @@ public class PrintFatture extends PrintPDF {
             /* Recupero le fatture */
             Fatture fatture = new Fatture();
             fatture.setOrderByNumeroFattura();
-            Collection listaFatture = fatture.getFatture(dataDal, dataAl);
+            Collection listaFatture = fatture.getFattureNonSpediteAde(dataDal, dataAl);
 
             logger.info("Lista fatture ottenuta. Numero elementi: " + listaFatture.size());
 
@@ -637,6 +643,14 @@ public class PrintFatture extends PrintPDF {
             
             logger.info("Fatture elettroniche create con successo.");
             
+            /* Aggiorno le fatture settando il flaf di spedizione all agenzia delle entrate */
+            Iterator iter = listaFatture.iterator();
+            while (iter.hasNext()) {
+            	Fattura fattura = (Fattura)iter.next();
+            	fattura.setSpeditoAde(true);
+            	fatture.store(fattura);
+            }
+            
             File fileToDownload = new File(zipFileName);
             fileToDownload.setReadable(true, false);
             fileToDownload.setWritable(true, false);
@@ -666,7 +680,7 @@ public class PrintFatture extends PrintPDF {
             /* Recupero le note di credito */
             NoteAccredito noteCredito = new NoteAccredito();
             noteCredito.setOrderByCliente();
-            Collection listaNoteCredito = noteCredito.getNoteAccredito(dataDal, dataAl);
+            Collection listaNoteCredito = noteCredito.getNoteAccreditoNonSpediteAde(dataDal, dataAl);
 
             logger.info("Lista note di credito ottenuta. Numero elementi: " + listaNoteCredito.size());
 
@@ -702,6 +716,14 @@ public class PrintFatture extends PrintPDF {
             String zipFileName = eNoteCreditoHelper.createZip(basePath + "/" + idEsportazione);
             
             logger.info("Note di credito elettroniche create con successo.");
+            
+            /* Aggiorno le note di credito settando il flaf di spedizione all agenzia delle entrate */
+            Iterator iter = listaNoteCredito.iterator();
+            while (iter.hasNext()) {
+            	NotaAccredito notaAccredito = (NotaAccredito)iter.next();
+            	notaAccredito.setSpeditoAde(true);
+            	noteCredito.store(notaAccredito);
+            }
             
             File fileToDownload = new File(zipFileName);
             fileToDownload.setReadable(true, false);
