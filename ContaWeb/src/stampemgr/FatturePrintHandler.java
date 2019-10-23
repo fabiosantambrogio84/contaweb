@@ -37,7 +37,9 @@ public class FatturePrintHandler extends DocumentPrintHandler {
         params.put("dataDal", fattura.getDataDal());
         params.put("dataAl", fattura.getDataAl());
         params.put("totale", fattura.getTotale());
-
+        params.put("totaleAcconto", fattura.getTotaleAcconto());
+        params.put("totaleDaPagare", fattura.getTotaleDaPagare());
+        
         return params;
     }
 
