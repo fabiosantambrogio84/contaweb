@@ -179,6 +179,7 @@ public class DDTs extends DataAccessObject {
 
     public String printRiepilogo() throws Exception { // STAMPA LISTA DOCUMENTI
         BigDecimal totale = new BigDecimal(0);
+        BigDecimal totaleAcconto = new BigDecimal(0);
         Collection colFatture = getElements();
         Iterator itr = colFatture.iterator();
         ArrayList listaFatture = new ArrayList();
@@ -186,6 +187,7 @@ public class DDTs extends DataAccessObject {
             DDT fattura = (DDT) itr.next();
             listaFatture.add(fattura);
             totale = totale.add(fattura.getTotale());
+            totaleAcconto = totaleAcconto.add(fattura.getAcconto());
         }
 
         DateFormat DF = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALIAN);
@@ -208,6 +210,7 @@ public class DDTs extends DataAccessObject {
             pf.setDataAl(today);
         pf.setListaDDTs(listaFatture);
         pf.setTotale(totale);
+        pf.setTotaleAcconto(totaleAcconto);
         pf.setTipo("F");
 
         pdfFile = StampeMgr.getInstance().richiediPDFDDTList(pf);
