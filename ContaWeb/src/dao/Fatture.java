@@ -213,6 +213,8 @@ public class Fatture extends DataAccessObject implements Runnable {
 
     public String printRiepilogo() throws Exception { // STAMPA LISTA DOCUMENTI
         BigDecimal totale = new BigDecimal(0);
+        BigDecimal totaleAcconto = new BigDecimal(0);
+        BigDecimal totaleDaPagare = new BigDecimal(0);
         Collection colFatture = getElements();
         Iterator itr = colFatture.iterator();
         ArrayList listaFatture = new ArrayList();
@@ -220,6 +222,8 @@ public class Fatture extends DataAccessObject implements Runnable {
             Fattura fattura = (Fattura) itr.next();
             listaFatture.add(fattura);
             totale = totale.add(fattura.getTotaleFattura());
+            totaleAcconto = totaleAcconto.add(fattura.getAcconto());
+            totaleDaPagare = totaleDaPagare.add(fattura.getDaPagare());
         }
         DateFormat DF = new SimpleDateFormat("yyyy-M-dd", Locale.ITALIAN);
         DF.setLenient(false);
@@ -239,6 +243,8 @@ public class Fatture extends DataAccessObject implements Runnable {
             pf.setDataAl(today);
         pf.setListaFatture(listaFatture);
         pf.setTotale(totale);
+        pf.setTotaleAcconto(totaleAcconto);
+        pf.setTotaleDaPagare(totaleDaPagare);
         pf.setTipo("F");
         pdfFile = StampeMgr.getInstance().richiediPDFDocumentoList(pf);
         return "success";

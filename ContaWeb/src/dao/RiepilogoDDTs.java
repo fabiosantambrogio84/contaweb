@@ -16,6 +16,7 @@ public class RiepilogoDDTs extends VOElement
 	private Date dataAl = null;
 	private BigDecimal totale = null;
 	private BigDecimal totaleAcconto = null;
+	private BigDecimal totaleDaPagare = null;
 	
 	private List<DDT> listaDDTs = null;
 	private String tipo = null;
@@ -67,6 +68,14 @@ public class RiepilogoDDTs extends VOElement
 
 	public void setTotaleAcconto(BigDecimal totaleAcconto) {	
 		this.totaleAcconto = totaleAcconto;
+	}
+	
+	public BigDecimal getTotaleDaPagare() {
+		return totaleDaPagare;
+	}
+
+	public void setTotaleDaPagare(BigDecimal totaleDaPagare) {	
+		this.totaleDaPagare = totaleDaPagare;
 	}
 	
 }

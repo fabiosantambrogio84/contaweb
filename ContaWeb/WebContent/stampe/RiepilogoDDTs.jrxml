@@ -14,6 +14,7 @@
 	<parameter name="dataAl" class="java.util.Date" isForPrompting="false"/>
 	<parameter name="totale" class="java.math.BigDecimal" isForPrompting="false"/>
 	<parameter name="totaleAcconto" class="java.math.BigDecimal"/>
+	<parameter name="totaleDaPagare" class="java.math.BigDecimal"/>
 	<field name="numeroProgressivo" class="java.lang.Integer"/>
 	<field name="cliente.rs" class="java.lang.String"/>
 	<field name="totale" class="java.math.BigDecimal"/>
@@ -110,7 +111,7 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="35" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
 				<reportElement key="staticText-1" x="3" y="16" width="80" height="14" uuid="94e0bb76-14c5-499f-85f4-4a45ca267c34"/>
 				<box>
@@ -195,7 +196,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-1" x="20" y="3" width="54" height="15" uuid="e507342f-4996-4447-8bc1-4429ff0d830a"/>
 				<box>
@@ -262,9 +263,9 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="23" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<staticText>
-				<reportElement key="staticText-3" x="370" y="0" width="86" height="23" uuid="882b6d48-2144-4101-b033-b33593bf6db5"/>
+				<reportElement key="staticText-3" x="354" y="37" width="102" height="23" uuid="882b6d48-2144-4101-b033-b33593bf6db5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -277,7 +278,7 @@
 				<text><![CDATA[Totale Acconto €]]></text>
 			</staticText>
 			<textField pattern="#,##0.##;¤-#,##0.##" isBlankWhenNull="false">
-				<reportElement key="textField" x="456" y="0" width="72" height="20" uuid="68240ed1-beca-48dd-bd77-55d7ed6294d4"/>
+				<reportElement key="textField" x="456" y="37" width="72" height="23" uuid="68240ed1-beca-48dd-bd77-55d7ed6294d4"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -285,6 +286,29 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textFieldExpression><![CDATA[$P{totaleAcconto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-3" x="354" y="17" width="102" height="20" uuid="e7a5a881-3a2b-4595-8d7e-3303f577241c"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Totale DDT €]]></text>
+			</staticText>
+			<textField pattern="#,##0.##;¤-#,##0.##" isBlankWhenNull="false">
+				<reportElement key="textField" x="456" y="17" width="72" height="20" uuid="2b141b0c-85a1-4801-9c51-2a75aa03dde6"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{totale}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
@@ -301,10 +325,10 @@
 					<bottomPen lineWidth="0.0" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$P{totale}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{totaleDaPagare}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-3" x="370" y="0" width="86" height="20" uuid="7b1e8b5e-21c5-4928-a29a-9223d7fc44c6"/>
+				<reportElement key="staticText-3" x="354" y="0" width="102" height="20" uuid="7b1e8b5e-21c5-4928-a29a-9223d7fc44c6"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -314,7 +338,7 @@
 				<textElement textAlignment="Right">
 					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[Totale DDT €]]></text>
+				<text><![CDATA[Totale Da pagare €]]></text>
 			</staticText>
 		</band>
 	</lastPageFooter>

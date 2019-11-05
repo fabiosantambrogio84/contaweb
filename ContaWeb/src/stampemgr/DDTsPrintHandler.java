@@ -53,6 +53,7 @@ public class DDTsPrintHandler extends DocumentPrintHandler {
 		params.put("dataAl", fattura.getDataAl());
 		params.put("totale", fattura.getTotale());
 		params.put("totaleAcconto", fattura.getTotaleAcconto());
+		params.put("totaleDaPagare", fattura.getTotaleDaPagare());
 				
 		return params;
 	}
