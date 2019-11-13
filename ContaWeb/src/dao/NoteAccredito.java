@@ -128,7 +128,7 @@ public class NoteAccredito
   
   public Collection<?> getNoteAccreditoNonSpediteAde(java.util.Date dataInizio, java.util.Date dataFine) throws DataAccessException {
       getCriteria().addBetween("data", dataInizio, dataFine);
-      getCriteria().addEqualTo("speditoAde", Boolean.valueOf(false));
+      //getCriteria().addEqualTo("speditoAde", Boolean.valueOf(false));
       return getElements();
   }
   

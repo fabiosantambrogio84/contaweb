@@ -443,7 +443,7 @@ public class Fatture extends DataAccessObject implements Runnable {
     
     public Collection<?> getFattureNonSpediteAde(java.util.Date dataInizio, java.util.Date dataFine) throws DataAccessException {
         getCriteria().addBetween("data", dataInizio, dataFine);
-        getCriteria().addEqualTo("speditoAde", Boolean.valueOf(false));
+        //getCriteria().addEqualTo("speditoAde", Boolean.valueOf(false));
         return getElements();
     }
 
