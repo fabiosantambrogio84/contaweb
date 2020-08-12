@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final utlizzo versione della libreria JasperReports6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.13.0.final utlizzo versione della libreria JasperReports6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Listino" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="0afea64e-3a13-44ec-9fbe-019a8b4a6822">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -12,6 +12,7 @@
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="dataCreazione" class="java.util.Date" isForPrompting="false"/>
 	<parameter name="image" class="java.net.URL" isForPrompting="false"/>
+	<parameter name="image_marchio" class="java.net.URL"/>
 	<field name="codiceArticolo" class="java.lang.String"/>
 	<field name="descrizione" class="java.lang.String"/>
 	<field name="descrizioneFornitore" class="java.lang.String"/>
@@ -51,12 +52,18 @@ Tel: 045 6550993   Fax: 045 4853930   Cel: 328 4694654]]></text>
 				<text><![CDATA[Urbani Giuseppe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="249" y="0" width="261" height="22" uuid="39b6a322-86c2-4311-980e-eca849c06b1c"/>
+				<reportElement x="249" y="0" width="230" height="22" uuid="39b6a322-86c2-4311-980e-eca849c06b1c"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="16" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[gastronomia - pasta fresca]]></text>
 			</staticText>
+			<image>
+				<reportElement x="485" y="0" width="50" height="38" uuid="a0e14f3f-83d7-48ac-8279-1c09e164e09b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{image_marchio}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

@@ -1,5 +1,16 @@
 eclipse.preferences.version=1
+encoding/DDT-no-prezzi.jrxml=UTF-8
+encoding/DDT-prezzi.jrxml=UTF-8
+encoding/Fattura.jrxml=UTF-8
 encoding/Giacenze.jrxml=UTF-8
+encoding/Listino.jrxml=UTF-8
+encoding/NotaAccredito.jrxml=UTF-8
+encoding/Ordine.jrxml=UTF-8
+encoding/OrdineFornitore.jrxml=UTF-8
 encoding/RiepilogoDDTs.jrxml=UTF-8
 encoding/RiepilogoFatture.jrxml=UTF-8
 encoding/RiepilogoFattureCC.jrxml=UTF-8
+encoding/RiepilogoFattureNonPagate.jrxml=UTF-8
+encoding/RiepilogoOrdineAgente.jrxml=UTF-8
+encoding/RiepilogoOrdineAutista.jrxml=UTF-8
+encoding/RiepilogoVenditeCC.jrxml=UTF-8

@@ -55,6 +55,7 @@ public class DDTPrintHandler extends DocumentPrintHandler {
 		
 		try {
 			params.put("image", ServletActionContext.getServletContext().getResource("/img/star.jpg"));
+			params.put("image_marchio", ServletActionContext.getServletContext().getResource("/img/marchio.png"));
 		} catch (MalformedURLException e) {
 			return null;
 		}
