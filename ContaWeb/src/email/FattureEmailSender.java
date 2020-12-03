@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -14,6 +15,7 @@ import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -24,6 +26,7 @@ import javax.mail.internet.MimeMultipart;
 import org.apache.log4j.Logger;
 
 import com.sun.mail.smtp.SMTPMessage;
+import com.sun.mail.util.MailSSLSocketFactory;
 
 import dao.Fatture;
 import dao.Settings;
@@ -251,4 +254,46 @@ public class FattureEmailSender extends AbstractEmailSender{
         }
     };
     
+    /*
+    public static void main(String[] args) throws Exception{
+    	Session mailSession;
+        Transport transport;
+        
+        String host = "smtps.aruba.it";
+        String protocol = "smtps";
+        int port = 465;
+        boolean auth = true;
+        String tlsVersion = null;
+        final String username = "urbani.giuseppe@urbanialimentari.com";
+        final String password = "MAGI2512";
+        
+        Properties props = new Properties();
+        props.setProperty("mail.transport.protocol", protocol);
+        props.setProperty("mail.smtps.auth", auth ? "true" : "false");
+        props.setProperty("mail.smtps.host", host);
+        props.setProperty("mail.smtps.port", String.valueOf(port));
+        if(host.contains("aruba")){
+        	props.setProperty("mail.smtps.ssl.enable", "true");
+        } else if(host.contains("legalmail")){
+        	props.setProperty("mail.smtps.ssl.protocols", tlsVersion);
+        }
+        props.setProperty("mail.smtps.connectiontimeout", "5000");
+        props.setProperty("mail.debug", "false");
+        //props.setProperty("mail.smtps.ssl.checkserveridentity", "false");
+        //props.setProperty("mail.smtps.ssl.trust", host);
+        
+        MailSSLSocketFactory sf = new MailSSLSocketFactory();
+        sf.setTrustAllHosts(true);
+        props.put("mail.smtps.ssl.socketFactory", sf);
+        
+        mailSession = Session.getInstance(props, new javax.mail.Authenticator(){
+            public PasswordAuthentication getPasswordAuthentication(){
+                return new PasswordAuthentication( username , password);
+            }
+        });
+        
+        transport = mailSession.getTransport();       
+        transport.connect(host, port, username, password);
+	}
+    */
 }

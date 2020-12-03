@@ -13,6 +13,7 @@ import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
 import com.sun.mail.smtp.SMTPMessage;
+import com.sun.mail.util.MailSSLSocketFactory;
 
 import dao.Fatture;
 import dao.Settings;
@@ -141,16 +142,26 @@ public class PrintFattura extends PrintPDF {
 		FatturaPrintHandler fph = new FatturaPrintHandler(fattura);
 		String percorsoFattura = fph.getPDFPath();
 		*** */ 
+		
+		/*
 		final String smtpHost = Settings.getInstance().getValue("pec.smtpHost");
 		final String user = Settings.getInstance().getValue("pec.smtpUser");
 		final String password = Settings.getInstance().getValue("pec.smtpPassword");
+		*/
+		final String smtpHost = Settings.getInstance().getValue("mail.smtpHost");
+		final String user = Settings.getInstance().getValue("mail.smtpUser");
+		final String password = Settings.getInstance().getValue("mail.smtpPassword");
+		
 		
 		Properties props = new Properties();
 		props.setProperty("mail.transport.protocol", "smtps");
 		props.setProperty("mail.smtps.auth", "true");
 		props.setProperty("mail.smtps.host", smtpHost);
 		props.setProperty("mail.smtps.port", "465");
-		props.setProperty("mail.smtps.ssl.protocols", "TLSv1.2");
+		props.setProperty("mail.smtps.ssl.enable", "true");
+		MailSSLSocketFactory sf = new MailSSLSocketFactory();
+        sf.setTrustAllHosts(true);
+        props.put("mail.smtps.ssl.socketFactory", sf);
 
 		Session mailSession = Session.getInstance(props,new javax.mail.Authenticator()
 		{

@@ -6,6 +6,8 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 
+import com.sun.mail.util.MailSSLSocketFactory;
+
 
 public abstract class AbstractEmailSender {
     
@@ -45,6 +47,11 @@ public abstract class AbstractEmailSender {
         props.setProperty("mail.smtps.port", String.valueOf(port));
         if(host.contains("aruba")){
         	props.setProperty("mail.smtps.ssl.enable", "true");
+        	
+        	MailSSLSocketFactory sf = new MailSSLSocketFactory();
+            sf.setTrustAllHosts(true);
+            props.put("mail.smtps.ssl.socketFactory", sf);
+            
         } else if(host.contains("legalmail")){
         	props.setProperty("mail.smtps.ssl.protocols", tlsVersion);
         }
